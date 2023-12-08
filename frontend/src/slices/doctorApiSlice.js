@@ -42,6 +42,18 @@ export const doctorApiSlice = apiSlice.injectEndpoints({
           method: 'GET',      
         }),
       }), 
+      listDoctorSchedule: builder.query({
+        query: ({_id}) => ({
+          url: `${DOCTOR_URL}/listAppointments?_id=${_id}`,
+          method: 'GET',      
+        }),
+      }), 
+      getPatientInfo: builder.query({
+        query: ({_id}) => ({
+          url: `${DOCTOR_URL}/getPatientInfo?_id=${_id}`,
+          method: 'GET',      
+        }),
+      }), 
     })
   });
 
@@ -52,6 +64,8 @@ export const doctorApiSlice = apiSlice.injectEndpoints({
     useDoctorVerificationMutation,
     useDoctorLogoutMutation,
     useDoctorUpdateImageMutation,
-    useCheckDoctorBlockQuery
+    useCheckDoctorBlockQuery,
+    useListDoctorScheduleQuery,
+    useGetPatientInfoQuery
 
   } = doctorApiSlice;    

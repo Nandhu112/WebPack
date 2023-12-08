@@ -1,22 +1,12 @@
 import Patient from "../models/patientModel.js";
 import User from "../models/userModel.js";
+import cloudinary from "../config/cloudinary.js"
 
 const addNewMember = async (_id, name, dateOfBirth, bloodGroup, gender, res) => {
 
     try {
-        const patient = await Patient.create({ name, dateOfBirth, bloodGroup, gender });
+        const patient = await Patient.create({ name, dateOfBirth, bloodGroup, gender,user:_id });
         
-        // Find the user by ID
-        const user = await User.findById(_id);
-        
-        // If user exists, update their patients array and save
-        if (user) {
-            user.members.push(patient._id);
-            await user.save();
-        } else {
-            return res.status(404).json({ error: "User not found" });
-        }
-
         // Return success message or the created patient
         return res.status(201).json({ message: "Member added successfully", patient });
     } catch (error) {
@@ -25,17 +15,12 @@ const addNewMember = async (_id, name, dateOfBirth, bloodGroup, gender, res) => 
 };
 
 const listMembers = async (_id, res) => {
+    console.log("listMembersssss:", _id);
     try {
         let data = [];
-        const user = await User.findById(_id);
-        
-        for (let memberId of user.members) {
-            let patient = await Patient.findById(memberId);     
-            data.push(patient);
-        }
-        const data2=data.shift()
-        console.log("listMembersssss:", data);
-        return data;
+        const patients = await Patient.find({user:_id});
+        console.log("listMembersssss:", patients);
+        return patients;
     } catch (error) {
 
         console.error("Error in listMembers:", error);
@@ -59,9 +44,30 @@ const getUserPatientInfo = async (_id, res) => {
     }
 }
 
+const updatePatientProfileImage = async (profileImage,_id,res) => {
+
+    console.log('profileImage1111')
+    const result = await cloudinary.uploader.upload(profileImage, {
+      folder: "PatientProfilepic",
+    });
+    console.log(result,'result111111111111')
+    console.log(_id,'hhhhhhh')
+    const patient = await Patient.findById(_id);     
+    console.log(_id,'111')   
+    if (patient) {
+      console.log(_id,'222')
+      patient.profileImage=result.secure_url;
+      await patient.save();
+      return { success: "ProfileImage update successfully" };
+    } else {
+      res.status(400);
+      return res.status(404).json({ error: "Patient not found" }); 
+    } 
+  };
 
 export { 
     addNewMember,
     listMembers,
     getUserPatientInfo,
+    updatePatientProfileImage
    };

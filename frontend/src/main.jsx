@@ -33,32 +33,36 @@ import DepartmentAdmin from './Screens/Admin/DepartmentAdmin.jsx'
 import HospitalAdmin from './Screens/Admin/HospitalAdmin.jsx'
 import DoctorAdmin from './Screens/Admin/DoctorAdmin.jsx'
 import UserAdmin from './Screens/Admin/UserAdmin.jsx'
-import Verification from './Screens/Admin/verification.jsx'
+// import Verification from './Screens/Admin/verification.jsx'
 
 //Doctor 
 import PrivateRouteDoctor from './Components/PrivateRouteDoctor.jsx'
 import DoctorLogin from './Screens/Doctor/DoctorLogin.jsx'
 import DoctorProfile from './Screens/Doctor/DoctorProfile.jsx'
 import VerificationDoctor from './Screens/Doctor/VerificationDoctor.jsx'
+import Room from './Screens/Doctor/Room.jsx'
+import ListScheduleDoctor from './Screens/Doctor/ListScheduleDoctor.jsx'
 
 import LandingPage from './Screens/Landing/LandingPage.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
+   <Route path="/userRegister" element={<Signups />} />
+    <Route path="/userLogin" element={<Login />} />
       <Route path="/" element={<App user={true} />}>
-        <Route path="/userRegister" element={<Signups />} />
+
         <Route path="/LandingPage" element={<LandingPage />} />
-        <Route path="/userLogin" element={<Login />} />
+    
         <Route path="" element={<PrivateRoute />}>
           <Route index={true} path="/" element={<UserHome />} />
           <Route path="/findHospital" element={<FindHospital />} />
           <Route path="/viewHospital" element={<ViewHospital />} />
         </Route>
       </Route>
+      <Route path="/hospital/hospitalLogin" element={<HospialLogin />} />
+      <Route path="/hospital/hospitalRegister" element={<HospitalSignup />} />
       <Route path="/hospital" element={<App hospital={true} />}>
-        <Route path="/hospital/hospitalLogin" element={<HospialLogin />} />
-        <Route path="/hospital/hospitalRegister" element={<HospitalSignup />} />
         <Route path="" element={<PrivateRouteHospital />}>
           <Route path="/hospital/" element={<HospitalDash />} />
           <Route path="/hospital/listDoctor" element={<ListDoctorHospital />} />
@@ -68,25 +72,25 @@ const router = createBrowserRouter(
           {/* <Route path="/hospital/edit-user/:user" element={<AdminEditUser />} /> */}
         </Route>
       </Route>
+      <Route path="/admin/adminLogin" element={<AdminLogin />} />
       <Route path="/admin" element={<App admin={true} />}>
-        <Route path="/admin/adminLogin" element={<AdminLogin />} />
+    
         <Route path="" element={<PrivateRouteAdmin />}>
           <Route path="/admin/" element={<AdminHome />} />
           <Route path="/admin/getDepartment" element={<DepartmentAdmin />} />
           <Route path="/admin/getHospital" element={<HospitalAdmin />} />
           <Route path="/admin/getDoctor" element={<DoctorAdmin />} />
           <Route path="/admin/getUser" element={<UserAdmin />} />
-          <Route path="/admin/verification" element={<Verification />} />
+          {/* <Route path="/admin/verification" element={<Verification />} /> */}
 
         </Route>
       </Route>
-      
+      <Route path="/doctor/doctorLogin" element={<DoctorLogin/>} />
       <Route path="/doctor" element={<App doctor={true} />}>
-        <Route path="/doctor/doctorLogin" element={<DoctorLogin/>} />
-
         <Route path="" element={<PrivateRouteDoctor />}>
         <Route path="/doctor/" element={<DoctorProfile/>} />
-        <Route path="/doctor/verification" element={<VerificationDoctor/>} />
+        <Route path="/doctor/room/:roomId" element={<Room/>} />
+        <Route path="/doctor/schedule" element={<ListScheduleDoctor/>} />
 
         </Route>
       </Route>

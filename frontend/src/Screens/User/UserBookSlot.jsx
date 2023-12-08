@@ -26,7 +26,7 @@ import { useListAllMembersQuery} from "../../slices/userApiSlice.js"
 import { useUsermakeAppointmentMutation, useShowDoctorAppointmentMutation } from "../../slices/userApiSlice"
 
 
-const UserBookSlot = ({_id}) => {
+const UserBookSlot = ({item}) => {
     const { userInfo } = useSelector((state) => state.auth)
     const [isOpen, setIsOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -35,6 +35,7 @@ const UserBookSlot = ({_id}) => {
     const [selectedSlot, setSelectedSlot] = useState('');
     const [check, setcheck] = useState()
     const [patient,setPatient]=useState()
+    const [consultation,setConsultation]=useState()
     const [errors, setErrors] = useState({});
 
     const [makeAppointment] = useUsermakeAppointmentMutation();
@@ -45,6 +46,7 @@ const UserBookSlot = ({_id}) => {
     const validateFields = () => {
         const newErrors = {};
         if (!patient) newErrors.name = 'Select a patient';
+        if (!consultation) newErrors.consultation = 'Select a method';
         // if (!time) newErrors.gender = 'Time is required';
 
         setErrors(newErrors);
@@ -82,6 +84,10 @@ const UserBookSlot = ({_id}) => {
         setPatient(e.target.value)
         console.log(patient,'patient')
     }
+    const handleConsultation=(e)=>{
+        console.log(e.target.value)
+        setConsultation(e.target.value)
+    }
 
     const forDate = async () => {
         try {
@@ -94,7 +100,7 @@ const UserBookSlot = ({_id}) => {
                 outDate = today
             }
             console.log(today, "time")
-            const res = await showAppointment({ date: outDate,_id:_id  }); // Assuming `time` is defined
+            const res = await showAppointment({ date: outDate,_id:item._id  }); // Assuming `time` is defined
             setcheck(res)
             console.log(check, 'appointments');
         } catch (error) {
@@ -104,7 +110,7 @@ const UserBookSlot = ({_id}) => {
 
     const forDate2 = async (event) => {
         await setDate(event.target.value)
-        const res = await showAppointment({ date: event.target.value,_id:_id }); // Assuming `time` is defined
+        const res = await showAppointment({ date: event.target.value,_id:item._id }); // Assuming `time` is defined
         setcheck(res)
         console.log(check, 'appointmentsss');
     }
@@ -133,9 +139,9 @@ const UserBookSlot = ({_id}) => {
         const isValid = validateFields();
 
         if(isValid){
-            console.log("chk handleSubmit");
+            console.log(item,"chk handleSubmit");
             const slot = [date, time]
-            const res = await makeAppointment({ slot,dId:_id,pId:userInfo._id}).unwrap();
+            const res = await makeAppointment({ slot,dId:item._id,pId:patient,method:consultation,hospital:item.hospitalId,department:item.departmentId}).unwrap();
             console.log(res, 'res')
             toast({
                 title: 'Appointment Booked.',
@@ -183,6 +189,17 @@ const UserBookSlot = ({_id}) => {
                                 {/* Add more doctors */}
                             </Select>
                             <FormErrorMessage>{errors.name}</FormErrorMessage>
+                        </FormControl>
+
+                        <FormControl pt="5" mb='10'  isInvalid={!!errors.consultation}>
+                            <FormLabel>Consultation type</FormLabel>
+                            <Select  placeholder="Select method" onChange={handleConsultation} >      
+                                <option value="offline">Offline consultation </option>
+                                <option value='online'>Online consultation</option>
+                                
+                                {/* Add more doctors */}
+                            </Select>
+                            <FormErrorMessage>{errors.consultation}</FormErrorMessage>
                         </FormControl>
 
                         {/* Time slots */}

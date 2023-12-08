@@ -63,7 +63,7 @@ function ViewDoctorProfile({item}) {
                 </Text>
                 {/* Add more details as needed */}
               </VStack>
-              <UserBookSlot _id={item._id} />
+              <UserBookSlot item={item} />
             </Box>
           </Box>
          

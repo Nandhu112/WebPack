@@ -82,9 +82,16 @@ export const userApiSlice = apiSlice.injectEndpoints({
         }),
       }),
       userListHospitalDoctors: builder.query({
-        query: ({_id}) => ({
-          url: `${USERS_URL}/hospitalListDoctor?_id=${_id}`,
+        query: ({ _id, department }) => ({
+          url: `${USERS_URL}/hospitalListDoctor?_id=${_id}&department=${department}`,
           method: 'GET',         
+        }),
+      }),
+      updatePatienProfilePic: builder.mutation({
+        query: (data) => ({
+          url: `${USERS_URL}/updatePatientProflePic`,
+          method: 'POST',
+          body: data,
         }),
       }),
     }),
@@ -103,6 +110,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
     useShowDoctorAppointmentMutation,
     useChekUserBlockedQuery,
     useUserListHospitalDepartmentsQuery,
-    useUserListHospitalDoctorsQuery
+    useUserListHospitalDoctorsQuery,
+    useUpdatePatienProfilePicMutation
   
   } = userApiSlice;

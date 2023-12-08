@@ -9,7 +9,8 @@ import {
     blockDoctor,
     unBlockDoctor,
     HospitalListAllDoctors,
-    checkIsDoctorBlocked
+    checkIsDoctorBlocked,
+    lListAllDoctorAppointments
 } from "../helpers/doctorHelper.js"
 
 import nodemailer from "nodemailer"
@@ -45,12 +46,13 @@ const addDoctor = asyncHandler(async (req, res) => {
         });
     } else {
         res.status(400);
-        throw new Error('Invalid email or password');
+        throw new Error('Invalid email or password');      
     }
 
   });
 
   const getDoctorInfo = asyncHandler(async (req, res) => {
+    console.log("chkkkkkkkkk doc 11")    
     const { id } = req.query;
     const result = await getDoctorFullInfo(id, res);
     console.log(result,'result')
@@ -205,9 +207,9 @@ const addDoctor = asyncHandler(async (req, res) => {
         res.json(result);
       })
       const hospitalListDoctors =asyncHandler(async (req,res)=>{
-        const {_id } =req.query
-        console.log(_id,"chkk id")
-        const result =  await HospitalListAllDoctors(_id)
+        const {_id,department } =req.query
+        console.log(department,"chkk department")
+        const result =  await HospitalListAllDoctors(_id,department)
         res.json(result);
       })
       const hospitalRemoveDocors =asyncHandler(async (req,res)=>{
@@ -221,6 +223,12 @@ const addDoctor = asyncHandler(async (req, res) => {
         const {_id} = req.query
         console.log(_id,'chkk blkd')   
         const result =  await checkIsDoctorBlocked(_id)            
+        res.json(result);
+      })
+
+      const doctorListAppointments =asyncHandler(async (req,res)=>{
+        const {_id } =req.query
+        const result =  await lListAllDoctorAppointments(_id)
         res.json(result);
       })
     
@@ -238,5 +246,6 @@ const addDoctor = asyncHandler(async (req, res) => {
     adminUnBlockDoctor,
     hospitalListDoctors,
     hospitalRemoveDocors,
-    checkDoctorBlocked  
+    checkDoctorBlocked ,
+    doctorListAppointments
 } 

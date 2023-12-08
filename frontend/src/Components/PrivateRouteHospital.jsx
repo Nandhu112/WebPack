@@ -16,7 +16,7 @@ const privateRoute = () => {
     }
   return (
     // hospitalInfo ? <Outlet/> : <Navigate to='/hospital/hospitalLogin' replace/>
-    data && data.Blocked ? <BlockedModal /> : (hospitalInfo ? <Outlet /> : <Navigate to="/userLogin" replace />)
+    data && data.Blocked ? <BlockedModal /> : (hospitalInfo ? <Outlet /> : <Navigate to="/hospital/hospitalLogin" replace />)
       // <Button onClick={fun}>chkkk</Button>
      
    )

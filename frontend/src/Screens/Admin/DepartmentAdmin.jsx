@@ -33,28 +33,28 @@ function DepartmentAdmin() {
       }, [startIndex, endIndex, departments, setDepartmentDetails]);
     
     return (
-        <Box>
+        <Box overflowX="auto">
             <Box mb="10" display="flex" justifyContent="space-between">
                 <Button onClick={() => {
                 refetch()
                 setstatus(status == 'unblocked' ? "blocked" : 'unblocked')
               
-            }}  colorScheme='blue' className='pl-10' mb="10">{status == 'unblocked' ? 'View Bolcked List' : "view UnBlocked List"}</Button>
+            }}  colorScheme='blue' className='pl-10' >{status == 'unblocked' ? 'View Bolcked List' : "view UnBlocked List"}</Button>
                 <AddDepartments refetch={refetch} />
                
             </Box>
 
             <Stack spacing="20px" direction={{ base: "column", md: "row" }}>
-                <Box overflowX={{ base: "auto", md: "unset" }} flex="1" p="20px" borderRadius="lg" backgroundColor="white">
+                <Box flex="1" p="20px" borderRadius="lg" backgroundColor="white" overflowX="auto">
                     <Table variant="simple" borderRadius="1g">
                         <Thead>
                             <Tr>
 
-                                <Th bg="green.200" textAlign="center">Name</Th>
-                                <Th bg="blue.200" textAlign="center">Hospitals</Th>
-                                <Th bg="purple.200" textAlign="center">Appointments</Th>
-                                <Th bg="green.200" textAlign="center">Records</Th>
-                                <Th bg="blue.200" textAlign="center">Actions</Th>
+                                <Th bg="blue.200" color={'black'}textAlign="center">Name</Th>
+                                <Th bg="blue.200" color={'black'}textAlign="center">Hospitals</Th>
+                                <Th bg="blue.200" color={'black'}textAlign="center">Appointments</Th>
+                                <Th bg="blue.200" color={'black'}textAlign="center">Records</Th>
+                                <Th bg="blue.200" color={'black'}textAlign="center">Actions</Th>
                             </Tr>
                         </Thead>
                         <Tbody>

@@ -1,5 +1,7 @@
 import Doctor from "../models/doctorModel.js"
 import Hospital from "../models/hospitalModel.js"
+import Appointment from "../models/appointmentModel.js";
+// import verification from "../../frontend/src/Screens/Admin/vee.jsx";
 
 
 const addNewDoctor = async (name, email, hospitalId, department, password,title,qualification,description, res) => {
@@ -52,7 +54,8 @@ const addNewDoctor = async (name, email, hospitalId, department, password,title,
           qualification:department.qualification,
           department:department.department.name,
           description:department.description,
-          profileImage:department.profileImage
+          profileImage:department.profileImage,
+          verification:department.verification
           // doctorInfo:doctor
         }
         return (data)
@@ -118,44 +121,43 @@ const unBlockDoctor = async (_id, res) => {
     }
 };
 
-const HospitalListAllDoctors = async (_id, res) => {
-  console.log(_id,'chkk HospitalListAllDoctors ')
+const HospitalListAllDoctors = async (_id,department, res) => {
+  console.log(department,'chkk HospitalListAllDoctors ')
   try {
       let data = [];
       let out =[]
-      const hospital = await Hospital.findById(_id);
-      if(hospital){
-        for (let doctorId of hospital.doctor) {
-          let doctors = await Doctor.findById(doctorId).populate('department').populate('hospital');
-         
-          data.push(doctors);
+      let doctors
+      if(department=="all"){
+        doctors = await Doctor.find({hospital:_id}).populate('department').populate('hospital');
       }
-      for(let i=0;i<data.length;i++){
-
+      else{
+        doctors = await Doctor.find({hospital:_id,department:department}).populate('department').populate('hospital');
+      }
+    
+      console.log(doctors, "chkkk doccccccccccc")
+      for(let i=0;i<doctors.length;i++){
         let temp={
-          _id:data[i]._id,
-          name:data[i].name,
-          email:data[i].email,
-          appointment:data[i].appointments,
-          history:data[i].history,
-          hospital:data[i].hospital.name,
-          title:data[i].title,
-          qualification:data[i].qualification,
-          department:data[i].department.name,
-          description:data[i].description,
-          image:data[i].profileImage,
+          _id:doctors[i]._id,
+          name:doctors[i].name,
+          email:doctors[i].email,         
+          appointment:doctors[i].appointments,
+          history:doctors[i].history,
+          hospital:doctors[i].hospital.name,
+          hospitalId:doctors[i].hospital._id,
+          title:doctors[i].title,
+          qualification:doctors[i].qualification,
+          department:doctors[i].department.name,
+          departmentId:doctors[i].department._id,
+          description:doctors[i].description,
+          image:doctors[i].profileImage,
         }
 
         out.push(temp)
-
       }
       return out;
-      }
-  
+
   } catch (error) {
-
       console.error("Error in listMembers:", error);
-
       return [];
   }
 }
@@ -177,7 +179,38 @@ const checkIsDoctorBlocked = async (_id,res) => {
   }    
 };
 
+const lListAllDoctorAppointments = async (_id,res) => {
+  let data=[]
+  console.log('staaaaa ');
+      
+  try {
+    const appointments = await Appointment.find({doctor:_id}).populate('patient').sort({ date: 1, time: 1 });
+  
+    console.log(appointments,"appointments")
+    for(let appointment of appointments ){   
+      let temp={
+        _id:appointment._id,
+        patientId:appointment.patient._id,
+        name:appointment.patient.name,
+        age:appointment.patient.dateOfBirth,
+        gender:appointment.patient.gender,
+        blood:appointment.patient.bloodGroup,
+        date:appointment.date,
+        time:appointment.time,
+        method:appointment.method,
+        status:appointment.status
+      }
+      // console.log(temp,'temp')
+      data.push(temp)
 
+    }
+    // console.log(data,"dataaa")
+
+    return data;
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
 
 
 
@@ -188,6 +221,7 @@ export {
     blockDoctor,
     unBlockDoctor,
     HospitalListAllDoctors,
-    checkIsDoctorBlocked
+    checkIsDoctorBlocked,
+    lListAllDoctorAppointments
   
  };   

@@ -37,7 +37,7 @@ import { useGetDoctorInfoQuery } from "../../slices/doctorApiSlice"
 
 const LinkItems = [
   { name: 'DoctorHome',href: '/doctor', icon: FiHome },
-  { name: 'Schedule',href: '', icon: FiTrendingUp },
+  { name: 'Schedule',href: '/doctor/schedule', icon: FiTrendingUp },
   { name: 'History', icon: FiCompass },
 
 ];
@@ -49,7 +49,7 @@ function HeaderDoctor() {
 
   return (
     <div>
-    <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+    <Box minH="100vh" bg={useColorModeValue('blue.100', 'blue.900')}>
    <SidebarContent onClose={() => onClose} display={{ base: 'none', md: 'block' }} />
    <Drawer
      isOpen={isOpen}

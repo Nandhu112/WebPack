@@ -8,7 +8,7 @@ import connectDB from "./config/db.js";
 const port=process.env.PORT || 5000;
 import userRoutes from "./route/userRoute.js"
 import adminRoutes from "./route/adminRoute.js"
-import hospitalRoutes from "./route/hospitalRoute.js"
+import hospitalRoutes from "./route/hospitalRoute.js" 
 import doctorRoute from "./route/doctorRoute.js"
 import session from "express-session"
 

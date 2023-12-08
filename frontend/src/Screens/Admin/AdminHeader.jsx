@@ -50,7 +50,7 @@ function AdminHeader() {
 
   return (
     <div>
-       <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+       <Box minH="100vh" bg={useColorModeValue('blue.100', 'blue.100')}>
       <SidebarContent onClose={() => onClose} display={{ base: 'none', md: 'block' }} />
       <Drawer
         isOpen={isOpen}

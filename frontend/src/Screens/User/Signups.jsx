@@ -39,7 +39,6 @@ function signup() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errors, setErrors] = useState({});
-  
 
 
   const validateConfirm = () => {

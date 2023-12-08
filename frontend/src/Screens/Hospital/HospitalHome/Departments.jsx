@@ -6,6 +6,7 @@ import {
 } from '@chakra-ui/react'
 function Department() {
   return (
+   
 <Box className='mt-10 ml-10' w='300px' textAlign='left'>
   <Select placeholder='Select option'>
     <option value='option1'>Option 1</option>

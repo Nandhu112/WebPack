@@ -11,19 +11,19 @@ import { useEffect } from 'react';
 function verification() {
     const { data: verification, isLoading, refetch } = useAdminGetVerificationQuery({status})
   return (
-    <Box mt="20">
+    <Box mt="20" maxW='1000px' overflowX="auto" >
 
-   <Stack spacing="20px" direction={{ base: "column", md: "row" }}>
-   <Box overflowX={{ base: "auto", md: "unset" }} flex="1" p="20px" borderRadius="lg" backgroundColor="white">
+   <Stack spacing="20px" direction={{ base: 'column', md: 'row' }}>
+   <Box flex="1" p="20px" borderRadius="lg" backgroundColor="white" overflowX="auto">
        <Table variant="simple" borderRadius="1g">
            <Thead>
                <Tr>
-                   <Th bg="purple.200" textAlign="center">Name</Th>
-                   <Th bg="green.200" textAlign="center">Date</Th>
-                   <Th bg="blue.200" textAlign="center">Departments</Th>      
-                   <Th bg="purple.200" textAlign="center">Doctors</Th>
-                   <Th bg="green.200" textAlign="center">Status</Th>
-                   <Th bg="blue.200" textAlign="center">Actions</Th>
+                   <Th bg="blue.200" color={'black'}textAlign="center">Name</Th>
+                   <Th bg="blue.200" color={'black'}textAlign="center">Date</Th>
+                   <Th bg="blue.200" color={'black'}textAlign="center">Departments</Th>      
+                   <Th bg="blue.200" color={'black'}textAlign="center">Doctors</Th>
+                   <Th bg="blue.200" color={'black'}textAlign="center">Status</Th>
+                   <Th bg="blue.200" color={'black'}textAlign="center">Actions</Th>
                </Tr>
            </Thead>
            <Tbody>

@@ -15,20 +15,21 @@ function UserHome() {
 
   const { userInfo } = useSelector((state) => state.auth)
   const _id=userInfo._id
-  const { data: members, isLoading, refetch } = useListAllMembersQuery({_id})
+  const { data: members,  refetch } = useListAllMembersQuery({_id})
 
 
   return (
- <div style={{ backgroundColor: '#f5f5f5' }}> {/* Use any color code for a light background */}
+  <Box bg="blue.200" >
   {/* <Header/> */}
   <Image/>
   <Box maxW='800px' >
     {members && members?.map((item,index) =>     
-      <Cards item={item}/>
+      <Cards item={item} refetch={refetch}/>
+
     )}
   </Box>
   <AddNewMember refetch={refetch} />
-</div>
+  </Box>
   )
 }
 

@@ -4,7 +4,7 @@ import { Card, CardHeader,Box,Avatar, CardBody, CardFooter, Stack, Heading, Butt
 import ViewDoctorProfile from '../../User/ViewDoctorProfile'
 function HospitalHomeCard({item}) {
   return (
-    <Card className='mt-10'
+    <Card ml="20" mr="20" mb="20"
       direction={{ base: 'column', sm: 'row' }}
       overflow='hidden'
       variant='outline'

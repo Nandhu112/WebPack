@@ -18,49 +18,57 @@ function UserAdmin() {
     const { data: users, isLoading,isRefetching, refetch } = useAdminLisUserQuery({ status })
 
     return (
-        <Box >
-            <Button onClick={() => {
-             
-                setstatus(status == 'unblocked' ? "blocked" : 'unblocked')
-                console.log('chk ststue',status)
-                refetch()
-              
-            }} colorScheme='blue' className='pl-10' mb="10">
-                {status == 'unblocked' ? 'View Bolcked List' : "view UnBlocked List"}
-            </Button>
-            {isRefetching && <Loader/> }
-            <Stack spacing="20px" direction={{ base: "column", md: "row" }}>
-                <Box overflowX={{ base: "auto", md: "unset" }} flex="1" p="20px" borderRadius="lg" backgroundColor="white">
-                    <Table variant="simple" borderRadius="1g">
-                        <Thead>
-                            <Tr>
-                                <Th bg="green.200" textAlign="center">Name</Th>
-                                <Th bg="blue.200" textAlign="center">Email</Th>
-                                <Th bg="green.200" textAlign="center">Members</Th>
-                                <Th bg="blue.200" textAlign="center">Appointments</Th>
-                                <Th bg="green.200" textAlign="center">Records</Th>
-                                <Th bg="blue.200" textAlign="center">Actions</Th>
+        <Box  overflowX="auto">
+    <Button
+        onClick={() => {
+            setstatus(status === 'unblocked' ? 'blocked' : 'unblocked');
+            console.log('chk status', status);
+            refetch();
+        }}
+        colorScheme='blue'
+        className='pl-10'
+        mb="10"
+    >
+        {status === 'unblocked' ? 'View Blocked List' : 'View Unblocked List'}
+    </Button>
+    {isRefetching && <Loader />}
+    <Box>
+    <Stack spacing="20px" direction={{ base: 'column', md: 'row' }}>
+            <Box flex="1" p="20px" borderRadius="lg" backgroundColor="white" overflowX="auto">
+                <Table variant="simple" borderRadius="1g">
+                    <Thead>
+                        <Tr>
+                            <Th bg="blue.200" color="black" textAlign="center">Name</Th>
+                            <Th bg="blue.200" color="black" textAlign="center">Email</Th>
+                            <Th bg="blue.200" color="black" textAlign="center">Members</Th>
+                            <Th bg="blue.200" color="black" textAlign="center">Appointments</Th>
+                            <Th bg="blue.200" color="black" textAlign="center">Records</Th>
+                            <Th bg="blue.200" color="black" textAlign="center">Actions</Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
+                        {users && users.map((item, index) => (
+                            <Tr key={index}>
+                                <Td textAlign="center" maxW="100%">{item.name}</Td>
+                                <Td textAlign="center" maxW="100%">{item.email}</Td>
+                                <Td textAlign="center" maxW="100%">{item.members.length}</Td>
+                                <Td textAlign="center" maxW="100%">{item.appointments.length}</Td>
+                                <Td textAlign="center" maxW="100%">{item.history.length}</Td>
+                                <Td textAlign="center">
+                                    {status !== 'blocked' ? (
+                                        <TestPopup refetch={refetch} user_id={item._id} />
+                                    ) : (
+                                        <TestPopupUnblock refetch={refetch} user_id={item._id} />
+                                    )}
+                                </Td>
                             </Tr>
-                        </Thead>
-                        <Tbody>
-                            {users && users.map((item, index) =>
-                                <Tr>
-                                    <Td textAlign="center">{item.name}</Td>
-                                    <Td textAlign="center">{item.email}</Td>
-                                    <Td textAlign="center">{item.members.length}</Td>
-                                    <Td textAlign="center">{item.appointments.length}</Td>
-                                    <Td textAlign="center">{item.history.length}</Td>
-                                    <Td textAlign="center">
-                                  {status!== "blocked" ? <TestPopup refetch={refetch} user_id={item._id} />:<TestPopupUnblock refetch={refetch} user_id={item._id} />}
-                                    </Td>
-                                </Tr>
-                            )}
-                        </Tbody>
-                    </Table>
-                </Box>
-            </Stack>
-
-        </Box>
+                        ))}
+                    </Tbody>
+                </Table>
+            </Box>
+        </Stack>
+    </Box>
+</Box>
 
     )
 }

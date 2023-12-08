@@ -7,7 +7,7 @@ import BlockedModal from "./BlockedModal";
 
 const privateRoute = () => {
     const {userInfo}= useSelector((state)=>state.auth)
-    const { data , refetch } = useChekUserBlockedQuery({ _id: userInfo._id })
+    const { data , refetch } = useChekUserBlockedQuery({ _id: userInfo?._id })
 
   return (
     // data? data.Blocked?

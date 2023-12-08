@@ -14,7 +14,7 @@ import {
         checkUserBlocked
 } from "../controllers/userController.js";
 
-import {addNewPatient,listAllPatients,getPatientInfo} from "../controllers/patientController.js"
+import {addNewPatient,listAllPatients,getPatientInfo,updateProfilePic} from "../controllers/patientController.js"
 
 import {userListAllHospitals} from "../controllers/hospitalController.js"
 
@@ -36,6 +36,7 @@ router.post('/listDoctorAppointments',protect,listDoctorAppointments)
 router.get('/listHospitalDepartments',protect,listHospitalDepartments)    
 router.get('/checkBlock',checkUserBlocked)
 router.get('/hospitalListDoctor',protect,hospitalListDoctors)     
+router.post('/updatePatientProflePic',protect,updateProfilePic)        
 router.route('/profile').get(protect, getUserProfile).put(protect, updateUserProfile)
 router.put(
         "/profile-updateImage",

@@ -1,15 +1,43 @@
 import React from 'react'
-import { AspectRatio,Image,Box,IconButton } from '@chakra-ui/react'
+import { AspectRatio,Image,Box,IconButton,Text,Button, Flex} from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom'
 
 function image() {
+ const navigate=useNavigate()
+  const buttonHandler=()=>{
+   navigate("/findHospital")
+  }
   return (
-<Box bg='#dfeef7' w='100%' ratio={4 / 3}>
-  
-<AspectRatio maxW='700px' ratio={4 / 3}>
-<Image className='pl-10 inline-block' src='../public/Images/Doctor4.png' alt='naruto' objectFit='cover' />
-  </AspectRatio>
+    <Box bg="blue.100">
+      <Flex flexDirection={{ base: 'column', md: 'row' }} alignItems="center">
+        <Box flex={{ base: '1', md: '0.5' }}>
+          <Image
+            maxW={{ base: '300' }}
+            minW={{  md: '100%' }}
+            width="100%"
+            src="../public/Images/Doctor5.png"
+            alt="Description"
+          />
+        </Box>
+        <Box flex={{ base: '1', md: '1' }} mt={{ base: 4, md: 0 }} textAlign={{ base: 'center', md: 'left' }}>
+          <Text fontSize={{ base: 'xl', md: '3xl' }} fontWeight="bold" mb={4}>
+            <Text as="span" color="blue.500">
+              MedPack:
+            </Text>{' '}
+            Your Health, Our Priority - Your One-Stop Health Management Solution!
+          </Text>
+          <Text mb={4} fontSize={{ base: 'sm', md: 'md' }}>
+            Additional text or description can go here if needed.
+          </Text>
+          <Button colorScheme="green" size="lg" 
+            mt={{ base: '0', md: '10' }}
+            onClick={buttonHandler}>
 
-</Box>
+            Book an Appointment
+          </Button>
+        </Box>
+      </Flex>
+    </Box>
 
   )
 }

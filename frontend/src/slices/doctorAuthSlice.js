@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const doctorAuthSlice = createSlice({
-  name: 'doctorAuth',
+  name: 'doctorAuth',  
   initialState,
   reducers: {
     setDoctorCredentials: (state, action) => {
@@ -15,7 +15,7 @@ const doctorAuthSlice = createSlice({
       localStorage.setItem('doctorInfo', JSON.stringify(action.payload));
     },
     // eslint-disable-next-line no-unused-vars
-    doctorLogout: (state, action) => {
+    doctorLogout: (state, action) => {  
       state.doctorInfo = null;
       localStorage.removeItem('doctorInfo');
     },

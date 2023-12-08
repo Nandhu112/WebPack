@@ -119,9 +119,9 @@ function HospitalFilter({_id}) {
           
               )
               {/* Add more checkboxes as needed */}
-              <Box className='mt-5 mb-5'>
+              {/* <Box className='mt-5 mb-5'>
                 <HospitalAddDepartment refetch={refetch} />
-              </Box>
+              </Box> */}
             </VStack>
           </Card>
         </Box>
@@ -158,9 +158,9 @@ function HospitalFilter({_id}) {
             
                 )
                 {/* Add more checkboxes as needed */}
-                <Box className='mt-5 mb-5'>
+                {/* <Box className='mt-5 mb-5'>
                   <HospitalAddDepartment refetch={refetch} />
-                </Box>
+                </Box> */}
               </VStack>
           </DrawerBody>
         </DrawerContent>

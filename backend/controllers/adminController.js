@@ -33,7 +33,7 @@ const adminGetHospitalVerification =asyncHandler(async (req,res)=>{
     res.json(result);
   })
 
-  const adminVerifyHospitals =asyncHandler(async (req,res)=>{
+  const adminVerifyHospitals =asyncHandler(async (req,res)=>{    
     const { hospital, application } = req.body;
     console.log('chkk verify112')
     const result =  await adminHospitalVerify(hospital, application)

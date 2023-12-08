@@ -4,7 +4,7 @@ import Search from '../../Components/Parts/search.jsx';
 import HospitalCards from '../../Components/User/HospitalCards.jsx';
 import { Container,Flex } from '@chakra-ui/react';
 import { useUserListHospitalQuery,useUserFindNearHospitalsMutation } from "../../slices/userApiSlice.js"
-import { Card, CardHeader, CardBody, CardFooter,Stack,Heading,Button,Image,Text,AspectRatio,Divider,ButtonGroup ,InputGroup
+import { Card, CardHeader, CardBody, CardFooter,Stack,Heading,Box,Button,Image,Text,AspectRatio,Divider,ButtonGroup ,InputGroup
   ,Select} from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom';
 function FindHospital() {
@@ -103,10 +103,10 @@ const handleButtonClick = (_id) => {
   navigate('/viewHospital',{ state: _id }); 
 };
   return (
-    <div>
+   <Box bg={"blue.100"}>
       {/* <Header/> */}
-      <InputGroup maxW='200px' maxH='30px' mt='10' ml='16' mb='10'>
-      <Select value={distance} onChange={handleHospitalChange} placeholder="Find nearest hospital">
+      <InputGroup  >
+      <Select bg={'gray.200'} maxW='200px' maxH='30px' mt="10" ml='16' mb='10'value={distance} onChange={handleHospitalChange} placeholder="Find nearest hospital">
       <option value="10">10 kilometers</option>
       <option value="15">15 kilometers</option>
       <option value="20">20 kilometers</option>
@@ -149,7 +149,7 @@ const handleButtonClick = (_id) => {
       </Container>
  
 
-    </div>
+      </Box>
   )
 }
 

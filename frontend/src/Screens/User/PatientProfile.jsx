@@ -15,15 +15,14 @@ import {
   VStack,
   Avatar,
 } from '@chakra-ui/react';
-import React,{useEffect, useState} from 'react'
-import { useSelector } from "react-redux";
+import React from 'react'
 import { useGetPatientInfoQuery } from "../../slices/userApiSlice"
-// import UpdateImageDoctor from './UpdateImageDoctor';
+import UpdateUserProfile from './UpdateUserProfile';
 
-function PatientProfile({_id}) {
+function PatientProfile({_id,refetch}) {
     // const { doctorInfo } = useSelector((state) => state.doctorAuth)
   
-    const { data: fetchPatientInfo,isLoading, refetch } = useGetPatientInfoQuery({ _id})
+    const { data: fetchPatientInfo,isLoading, refetch:patientRefetch } = useGetPatientInfoQuery({ _id})
     const { isOpen, onOpen, onClose } = useDisclosure();
 //   const [name, setName] = useState(fetchDoctorInfo ? fetchDoctorInfo.name : '');
 
@@ -43,8 +42,8 @@ function PatientProfile({_id}) {
               <Grid templateColumns="1fr 2fr" gap={8}>
                 {/* Avatar */}
                 <Box bg="blue.200" borderRadius="md" p={2} display="grid" justifyContent="center" alignItems="center">
-                  <Avatar size="2xl" name={fetchPatientInfo?.name} src="" />
-                  {/* Add UpdateImageDoctor component here */}
+                  <Avatar size="2xl" name={fetchPatientInfo?.name} src={fetchPatientInfo?.profileImage} />
+                 <UpdateUserProfile id={fetchPatientInfo?._id}refetch={refetch} patientRefetch={patientRefetch}/>
                 </Box>
 
                 {/* Personal Data */}

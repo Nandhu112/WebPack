@@ -1,20 +1,29 @@
 import mongoose from 'mongoose'
 
-const appointmentSchema=mongoose.Schema({
+const recordSchema=mongoose.Schema({
 
-    doctor: {
+    patient: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Doctor' 
+        ref: 'Patient' 
     },
-    hospital: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Hospital' 
+
+    medicalConditions:{
+        type: Array,
     },
-    department: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Department' 
+    allergies:{
+        type:Array
     },
-    slot:{
+    sugar: {
+        type: Array,
+    },
+    Cholesterol: {
+        type: Array,
+    },
+    medicationList: {
+        type: Array,
+ 
+    },
+    medicalConditions:{
         type:Array, 
     },
     method:{
@@ -40,6 +49,6 @@ const appointmentSchema=mongoose.Schema({
 })
 
 
-const Appointment=mongoose.model('Appointment',appointmentSchema)
+const Record=mongoose.model('Record',recordSchema)
 
-export default Appointment
+export default Record

@@ -6,6 +6,11 @@ const patientSchema=mongoose.Schema({
         type:String,
         required:true
     },
+    user:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'User' 
+      
+    },
     gender:{
         type:String,
         required:true,
@@ -26,6 +31,15 @@ const patientSchema=mongoose.Schema({
     history:{
         type:Array,
     },
+        medicalConditions:{
+        type: Array,
+    },
+    allergies:{
+        type:Array
+    },
+    profileImage: {
+        type: String,
+      },
 
 },{
     timestamps: true

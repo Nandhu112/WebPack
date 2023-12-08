@@ -30,20 +30,22 @@ import {
     MenuList,
     Avatar,
     MenuItem,
-    MenuDivider
- 
-    
+    MenuDivider,
+    AspectRatio,
+    Image
+
+
 } from '@chakra-ui/react'
 import {
-  FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
-  FiSettings,
-  FiMenu,
-  FiBell,
-  FiChevronDown,
-  
+    FiHome,
+    FiTrendingUp,
+    FiCompass,
+    FiStar,
+    FiSettings,
+    FiMenu,
+    FiBell,
+    FiChevronDown,
+
 } from 'react-icons/fi';
 import {
     HamburgerIcon,
@@ -96,12 +98,9 @@ function UserHeader() {
                     />
                 </Flex>
                 <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-                    <Text
-                        textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-                        fontFamily={'heading'}
-                        color={useColorModeValue('gray.800', 'white')}>
-                        Logo
-                    </Text>
+           
+<Image maxW='8' src="https://cdn.healthtechalpha.com/static/startup_data_images/112166.png" alt='naruto' objectFit='cover' />
+
 
                     <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
                         <DesktopNav />
@@ -113,36 +112,37 @@ function UserHeader() {
                     justify={'flex-end'}
                     direction={'row'}
                     spacing={6}>
-            {userInfo? 
-             <HStack spacing={{ base: '0', md: '6' }}>
-          <IconButton size="lg" variant="ghost" aria-label="open menu" icon={<FiBell />} />
-          <Flex alignItems="center">
-            <Menu>
-              <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: 'none' }}>
-                <HStack>
-                  <Avatar
-                    size="sm"
-                    src="https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
-                  />
-                  <VStack display={{ base: 'none', md: 'flex' }} alignItems="flex-start" spacing="1px" ml="2">
-          
-                    <Text fontSize="xs" color="gray.600"></Text>
-                  </VStack>
-                  <Box display={{ base: 'none', md: 'flex' }}>
-                    <FiChevronDown />
-                  </Box>
-                </HStack>
-              </MenuButton>
-              <MenuList bg="white" borderColor="gray.200">
-                <MenuItem>Profile</MenuItem>
-                <MenuItem>Settings</MenuItem>
-                <MenuDivider />
-                <MenuItem onClick={logoutHandler}  >Sign out</MenuItem>
-              </MenuList>
-            </Menu>
-          </Flex>
-        </HStack>
-    :<Button>Log in</Button>}
+                    {userInfo ?
+                        <HStack spacing={{ base: '0', md: '6' }}>
+                            <IconButton size="lg" variant="ghost" aria-label="open menu" icon={<FiBell />} />
+                            <Flex alignItems="center">
+                                <Menu>
+                                    <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: 'none' }}>
+                                        <HStack>
+                                            <Avatar
+                                                size="sm"
+                                                name={userInfo?.name}
+                                                src={userInfo?.name}
+                                            />
+                                            <VStack display={{ base: 'none', md: 'flex' }} alignItems="flex-start" spacing="1px" ml="2">
+
+                                                <Text fontSize="xs" color="gray.600">{userInfo?.name}</Text>
+                                            </VStack>
+                                            <Box display={{ base: 'none', md: 'flex' }}>
+                                                <FiChevronDown />
+                                            </Box>
+                                        </HStack>
+                                    </MenuButton>
+                                    <MenuList bg="white" borderColor="gray.200">
+                                        <MenuItem>Profile</MenuItem>
+                                        <MenuItem>Settings</MenuItem>
+                                        <MenuDivider />
+                                        <MenuItem onClick={logoutHandler}  >Sign out</MenuItem>
+                                    </MenuList>
+                                </Menu>
+                            </Flex>
+                        </HStack>
+                        : <Button>Log in</Button>}
                 </Stack>
             </Flex>
 
@@ -164,39 +164,21 @@ const DesktopNav = () => {
     return (
         <Stack direction={'row'} spacing={4}>
             {NAV_ITEMS.map((navItem) => (
-                <Box key={navItem.label}>
-                    <Popover trigger={'hover'} placement={'bottom-start'}>
-                        <PopoverTrigger>
-                            <Box
-                                as="a"
-                                p={2}
-                 
-                                fontSize={'sm'}
-                                fontWeight={500}
-                                color={linkColor}
-                                _hover={{
-                                    textDecoration: 'none',
-                                    color: linkHoverColor,
-                                }}
-                                onClick={() => navigate(navItem.href) 
-                                    }
-                            >
-                                {navItem.label}
-                            </Box>
-                        </PopoverTrigger>
-
-                        {navItem.children && (
-                            <PopoverContent
-                                border={0}
-                                boxShadow={'xl'}
-                                bg={popoverContentBgColor}
-                                p={4}
-                                rounded={'xl'}
-                                minW={'sm'}>
-
-                            </PopoverContent>
-                        )}
-                    </Popover>
+                <Box
+                    key={navItem.label}
+                    as="a"
+                    p={2}
+                    fontSize={'sm'}
+                    fontWeight={500}
+                    color={linkColor}
+                    _hover={{
+                        textDecoration: 'none',
+                        color: linkHoverColor,
+                        cursor: navItem.label === 'Home' || navItem.label === 'Hospitals' ? 'pointer' : 'default',
+                    }}
+                    onClick={() => navigate(navItem.href)}
+                >
+                    {navItem.label}
                 </Box>
             ))}
         </Stack>
@@ -236,13 +218,11 @@ const MobileNavItem = ({ label, children, href }, NavItem) => {
             <Box
                 py={2}
                 as="a"
-                // href={href ?? '#'}
                 onClick={() => navigate(href)}
                 justifyContent="space-between"
                 alignItems="center"
-                _hover={{
-                    textDecoration: 'none',
-                }}>
+                _hover={{ textDecoration: 'none', cursor: 'pointer' }} // Change cursor style here
+            >
                 <Text fontWeight={600} color={useColorModeValue('gray.600', 'gray.200')}>
                     {label}
                 </Text>

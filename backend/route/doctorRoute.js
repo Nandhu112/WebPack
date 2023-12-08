@@ -9,9 +9,12 @@ import {
     verificationDoctor,
     logoutDoctor,
     updateDoctorProfileImage,
-    checkDoctorBlocked
+    checkDoctorBlocked,
+    doctorListAppointments
 
 } from "../controllers/doctorController.js";
+
+import{getPatientInfo}from "../controllers/patientController.js"
 
 router.post('/',authDoctor)
 router.post('/verification', verificationDoctor)
@@ -19,6 +22,8 @@ router.get('/doctorVerifyMail/:token', doctorVerifyMail);
 router.get('/getProfile',doctorProtect,getDoctorInfo)
 router.post('/updateDoctorPic',doctorProtect,updateDoctorProfileImage)
 router.get('/checkDoctorBlocked',checkDoctorBlocked)
+router.get('/listAppointments',doctorListAppointments)
+router.get('/getPatientInfo', getPatientInfo)
 router.post('/logout', logoutDoctor)
 
 
