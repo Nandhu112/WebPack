@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 
 
 function verification() {
-    const { data: verification, isLoading, refetch } = useAdminGetVerificationQuery({status})
+    const { data: verification, isLoading, refetch } = useAdminGetVerificationQuery()
   return (
     <Box mt="20" maxW='1000px' overflowX="auto" >
 

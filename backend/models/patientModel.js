@@ -31,7 +31,7 @@ const patientSchema=mongoose.Schema({
     history:{
         type:Array,
     },
-        medicalConditions:{
+    ailments:{
         type: Array,
     },
     allergies:{

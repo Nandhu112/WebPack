@@ -2,39 +2,88 @@ import mongoose from 'mongoose'
 
 const historySchema=mongoose.Schema({
 
+    appointmentId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Appointment' ,
+        required:true
+    },  
     patient: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Patient' 
+        ref: 'Patient' ,
+        required:true
+    },
+    pName: {
+        type: String,
+        required:true 
+    },
+    pImage: {
+        type: String,  
+    },
+    pGender: {
+        type: String,
+        required:true  
+    },
+    pAge: {
+        type: String, 
+        required:true 
+    },
+    Blood: {
+        type: String, 
+        required:true 
+    },
+    ailments:{
+        type: Array,
+    },
+    allergies:{
+        type:Array
     },
     doctor: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Doctor' 
+        ref: 'Doctor' ,
+        required:true
     }, 
-    pressure: {
+    dName: {
+        type: String,
+        required:true
+    },
+    dImage: {
+        type: String,
+    },
+    dTitle: {
+        type: String,
+        required:true
+    },
+    department: {
+        type: String,
+        required:true
+    },
+    depatrmentId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Department' ,
+        required:true
+    }, 
+    hospital: {
+        type: String,
+        required:true
+    },
+    hospitalId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Hospital' ,
+        required:true
+    },
+    testResults: {
         type: Array,
-    },
-    sugar: {
-        type: String,
-    },
-    Cholesterol: {
-        type: String,
     },
     medicationList: {
-        type: String,
- 
-    },
-
-    bloodTestResults:{
         type: Array,
     },
-    testResults:{
-        type:Array
+    treatments: {
+        type: Array,
     },
-    
-    time:{
-        type:String, 
+    description: {
+        type: String,
     },
-    
+   
 },{
     timestamps: true
 })

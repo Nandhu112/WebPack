@@ -33,7 +33,7 @@ import DepartmentAdmin from './Screens/Admin/DepartmentAdmin.jsx'
 import HospitalAdmin from './Screens/Admin/HospitalAdmin.jsx'
 import DoctorAdmin from './Screens/Admin/DoctorAdmin.jsx'
 import UserAdmin from './Screens/Admin/UserAdmin.jsx'
-// import Verification from './Screens/Admin/verification.jsx'
+import Verification from './Screens/Admin/Verification.jsx'
 
 //Doctor 
 import PrivateRouteDoctor from './Components/PrivateRouteDoctor.jsx'
@@ -81,7 +81,7 @@ const router = createBrowserRouter(
           <Route path="/admin/getHospital" element={<HospitalAdmin />} />
           <Route path="/admin/getDoctor" element={<DoctorAdmin />} />
           <Route path="/admin/getUser" element={<UserAdmin />} />
-          {/* <Route path="/admin/verification" element={<Verification />} /> */}
+          <Route path="/admin/verification" element={<Verification />} />
 
         </Route>
       </Route>

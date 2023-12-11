@@ -40,26 +40,27 @@ const addNewDoctor = async (name, email, hospitalId, department, password,title,
   };   
 
   const getDoctorFullInfo = async (_id, res) => {
+    console.log('chkk info')
     try {
-      const doctor = await Doctor.findById(_id);
-      if(!doctor){
-        return { error: "Hospital not found" }
-      }
-      else{
-        const department= await doctor.populate('department')
+      const doctor = await Doctor.findById(_id).populate('department').populate('hospital')
         const data={
-          name:department.name,
-          email:department.email,
-          title:department.title,
-          qualification:department.qualification,
-          department:department.department.name,
-          description:department.description,
-          profileImage:department.profileImage,
-          verification:department.verification
+          _id:doctor._id,
+          name:doctor.name,
+          email:doctor.email,
+          title:doctor.title,
+          qualification:doctor.qualification,
+          department:doctor.department.name,
+          departmentId:doctor.department._id,
+          hospital:doctor.hospital.name,
+          hospitalId:doctor.hospital._id,
+          description:doctor.description,
+          profileImage:doctor.profileImage,
+          verification:doctor.verification,
           // doctorInfo:doctor
         }
+        console.log(data,"dataa....")
         return (data)
-      }
+      
   
     } catch (error) {
       res.status(500).json({ error: "Internal server error" });
@@ -179,13 +180,17 @@ const checkIsDoctorBlocked = async (_id,res) => {
   }    
 };
 
-const lListAllDoctorAppointments = async (_id,res) => {
+const lListAllDoctorAppointments = async (_id,status,res) => {
   let data=[]
   console.log('staaaaa ');
-      
+  let appointments  
   try {
-    const appointments = await Appointment.find({doctor:_id}).populate('patient').sort({ date: 1, time: 1 });
-  
+    if(status==="all"){
+    appointments = await Appointment.find({doctor:_id}).populate('patient').sort({ date: 1, time: 1 });
+    }
+    else{
+      appointments = await Appointment.find({doctor:_id,status:status}).populate('patient').sort({ date: 1, time: 1 });
+    }
     console.log(appointments,"appointments")
     for(let appointment of appointments ){   
       let temp={

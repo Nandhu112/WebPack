@@ -77,7 +77,7 @@ function AddDoctorModal({refetch}) {
 
     return (
         <>
-        <Button colorScheme="green" className="pl-10" onClick={onOpen}>
+        <Button colorScheme="teal" className="pl-10" onClick={onOpen}>
           Add Doctor
         </Button>
   

@@ -198,6 +198,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
                   <HStack>
                     <Avatar
                       size="sm"
+                      name={fetchDoctorInfo?.name}
                       src={fetchDoctorInfo?.profileImage}
                     />
                     <VStack display={{ base: 'none', md: 'flex' }} alignItems="flex-start" spacing="1px" ml="2">

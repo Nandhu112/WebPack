@@ -55,12 +55,12 @@ const addDoctor = asyncHandler(async (req, res) => {
     console.log("chkkkkkkkkk doc 11")    
     const { id } = req.query;
     const result = await getDoctorFullInfo(id, res);
-    console.log(result,'result')
+    // console.log(result,'result')
     res.json(result); // Send the result back to the client
   });
 
   const verificationDoctor = asyncHandler(async (req, res) => {
-    console.log(req.body, 'chkk body')
+    console.log('chkk body')  
     let doctors
     const { email, password} = req.body;
     const doctor = await Doctor.findOne({ email: email });
@@ -208,7 +208,7 @@ const addDoctor = asyncHandler(async (req, res) => {
       })
       const hospitalListDoctors =asyncHandler(async (req,res)=>{
         const {_id,department } =req.query
-        console.log(department,"chkk department")
+        console.log(_id,department,"chkk department-------------------")
         const result =  await HospitalListAllDoctors(_id,department)
         res.json(result);
       })
@@ -227,8 +227,8 @@ const addDoctor = asyncHandler(async (req, res) => {
       })
 
       const doctorListAppointments =asyncHandler(async (req,res)=>{
-        const {_id } =req.query
-        const result =  await lListAllDoctorAppointments(_id)
+        const {_id,status } =req.query
+        const result =  await lListAllDoctorAppointments(_id,status)
         res.json(result);
       })
     

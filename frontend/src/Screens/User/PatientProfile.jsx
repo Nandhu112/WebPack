@@ -14,6 +14,7 @@ import {
   useDisclosure,
   VStack,
   Avatar,
+  Flex
 } from '@chakra-ui/react';
 import React from 'react'
 import { useGetPatientInfoQuery } from "../../slices/userApiSlice"
@@ -67,13 +68,55 @@ function PatientProfile({_id,refetch}) {
               </Grid>
 
               {/* Details */}
-              <Box bg="gray.200" borderRadius="md" p={4} mt={4}>
-                <VStack align="flex-start" spacing={2}>
-                  <Text color="gray.600">
-                    <strong></strong> No Medical Records
-                  </Text>
-                  {/* Add more details as needed */}
-                </VStack>
+              <Box bg="blue.100" borderRadius="md" p={4} mt={4} minH="390">
+                {fetchPatientInfo && fetchPatientInfo.ailments.length == 0 && fetchPatientInfo.allergies.length == 0 ?
+                  <Flex>
+                    <Text color="gray.600">
+                      No medical records
+                    </Text>
+                    <Box ml="auto" style={{ cursor: 'pointer' }} onClick={recordHandle}>
+                      <FaPlus />
+                    </Box>
+                  </Flex>
+                  : <Box>
+                    <Flex flexDirection="column">
+                      {fetchPatientInfo && !fetchPatientInfo.ailments.length == 0 ?
+                        <Box >
+                          <Text fontSize="md" fontWeight="bold" mb="3">
+                           Enduring health issues
+                          </Text>
+                          <Box bg="gray.200" p="3" mb="3" borderRadius="md" pb='5' pt="5">
+                            <ul>
+                              {fetchPatientInfo.ailments.map((item, index) => (
+                                <Box pb='2'>
+                                <li pb='2' key={index}>{item}</li>
+                                </Box>
+                              ))}
+                            </ul>
+                          </Box>
+                        </Box> : null
+                      }
+                      {fetchPatientInfo && !fetchPatientInfo.allergies.length == 0 ?
+                        <Box>
+                          <Text fontSize="md" fontWeight="bold" mb="3">
+                            Allergies
+                          </Text>
+                          <Box bg="gray.200" p="3" borderRadius="md" pb='5' pt="5">
+                            <ul>
+                              {
+                                fetchPatientInfo.allergies.map((item, index) => (
+                                  <Box pb='2'>
+                                  <li  key={index} >{item}</li>
+                                  </Box>
+                                ))}
+                            </ul>
+                          </Box>
+                        </Box> : null
+                      }
+                    </Flex>
+                
+                  </Box>
+                }
               </Box>
             </DrawerBody>
           </DrawerContent>

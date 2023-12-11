@@ -16,15 +16,24 @@ import {
 
 import{getPatientInfo}from "../controllers/patientController.js"
 
+import {addNewRecord,findPatientRecord,deleteRecord} from "../controllers/recordController.js"
+
+import{addNewRecordtoHistory,doctorGetAppointmentStatus} from "../controllers/historyController.js"
+
 router.post('/',authDoctor)
 router.post('/verification', verificationDoctor)
 router.get('/doctorVerifyMail/:token', doctorVerifyMail);
 router.get('/getProfile',doctorProtect,getDoctorInfo)
 router.post('/updateDoctorPic',doctorProtect,updateDoctorProfileImage)
-router.get('/checkDoctorBlocked',checkDoctorBlocked)
+router.get('/checkDoctorBlocked',checkDoctorBlocked)     
 router.get('/listAppointments',doctorListAppointments)
 router.get('/getPatientInfo', getPatientInfo)
 router.post('/logout', logoutDoctor)
+router.post('/addNewRecord', addNewRecord)
+router.put('/deleteRecord', deleteRecord)
+router.post('/addtoHistory', addNewRecordtoHistory)
+router.get('/getAppointmentStatus', doctorGetAppointmentStatus)
+
 
 
 // router.get('/hospitalVerify/:token', hospitalVerifyMail);

@@ -4,7 +4,7 @@ import { EditIcon, } from '@chakra-ui/icons'
 import { useSelector } from "react-redux";
 import {useDoctorUpdateImageMutation} from "../../slices/doctorApiSlice"
 import { toast } from "react-toastify";
-
+import { FaUserEdit } from "react-icons/fa";
 
 function UpdateImageDoctor({refetch}) {
 

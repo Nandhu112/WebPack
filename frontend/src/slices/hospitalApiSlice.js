@@ -51,8 +51,8 @@ export const userApiSlice = apiSlice.injectEndpoints({
         }),
       }), 
       hospitalListDoctors: builder.query({
-        query: ({_id}) => ({
-          url: `${USERS_URL}/hospitalListDoctor?_id=${_id}`,
+        query: ({_id,department}) => ({
+          url: `${USERS_URL}/hospitalListDoctor?_id=${_id}&&department=${department}`,
           method: 'GET',         
         }),
       }),

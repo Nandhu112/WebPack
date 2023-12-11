@@ -43,14 +43,34 @@ export const doctorApiSlice = apiSlice.injectEndpoints({
         }),
       }), 
       listDoctorSchedule: builder.query({
-        query: ({_id}) => ({
-          url: `${DOCTOR_URL}/listAppointments?_id=${_id}`,
+        query: ({_id,status}) => ({
+          url: `${DOCTOR_URL}/listAppointments?_id=${_id}&&status=${status}`,
           method: 'GET',      
         }),
       }), 
       getPatientInfo: builder.query({
         query: ({_id}) => ({
           url: `${DOCTOR_URL}/getPatientInfo?_id=${_id}`,
+          method: 'GET',      
+        }),
+      }), 
+      addRecord: builder.mutation({
+        query: (data) => ({
+          url: `${DOCTOR_URL}/addNewRecord`,
+          method: 'POST',
+          body: data,
+        }),
+      }), 
+      deleteRecord: builder.mutation({
+        query: (data) => ({
+          url: `${DOCTOR_URL}/deleteRecord`,
+          method: 'PUT',
+          body: data,
+        }),
+      }), 
+      getAppointmentStatus: builder.query({
+        query: ({appointmentId}) => ({
+          url: `${DOCTOR_URL}/getAppointmentStatus?appointmentId=${appointmentId}`,     
           method: 'GET',      
         }),
       }), 
@@ -66,6 +86,9 @@ export const doctorApiSlice = apiSlice.injectEndpoints({
     useDoctorUpdateImageMutation,
     useCheckDoctorBlockQuery,
     useListDoctorScheduleQuery,
-    useGetPatientInfoQuery
+    useGetPatientInfoQuery,
+    useAddRecordMutation,
+    useDeleteRecordMutation,
+    useGetAppointmentStatusQuery
 
   } = doctorApiSlice;    

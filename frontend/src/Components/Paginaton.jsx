@@ -22,7 +22,7 @@ import {
   import { useState, useEffect } from "react";
   
   const Pagination = ({ setStartIndex, setEndIndex, total }) => {
-    const [pageSize, setPageSize] = useState(5);
+    const [pageSize, setPageSize] = useState(4);
     const [start, setStart] = useState(0);
     const [totalPages, setTotalPages] = useState();
     const [currentPage, setCurrentPage] = useState(1);
@@ -32,6 +32,7 @@ import {
       setEndIndex(Math.min(start + pageSize, total));
       setTotalPages(Math.ceil(total / pageSize));
     }, [start, pageSize, total, currentPage]);
+    
     const gotoPage = (page) => {
       const newStart = Math.max(page - 1, 0) * pageSize;
       setCurrentPage(page);

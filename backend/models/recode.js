@@ -7,41 +7,11 @@ const recordSchema=mongoose.Schema({
         ref: 'Patient' 
     },
 
-    medicalConditions:{
+    ailments:{
         type: Array,
     },
     allergies:{
         type:Array
-    },
-    sugar: {
-        type: Array,
-    },
-    Cholesterol: {
-        type: Array,
-    },
-    medicationList: {
-        type: Array,
- 
-    },
-    medicalConditions:{
-        type:Array, 
-    },
-    method:{
-      type:String
-    },
-    status:{
-        type:String,
-        default:'Pending'
-      },
-    patient:{
-        type:mongoose.Schema.Types.ObjectId, 
-        ref: 'Patient'  
-      },
-      date:{
-        type:String, 
-    },
-    time:{
-        type:String, 
     },
     
 },{

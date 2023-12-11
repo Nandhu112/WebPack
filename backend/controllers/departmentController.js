@@ -30,7 +30,7 @@ const addNewDepartment = asyncHandler(async (req, res) => {
  })
 
  const listHospitalDepartments =asyncHandler(async (req,res)=>{   
-  console.log('chk listHospitalDepartments')
+  console.log('chk listHospitalDepartments................')
   const {id} = req.query;
   console.log(id,'chk listHospitalDepartments')  
   const result =  await listHospitalAllDepartments(id)

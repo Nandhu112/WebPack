@@ -8,21 +8,60 @@ import { Table, Thead, Tbody, Tr, Th, Td, Box, Stack, Button,
     PopoverArrow,
     PopoverCloseButton,
     PopoverHeader,
-    PopoverBody,} from "@chakra-ui/react";
+    PopoverBody,
+    InputGroup,
+    Select} from "@chakra-ui/react";
  import { useSelector } from "react-redux";
-import {useHospitalListDoctorsQuery} from "../../slices/hospitalApiSlice"
+import {useHospitalListDoctorsQuery,useHospitalListDepartmentsQuery} from "../../slices/hospitalApiSlice"
 import AddDoctorModal from './AddDoctorModal';
 import DoctorProfileHosptial from './DoctorProfileHosptial';
+
+
 
 function ListDoctorHospital() {
     const { hospitalInfo } = useSelector((state) => state.hospitalAuth)
   const _id=hospitalInfo._id
-    const { data: doctors, isLoading, refetch } = useHospitalListDoctorsQuery({_id})
+  const [department, setDepartment] = useState("all")
+    const { data: departments, refetch:depatmentRefetch } = useHospitalListDepartmentsQuery({ id:_id})
+    const { data: doctors, isLoading, refetch } = useHospitalListDoctorsQuery({_id,department})
+    const [openAddDepartment, setOpenAddDepartment] = useState(false)
+
+
+      
+    const selectHandler=(e)=>{ 
+        const selectedValue = event.target.value;
+        if (selectedValue === 'add') {
+          openAddDepartmentHandler(); // Call your function here for adding a new department
+          setDepartment(department)
+        } else {
+            setDepartment(e.target.value)
+            refetch()
+        }
+    
+      }
+      const fun=()=>{
+        console.log(department,"department")
+      }
+      const openAddDepartmentHandler=()=>{
+        console.log("openAddDepartmentHandler")
+        setOpenAddDepartment(true)
+      }
   return (
     <Box>
      <Box mb="10" display="flex" justifyContent="space-between">
    <AddDoctorModal refetch={refetch}/>
-   <HospitalAddDepartment/>
+   <InputGroup   >
+      <Select onChange={selectHandler}  ml='auto' mr="20" mb="20" bg={'gray.200'} maxW='200px' maxH='30px' >
+      {departments && departments.map((item,index) =>
+      <option value={item._id}>{item.name}</option>
+      )}
+      <option value='all'>All Departments</option>
+      <option  value="add">Add new Department</option>
+    </Select>
+  </InputGroup>
+  {openAddDepartment?<HospitalAddDepartment setOpenAddDepartment={setOpenAddDepartment} />:null}
+  
+    
    </Box>
    <Stack spacing="20px" mt="16" direction={{ base: "column", md: "row" }}>
    <Box overflowX={{ base: "auto", md: "unset" }} flex="1" p="20px" borderRadius="lg" backgroundColor="white">

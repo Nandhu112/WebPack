@@ -1,6 +1,6 @@
 import {addNewMember,listMembers, getUserPatientInfo,updatePatientProfileImage} from "../helpers/patientHelper.js"
 import asyncHandler from "express-async-handler"
-import  jwt  from "jsonwebtoken";
+
 
 const addNewPatient = asyncHandler(async (req, res) => {
   console.log("addNewPatient")

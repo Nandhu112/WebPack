@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import UpdateImageDoctor from './UpdateImageDoctor';
 import VerificationDoctor from './VerificationDoctor';
 
+
 function DoctorProfile() {
   const navigate = useNavigate();
   const { doctorInfo } = useSelector((state) => state.doctorAuth)
@@ -76,7 +77,9 @@ function DoctorProfile() {
         </Box>
         <Input onChange={(e) => setroomId(e.target.value)} placeholder='Basic usage' />
         <Button colorScheme='blue' m="5" onClick={handleRoom}>Create Room</Button>
-        <VerificationDoctor/>
+        {fetchDoctorInfo?.verification ?null
+        :<VerificationDoctor/>
+            }
       </Box>
     </Box>
 

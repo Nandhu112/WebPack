@@ -51,22 +51,42 @@ function VerificationDoctor() {
   const onClose = () => setIsOpen(false);
   const onOpen = () => setIsOpen(true);
 
+  const validateConfirm = () => {
+    const newErrors = {};
+    if (password !== confirmPassword) {
+      const newErrors = {};
+      newErrors.password = 'Password not match';
+      newErrors.confirmPassword = 'Password not match';
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  }
+  else{
+    setErrors({}); // Clear errors when passwords match
+    return true; 
+  }
+  
+}
+
   const validateFields = () => {
     const newErrors = {};
     if (!email) newErrors.email = 'Email is required';
-    newErrors.password = 'Password not match';
-    newErrors.confirmPassword = 'Password not match';
+    if (!password) newErrors.password = 'Password not match';
+    if (!confirmPassword)newErrors.confirmPassword = 'Password not match';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const submitHandler = async (e) => {
+    console.log( email, password,'cjkk clk')
     e.preventDefault();
     const isValid = validateFields();
     if (isValid) {
+      const isValidateConfirm =validateConfirm()
+      if(isValidateConfirm){
       try {
+        console.log("cjkk resssss");
         const res = await verify({ email, password }).unwrap();
-        console.log(res);
+        console.log("cjkk res");
         toast.success(res.message);
         // navigate('/doctor');
       } catch (err) {
@@ -74,12 +94,13 @@ function VerificationDoctor() {
         toast.error(err?.data?.message || err.error);
       }
     }
+    }
   };
 
   return (
     <>
-      <Button onClick={onOpen}>
-        Open Verification Modal
+      <Button colorScheme='green' onClick={onOpen}>
+        Verify your account
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -88,7 +109,7 @@ function VerificationDoctor() {
           <ModalCloseButton />
           <ModalBody>
             <form onSubmit={submitHandler}>
-              <FormControl id="email" isInvalid={!!errors.email}>
+              <FormControl mb="5" id="email" isInvalid={!!errors.email}>
                 <FormLabel>Email address</FormLabel>
                 <Input
                   type="email"
@@ -98,7 +119,7 @@ function VerificationDoctor() {
                 <FormErrorMessage>{errors.email}</FormErrorMessage>
               </FormControl>
 
-              <FormControl id="password" isInvalid={!!errors.password}>
+              <FormControl mb="5" id="password" isInvalid={!!errors.password}>
                 <FormLabel>New Password</FormLabel>
                 <InputGroup>
                   <Input
@@ -146,6 +167,7 @@ function VerificationDoctor() {
               </Stack>
 
               <Button
+              onClick={submitHandler}
                 mt='6'
                 mb='6'
                 ml='70%'
