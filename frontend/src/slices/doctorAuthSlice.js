@@ -6,7 +6,7 @@ const initialState = {
     : null,
 };
 
-const doctorAuthSlice = createSlice({
+const doctorAuthSlice = createSlice({   
   name: 'doctorAuth',  
   initialState,
   reducers: {

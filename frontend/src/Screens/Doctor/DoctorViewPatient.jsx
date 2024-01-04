@@ -13,16 +13,21 @@ import {
   useDisclosure,
   VStack,
   Avatar,
+  Card,
+  SimpleGrid,
+  CardBody ,
   Flex,
 } from '@chakra-ui/react';
-import { useGetPatientInfoQuery } from "../../slices/doctorApiSlice"
+import { useGetPatientInfoQuery,useDoctorGetPatientHistoryQuery } from "../../slices/doctorApiSlice"
 import DoctorAddRecords from './DoctorAddRecords';
 import { useState } from 'react';
+import ViewPatientHistory from './ViewPatientHistory';
 import { FaPlus } from "react-icons/fa";
 
 function DoctorViewPatient({ _id }) {
 
   const { data: fetchPatientInfo, isLoading, refetch: patientRefetch } = useGetPatientInfoQuery({ _id })
+  const { data: fetchPatientHistory,  refetch: refetchPatientHistory } = useDoctorGetPatientHistoryQuery({patientId:_id })
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [modalOpen, setModalOpen] = useState(false)
 
@@ -115,12 +120,29 @@ function DoctorViewPatient({ _id }) {
                         </Box> : null
                       }
                     </Flex>
+                    {fetchPatientHistory?
+                <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
+                  { fetchPatientHistory?.map((item, index) => (
+                  <Card maxW="200" bg="gray.200" mt="10">
+                    <Heading pt="2" textAlign="center" size='md'>{item.hospital}</Heading>
+                    <CardBody>
+                      <Text textAlign="center">{`Doctor: ${item.dName}`}</Text>
+                      <Text textAlign="center">{`Date: ${new Date(item.createdAt).toLocaleDateString()}`}</Text>
+
+                    </CardBody>
+                    <Button colorScheme='teal' >View more</Button>
+                  </Card>
+                  ))}
+                </SimpleGrid>
+                :null}
                     <Flex justifyContent="flex-end" mt="10">
                       <Button onClick={recordHandle} colorScheme="blue">Update</Button>
                     </Flex>
                   </Box>
                 }
               </Box>
+              
+       
               {
                 modalOpen ? <DoctorAddRecords modalClose={modalClose} fetchPatientInfo={fetchPatientInfo?fetchPatientInfo:null} 
                 patientRefetch={patientRefetch} /> : null

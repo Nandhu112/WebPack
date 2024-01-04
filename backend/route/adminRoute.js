@@ -15,6 +15,7 @@ import {listAllHospitals,  adminBlockHospital,adminUnBlockHospital} from "../con
 import {listAllDoctors,adminBlockDoctor,adminUnBlockDoctor} from "../controllers/doctorController.js"
 
 import{addNewDepartment,listAllDepartment,   adminBlockDepartment,adminUnBlockDepartment} from "../controllers/departmentController.js"
+import {adminGetDeptDashboard,adminGetDeptDashboardBoxs,adminGethospitalHistoryCount} from "../controllers/dashboardController.js"
 
 router.post('/auth',authAdmin)
 router.post('/addNewDepartment',addNewDepartment)
@@ -31,13 +32,10 @@ router.post('/adminUnBlockHospital',adminUnBlockHospital)
 router.post('/adminBlockDepartment',adminBlockDepartment)
 router.post('/adminUnBlockDepartment',adminUnBlockDepartment)
 router.get('/getVerification',adminGetHospitalVerification)
+router.get('/adminGetDeptDashboard',adminGetDeptDashboard)
+router.get('/adminGetDeptDashboardBoxs',adminGetDeptDashboardBoxs)
+router.get('/adminGethospitalHistoryCount',adminGethospitalHistoryCount)
 router.post('/Verification',adminVerifyHospitals)
-
-// router.get("/list-users",protect, adminListUsers);
-// router.post("/search-users",protect, adminSearchUsers);
-// router.post("/get-user",protect, adminGetUser);
-// router.post("/delete-user",protect, adminDeleteUser);
-// router.post("/edit-user",protect, adminEditUser);
 
 export default router
    

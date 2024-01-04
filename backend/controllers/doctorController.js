@@ -10,7 +10,7 @@ import {
     unBlockDoctor,
     HospitalListAllDoctors,
     checkIsDoctorBlocked,
-    lListAllDoctorAppointments
+    listAllDoctorAppointments
 } from "../helpers/doctorHelper.js"
 
 import nodemailer from "nodemailer"
@@ -227,13 +227,14 @@ const addDoctor = asyncHandler(async (req, res) => {
       })
 
       const doctorListAppointments =asyncHandler(async (req,res)=>{
+        console.log('doctorListAppointments')
         const {_id,status } =req.query
-        const result =  await lListAllDoctorAppointments(_id,status)
+        const result =  await listAllDoctorAppointments(_id,status)
         res.json(result);
       })
     
 
-  export {      
+  export {         
     addDoctor,
     authDoctor,
     getDoctorInfo,

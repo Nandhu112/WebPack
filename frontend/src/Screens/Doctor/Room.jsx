@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/react';
+import { Box, Button, Center } from '@chakra-ui/react';
 import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
@@ -33,9 +33,12 @@ console.log(kitToken,'lllllllllllllllllll')
   })
 }
   return (
-    <div ref={myMeeting}>
+
+      <Box  ref={myMeeting}>
+
+      </Box>
+   
   
-    </div>
   )
 }
 

@@ -18,7 +18,9 @@ import{getPatientInfo}from "../controllers/patientController.js"
 
 import {addNewRecord,findPatientRecord,deleteRecord} from "../controllers/recordController.js"
 
-import{addNewRecordtoHistory,doctorGetAppointmentStatus} from "../controllers/historyController.js"
+import{addNewRecordtoHistory,doctorGetAppointmentStatus,getPatientHistory} from "../controllers/historyController.js"
+import {listDoctorAppointments,doctorSlotBlock} from "../controllers/appointmentController.js"
+import {newNotification,prescriptionNotification} from "../controllers/notificationController.js"
 
 router.post('/',authDoctor)
 router.post('/verification', verificationDoctor)
@@ -33,6 +35,11 @@ router.post('/addNewRecord', addNewRecord)
 router.put('/deleteRecord', deleteRecord)
 router.post('/addtoHistory', addNewRecordtoHistory)
 router.get('/getAppointmentStatus', doctorGetAppointmentStatus)
+router.post('/listDoctorAppointments',listDoctorAppointments)
+router.post('/blockSlot',doctorSlotBlock)
+router.post('/sendNotification',newNotification)
+router.post('/sendPrescriptionNotification',prescriptionNotification)
+router.get('/getPatientHistory',getPatientHistory)    
 
 
 

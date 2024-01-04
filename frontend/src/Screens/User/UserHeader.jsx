@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { LinkContainer } from "react-router-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../../slices/userApiSlice";
 import { logout } from "../../slices/userAuthslice";
 // import { adminLogout } from "../slices/adminAuthSlice";
 import { useNavigate } from "react-router-dom";
+import { useSocket } from '../../Provider/socketProvider';
+import Notification from './Notification';
 
 'use client'
 
@@ -32,7 +34,13 @@ import {
     MenuItem,
     MenuDivider,
     AspectRatio,
-    Image
+    Image,
+    Drawer,
+    DrawerBody,
+    DrawerCloseButton,
+    DrawerContent,
+    DrawerHeader,
+    DrawerOverlay,
 
 
 } from '@chakra-ui/react'
@@ -53,17 +61,42 @@ import {
     ChevronDownIcon,
     ChevronRightIcon,
 } from '@chakra-ui/icons'
+import { useGetNotificationQuery } from "../../slices/userApiSlice"
+import { useEffect } from 'react';
+import UserProfilePage from './UserProfilePage';
 
-
-
-function UserHeader() {
+function UserHeader({setShowPrescription,setAppointmentId}) {
+    const { socket, socketConnected } = useSocket();
     const { isOpen, onToggle } = useDisclosure()
     const { userInfo } = useSelector((state) => state.auth);
+    const [notificationOpen, setNotificationOpen] = useState(false)
+    const [openProfile, setOpenProfile] = useState(false)
+   
     // const { adminInfo } = useSelector((state) => state.adminAuth);
+    const { data: notifications, refetch: refetchNotification } = useGetNotificationQuery({ _id: userInfo?._id })
+   
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [logoutApiCall] = useLogoutMutation();
+
+    useEffect(() => {
+        if (socket && userInfo && userInfo?._id) {
+
+            socket.emit("setup", userInfo?._id);
+        }
+    }, [socket, userInfo]);
+
+    useEffect(() => {
+        console.log('chkk use eff22')
+        socket?.on("notificationRecieved", () => {
+            console.log("notificationRecieved112");
+            refetchNotification()
+            setNotificationOpen(true)
+
+        });
+    }, [socket])
+
 
     const logoutHandler = async () => {
         try {
@@ -74,8 +107,18 @@ function UserHeader() {
             console.error(err);
         }
     };
+
+    const profileHandler=()=>{
+        console.log("profileHandler")
+        setOpenProfile(true)
+
+    }
+    const fun=()=>{
+        setOpenProfile(false)
+    }
+
     return (
-        <Box>
+        <Box top={"0%"} zIndex={"10"}>
             <Flex
                 bg={useColorModeValue('white', 'gray.800')}
                 color={useColorModeValue('gray.600', 'white')}
@@ -98,8 +141,8 @@ function UserHeader() {
                     />
                 </Flex>
                 <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-           
-<Image maxW='8' src="https://cdn.healthtechalpha.com/static/startup_data_images/112166.png" alt='naruto' objectFit='cover' />
+
+                    <Image maxW='8' src="https://cdn.healthtechalpha.com/static/startup_data_images/112166.png" alt='naruto' objectFit='cover' />
 
 
                     <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
@@ -114,7 +157,8 @@ function UserHeader() {
                     spacing={6}>
                     {userInfo ?
                         <HStack spacing={{ base: '0', md: '6' }}>
-                            <IconButton size="lg" variant="ghost" aria-label="open menu" icon={<FiBell />} />
+                            <Notification notificationOpen={notificationOpen} notifications={notifications} setNotificationOpen={setNotificationOpen}
+                             setShowPrescription={setShowPrescription} setAppointmentId={setAppointmentId} refetchNotification={refetchNotification} />
                             <Flex alignItems="center">
                                 <Menu>
                                     <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: 'none' }}>
@@ -134,8 +178,7 @@ function UserHeader() {
                                         </HStack>
                                     </MenuButton>
                                     <MenuList bg="white" borderColor="gray.200">
-                                        <MenuItem>Profile</MenuItem>
-                                        <MenuItem>Settings</MenuItem>
+                                        <MenuItem onClick={profileHandler}>Profile</MenuItem>
                                         <MenuDivider />
                                         <MenuItem onClick={logoutHandler}  >Sign out</MenuItem>
                                     </MenuList>
@@ -149,6 +192,25 @@ function UserHeader() {
             <Collapse in={isOpen} animateOpacity>
                 <MobileNav />
             </Collapse>
+
+            <>
+      {openProfile && (
+        <Drawer isOpen={openProfile} placement="left" onClose={fun} size="lg">
+          <DrawerOverlay>
+            <DrawerContent>
+              <DrawerCloseButton />
+              <DrawerHeader> Patient History</DrawerHeader>
+              <DrawerBody>
+                {/* Replace this with your UserProfile component */}
+                <Box mt="20">
+                <UserProfilePage  />
+                </Box>
+              </DrawerBody>
+            </DrawerContent>
+          </DrawerOverlay>
+        </Drawer>
+      )}
+    </>
         </Box>
     )
 }

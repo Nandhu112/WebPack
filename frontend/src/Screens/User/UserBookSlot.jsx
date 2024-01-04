@@ -22,11 +22,11 @@ import {
 
 import { useToast } from '@chakra-ui/react'
 import { useSelector } from "react-redux";
-import { useListAllMembersQuery} from "../../slices/userApiSlice.js"
+import { useListAllMembersQuery } from "../../slices/userApiSlice.js"
 import { useUsermakeAppointmentMutation, useShowDoctorAppointmentMutation } from "../../slices/userApiSlice"
+import Payment from './Payment.jsx';
 
-
-const UserBookSlot = ({item}) => {
+const UserBookSlot = ({ item }) => {
     const { userInfo } = useSelector((state) => state.auth)
     const [isOpen, setIsOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -34,14 +34,15 @@ const UserBookSlot = ({item}) => {
     const [time, setTime] = useState('')
     const [selectedSlot, setSelectedSlot] = useState('');
     const [check, setcheck] = useState()
-    const [patient,setPatient]=useState()
-    const [consultation,setConsultation]=useState()
+    const [patient, setPatient] = useState()
+    const [consultation, setConsultation] = useState()
     const [errors, setErrors] = useState({});
+    const [pamentComponent, setPamentComponent] = useState(false)
 
     const [makeAppointment] = useUsermakeAppointmentMutation();
     const [showAppointment] = useShowDoctorAppointmentMutation();
 
-    const { data: members, isLoading, refetch } = useListAllMembersQuery({_id:userInfo._id})
+    const { data: members, isLoading, refetch } = useListAllMembersQuery({ _id: userInfo._id })
 
     const validateFields = () => {
         const newErrors = {};
@@ -80,11 +81,11 @@ const UserBookSlot = ({item}) => {
         forDate();
     }, []);
 
-    const handlePatient=(e)=>{
+    const handlePatient = (e) => {
         setPatient(e.target.value)
-        console.log(patient,'patient')
+        console.log(patient, 'patient')
     }
-    const handleConsultation=(e)=>{
+    const handleConsultation = (e) => {
         console.log(e.target.value)
         setConsultation(e.target.value)
     }
@@ -100,7 +101,7 @@ const UserBookSlot = ({item}) => {
                 outDate = today
             }
             console.log(today, "time")
-            const res = await showAppointment({ date: outDate,_id:item._id  }); // Assuming `time` is defined
+            const res = await showAppointment({ date: outDate, _id: item._id }); // Assuming `time` is defined
             setcheck(res)
             console.log(check, 'appointments');
         } catch (error) {
@@ -110,7 +111,7 @@ const UserBookSlot = ({item}) => {
 
     const forDate2 = async (event) => {
         await setDate(event.target.value)
-        const res = await showAppointment({ date: event.target.value,_id:item._id }); // Assuming `time` is defined
+        const res = await showAppointment({ date: event.target.value, _id: item._id }); // Assuming `time` is defined
         setcheck(res)
         console.log(check, 'appointmentsss');
     }
@@ -138,10 +139,11 @@ const UserBookSlot = ({item}) => {
 
         const isValid = validateFields();
 
-        if(isValid){
-            console.log(item,"chk handleSubmit");
+        if (isValid) {
+            console.log(item, "chk handleSubmit");
             const slot = [date, time]
-            const res = await makeAppointment({ slot,dId:item._id,pId:patient,method:consultation,hospital:item.hospitalId,department:item.departmentId}).unwrap();
+            const res = await makeAppointment({ slot, dId: item._id, pId: patient, method: consultation,
+                 hospital: item.hospitalId, department: item.departmentId,user:userInfo._id }).unwrap();
             console.log(res, 'res')
             toast({
                 title: 'Appointment Booked.',
@@ -151,12 +153,15 @@ const UserBookSlot = ({item}) => {
                 isClosable: true,
             })
             handleClose()
-    
+
         }
-
-     
     }
-
+    const paymentHandler=async()=>{
+         const validateField = await validateFields()
+         if(validateField){
+            setPamentComponent(true)
+         }
+    }
     return (
         <>
             <Button mt='5' mb='5' colorScheme='blue' marginLeft="auto" onClick={handleOpen} >Book Appointment</Button>
@@ -179,24 +184,24 @@ const UserBookSlot = ({item}) => {
                         </FormControl>
 
                         {/* Calendar to select date */}
-                        <FormControl pt="5"  isInvalid={!!errors.name}>
+                        <FormControl pt="5" isInvalid={!!errors.name}>
                             <FormLabel>Patient Name</FormLabel>
                             <Select placeholder="Select patient" onChange={handlePatient} >
                                 {/* Populate with doctor names */}
-                                {members && members.map((item,index) =>
-                                <option value={item._id}>{item.name}</option>
-                                    )}
+                                {members && members.map((item, index) =>
+                                    <option value={item._id}>{item.name}</option>
+                                )}
                                 {/* Add more doctors */}
                             </Select>
                             <FormErrorMessage>{errors.name}</FormErrorMessage>
                         </FormControl>
 
-                        <FormControl pt="5" mb='10'  isInvalid={!!errors.consultation}>
+                        <FormControl pt="5" mb='10' isInvalid={!!errors.consultation}>
                             <FormLabel>Consultation type</FormLabel>
-                            <Select  placeholder="Select method" onChange={handleConsultation} >      
+                            <Select placeholder="Select method" onChange={handleConsultation} >
                                 <option value="offline">Offline consultation </option>
                                 <option value='online'>Online consultation</option>
-                                
+
                                 {/* Add more doctors */}
                             </Select>
                             <FormErrorMessage>{errors.consultation}</FormErrorMessage>
@@ -206,16 +211,16 @@ const UserBookSlot = ({item}) => {
                         <VStack mt={4} spacing={4}>
 
                             <HStack>
-                                
-                                    { check?.data &&
+
+                                {check?.data &&
                                     morningSlots.map((slot, index) => (
                                         <Box
                                             key={index}
                                             borderWidth="1px"
-                                            borderColor={selectedSlot === slot || check?.data.find((item)=> item==slot) ? 'red' : 'green'}
+                                            borderColor={selectedSlot === slot || check?.data.find((item) => item == slot) ? 'red' : 'green'}
                                             // borderColor={selectedSlot === slot  ? 'red' : 'green'}
                                             p={2}
-                                            color={selectedSlot === slot || check?.data.find((item)=> item==slot) ? 'red' : 'green'}
+                                            color={selectedSlot === slot || check?.data.find((item) => item == slot) ? 'red' : 'green'}
                                             // color={selectedSlot === slot  ? 'red' : 'green'}
                                             cursor="pointer"
                                             onClick={() => handleSlotClick(slot)}
@@ -224,36 +229,46 @@ const UserBookSlot = ({item}) => {
                                         </Box>
                                     ))
                                 }
-                                
+
                             </HStack>
                             <HStack>
                                 {check?.data &&
-                                afternoonSlots.map((slot, index) => (
-                                    <Box
-                                        key={index}
-                                        borderWidth="1px"
-                                        borderColor={selectedSlot === slot || check?.data.find((item)=> item==slot) ? 'red' : 'green'}
-                                        // borderColor={selectedSlot === slot  ? 'red' : 'green'}
-                                        p={2}
-                                        color={selectedSlot === slot || check?.data.find((item)=> item==slot) ? 'red' : 'green'}
-                                        // color={selectedSlot === slot  ? 'red' : 'green'}
-                                        cursor="pointer"
-                                        onClick={() => handleSlotClick(slot)}
-                                    >
-                                        {slot}
-                                    </Box>
-                                ))}
+                                    afternoonSlots.map((slot, index) => (
+                                        <Box
+                                            key={index}
+                                            borderWidth="1px"
+                                            borderColor={selectedSlot === slot || check?.data.find((item) => item == slot) ? 'red' : 'green'}
+                                            // borderColor={selectedSlot === slot  ? 'red' : 'green'}
+                                            p={2}
+                                            color={selectedSlot === slot || check?.data.find((item) => item == slot) ? 'red' : 'green'}
+                                            // color={selectedSlot === slot  ? 'red' : 'green'}
+                                            cursor="pointer"
+                                            onClick={() => handleSlotClick(slot)}
+                                        >
+                                            {slot}
+                                        </Box>
+                                    ))}
                             </HStack>
                         </VStack>
                     </ModalBody>
-
+                    <Box mt="5">
+                        {pamentComponent?<Payment handleSubmit={handleSubmit} />:null}
+                    </Box>
                     <ModalFooter>
-                        <Button colorScheme="blue" mr={3} onClick={handleClose}>
+
+                       {pamentComponent?null :<Button colorScheme="blue" mr={3} onClick={handleClose}>
                             Close
-                        </Button>
-                        <Button onClick={handleSubmit} colorScheme="green">Book</Button>
+                        </Button>}
+                      {pamentComponent? <Button colorScheme="blue" mr={3} onClick={()=>setPamentComponent(false)} >
+                            cancel
+                        </Button>:null}
+                        {/* <Button onClick={handleSubmit} colorScheme="green">Book</Button> */}
+                      {pamentComponent?null :  <Button onClick={()=>paymentHandler()} colorScheme="green">Book</Button>}
+
                     </ModalFooter>
                 </ModalContent>
+
+
             </Modal>
         </>
     );

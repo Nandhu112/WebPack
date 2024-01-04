@@ -7,7 +7,7 @@ const listUsers = async (status,res) => {
         const status1 = status == "blocked"
         console.log(status1,'sta');
         const users = await User.find({ Admin: false, isBlock: status1 });
-        console.log(users,'users')
+        console.log(users,'users')       
         return (users)
     } catch (error) {
         console.log(error,'error');
@@ -44,8 +44,8 @@ const unBlockUnUsers = async (_id, res) => {
 const findNearbyHospitals = async ( target,latitude,longitude,) => {
     console.log(target,'target........')
     if(target==='all'){
-        console.log()
         const hospitals= await  userListAllHospital()
+        console.log(hospitals,"hospitals.....")
         return hospitals;
     }
     console.log(target,longitude, latitude,'findNearbyHospitals');

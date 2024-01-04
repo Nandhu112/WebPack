@@ -8,7 +8,7 @@ import {addDoctor,hospitalListDoctors} from "../controllers/doctorController.js"
 const router = express.Router()
 import {
     authHospital,
-    registerHospital,
+    registerHospital,    
     logoutHospital,
     getHospitalProfile,
     hospitalVerifyMail,
@@ -17,6 +17,8 @@ import {
     updateProfilePic,
     checkHospitalBlocked
 } from "../controllers/hospitalController.js";   
+import {addNewMessage,hospitalListAllChats,hospitalListAllMessages} from "../controllers/chatController.js"
+import {HospitalGetDepartmentHistory,HospitalGetDoctorHistory,hospitalGetBoxsData} from "../controllers/dashboardController.js"
 
 router.post('/', registerHospital)
 router.get('/hospitalVerify/:token', hospitalVerifyMail);
@@ -30,7 +32,14 @@ router.get('/listHospitalDepartments',protect,listHospitalDepartments)
 router.post('/addDoctor',protect,addDoctor)     
 router.get('/hospitalListDoctor',protect,hospitalListDoctors)     
 router.post('/adminVeriftHospital',protect,adminverifyHospital)     
-router.get('/getHospitalInfo',protect,hospitalGetHospitalinfo)         
+router.get('/getHospitalInfo',protect,hospitalGetHospitalinfo)  
+router.post('/addMessage',protect,addNewMessage)    
+router.get('/listChat',protect,hospitalListAllChats)  
+router.get('/listmessage',protect,hospitalListAllMessages)  
+router.get('/HospitalGetDepartmentHistory',HospitalGetDepartmentHistory)  
+router.get('/HospitalGetDoctorHistory',HospitalGetDoctorHistory)  
+router.get('/hospitalGetBoxsData',hospitalGetBoxsData)  
+
 router.post('/updateProfilePic',protect,updateProfilePic)     
 // router.put(
 //         "/profile-updateImage",

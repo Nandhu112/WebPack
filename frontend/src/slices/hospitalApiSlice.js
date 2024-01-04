@@ -84,6 +84,36 @@ export const userApiSlice = apiSlice.injectEndpoints({
           body: data,
         }),
       }),
+      hospitalListChat: builder.query({
+        query: ({_id}) => ({
+          url: `${USERS_URL}/listChat?hospitalId=${_id}`,
+          method: 'GET',      
+        }),
+      }),
+      hospitalListMessage: builder.query({
+        query: ({_id}) => ({
+          url: `${USERS_URL}/listmessage?roomId=${_id}`,
+          method: 'GET',      
+        }),
+      }),
+      HospitalGetDepartmentHistory: builder.query({
+        query: ({_id}) => ({
+          url: `${USERS_URL}/HospitalGetDepartmentHistory?_id=${_id}`,
+          method: 'GET',      
+        }),
+      }),
+      HospitalGetDoctorHistory: builder.query({
+        query: ({_id}) => ({
+          url: `${USERS_URL}/HospitalGetDoctorHistory?_id=${_id}`,
+          method: 'GET',      
+        }),
+      }),
+      hospitalGetBoxsData: builder.query({
+        query: ({_id}) => ({
+          url: `${USERS_URL}/hospitalGetBoxsData?_id=${_id}`,
+          method: 'GET',      
+        }),
+      }),
     })
   });
 
@@ -100,7 +130,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
     useAdminVerifyHospitalMutation,
     useGetHospitalInfoQuery,
     useUpdateProfilePicMutation,
-    useCheckHospitalBlockQuery
+    useCheckHospitalBlockQuery,
+    useHospitalListChatQuery,
+    useHospitalListMessageQuery,
+    useHospitalGetDepartmentHistoryQuery,
+    useHospitalGetDoctorHistoryQuery,
+    useHospitalGetBoxsDataQuery
+
 
   
   } = userApiSlice;

@@ -14,6 +14,7 @@ import {
   Text,
   Avatar,
 } from '@chakra-ui/react';
+import DoctorRating from './Rating/DoctorRating';
 
 import UserBookSlot from './UserBookSlot';
 
@@ -31,6 +32,7 @@ function ViewDoctorProfile({item}) {
       <DrawerContent>
         <DrawerHeader>Doctor's Profile</DrawerHeader>
         <DrawerBody>
+          
           <Box p={4} maxW="600px" bg="white" borderRadius="lg" boxShadow="md">
             <Grid templateColumns="1fr 2fr" gap={8}>
               {/* Avatar */}

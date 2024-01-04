@@ -119,6 +119,24 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    adminGetDeptDash: builder.query({
+      query: (data) => ({
+        url: `${ADMIN_URL}/adminGetDeptDashboard`,
+        method: 'GET',      
+      }),
+    }),
+    adminGetDeptDashboardBoxs: builder.query({
+      query: (data) => ({
+        url: `${ADMIN_URL}/adminGetDeptDashboardBoxs`,
+        method: 'GET',      
+      }),
+    }),
+    adminGethospitalHistoryCount: builder.query({
+      query: (data) => ({
+        url: `${ADMIN_URL}/adminGethospitalHistoryCount`,
+        method: 'GET',      
+      }),
+    }),
   }),
 });
 
@@ -141,6 +159,9 @@ export const {
   useBlockDepartmentMutation,
   useUnBlockDepartmentMutation,
   useAdminGetVerificationQuery,
-  useAdminVerifyHospitalsMutation
+  useAdminVerifyHospitalsMutation,
+  useAdminGetDeptDashQuery,
+  useAdminGetDeptDashboardBoxsQuery,
+  useAdminGethospitalHistoryCountQuery
   
 } = userApiSlice;

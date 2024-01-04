@@ -1,20 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Outlet,useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import UserHeader from './Screens/User/UserHeader';
 import HospitaHeader from './Screens/Hospital/HospitaHeader';
 import AdminHeader from './Screens/Admin/AdminHeader';
 import Footer from './Components/footer';
 import HeaderDoctor from './Screens/Doctor/HeaderDoctor';
-import LandingPage from './Screens/Landing/LandingPage';
-import verifyPage from './Screens/Admin/verifyPage';
-import UserBookSlot from './Screens/User/UserBookSlot';
-
-import AppointmentModal from './Screens/User/UserBookSlot'
-
-
-
+import UserProfile from './Screens/User/MdbProfile';
+import { SocketProvider } from './Provider/socketProvider';
+import { Modal, Box, ModalOverlay, ModalContent, Button } from '@chakra-ui/react';
+import { useGetPatientHistoryByAppointmentQuery } from "./slices/userApiSlice"
+import DoctorRating from './Screens/User/Rating/DoctorRating';
+import HospitalRating from './Screens/User/Rating/HospitalRatming';
+import ChatAccordion from './Screens/User/Chat/ChatAccordion';
 const App = () => {
 
   const location = useLocation();
@@ -23,30 +22,70 @@ const App = () => {
   const isHospitalPage = location.pathname.startsWith("/hospital");
   const isdoctorPage = location.pathname.startsWith("/doctor");
   const isuserPage = location.pathname.startsWith("/");
-
-
+  const [showPrescription, setShowPrescription] = useState(false)
+  const [appointmentId, setAppointmentId] = useState("")
+  const [showDoctorRating, setShowDoctorRating] = useState(false)
+  const [shiwHospitalRating, setShiwHospitalRating] = useState(false)
+  const { data: patientHistory, refetch: refetchPatientHistory } = useGetPatientHistoryByAppointmentQuery({ appointmentId })
+  const [doctorId, setDoctorId] = useState("")
+  const [hospitalId, setHospitalId] = useState("")
 
   let header;
   let outlet
-if(isAdminPage){
-  header=<AdminHeader/>
-}else if(isHospitalPage){
-  header=<HospitaHeader/>
-}else if(isdoctorPage){
-  header=<HeaderDoctor/>
-}else if(isuserPage){
-  outlet=<Outlet />
-  header=<UserHeader/>
-}
+  let footer
+  let chat
+  if (isAdminPage) {
+    header = <AdminHeader />
+  } else if (isHospitalPage) {
+    header = <HospitaHeader />
+  } else if (isdoctorPage) {
+    header = <HeaderDoctor />
+  } else if (isuserPage) {
+    outlet = <Outlet />
+    header = <UserHeader setShowPrescription={setShowPrescription} setAppointmentId={setAppointmentId}
 
+    />
+   chat = <Box maxW="220" position="sticky" bottom="10px">
+      <ChatAccordion />
+    </Box>
+    footer = <Footer />
+  }
+
+  const handleClose = () => {
+    setDoctorId(patientHistory ? patientHistory[0].doctor : null)
+    setHospitalId(patientHistory ? patientHistory[0].hospitalId : null)
+    setShowPrescription(false)
+    setShowDoctorRating(true)
+  }
 
   return (
     <div>
-      {header}
-      <ToastContainer />
+      {/* <Box w="100%" pos={"fixed"} zIndex={"5"}> */}
+      <SocketProvider>
+        {header}
+
+        {showPrescription ? <Modal isOpen={true} onClose={() => { }} size="xl" >
+          <ModalOverlay />
+          <ModalContent minH="200" >
+            <Box mt="15" mb="10" >
+              <UserProfile patientHistory={patientHistory} />
+
+              <Button borderRadius="0" mt="20" minW="100%" colorScheme='blue' onClick={handleClose}>Close</Button>
+            </Box>
+          </ModalContent>
+
+        </Modal> : null}
+        {/* </Box> */}
+
+        {showDoctorRating ? <DoctorRating setShowDoctorRating={setShowDoctorRating} setShiwHospitalRating={setShiwHospitalRating} doctorId={doctorId} /> : null}
+
+        {shiwHospitalRating ? <HospitalRating setShiwHospitalRating={setShiwHospitalRating} /> : null}
+
+        <ToastContainer />
         {outlet}
-        <Footer/>
-   
+        {chat}
+        {footer}
+      </SocketProvider>
     </div>
 
   )

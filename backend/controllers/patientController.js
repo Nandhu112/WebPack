@@ -18,7 +18,7 @@ const addNewPatient = asyncHandler(async (req, res) => {
   const getPatientInfo = asyncHandler(async (req, res) => { 
     let token
     token= req.cookies.jwt  
-    console.log(token,'token.......')
+
     const {_id } = req.query;
     const result = await getUserPatientInfo(_id,res);
     res.json(result); // Send the result back to the client

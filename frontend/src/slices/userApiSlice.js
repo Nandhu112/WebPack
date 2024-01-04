@@ -94,6 +94,54 @@ export const userApiSlice = apiSlice.injectEndpoints({
           body: data,
         }),
       }),
+      getPatientHistory: builder.query({
+        query: ({_id}) => ({
+          url: `${USERS_URL}/getPatientHistory?patientId=${_id}`,
+          method: 'GET',      
+        }),
+      }),
+      userListChat: builder.query({
+        query: ({_id}) => ({
+          url: `${USERS_URL}/listChat?userId=${_id}`,
+          method: 'GET',      
+        }),
+      }),
+      userListMessage: builder.query({
+        query: ({_id}) => ({
+          url: `${USERS_URL}/listmessage?roomId=${_id}`,
+          method: 'GET',      
+        }),
+      }),
+      getNotification: builder.query({
+        query: ({_id}) => ({
+          url: `${USERS_URL}/getNotification?roomId=${_id}`,
+          method: 'GET',      
+        }),
+      }),
+      userDirectListMessage: builder.query({
+        query: ({uId,hId}) => ({
+          url: `${USERS_URL}/directListMessage?uId=${uId}&hId=${hId}`,
+          method: 'GET',      
+        }),
+      }),
+      getHospitalsRatingInfo: builder.query({
+        query: (data) => ({
+          url: `${USERS_URL}/getHospitalsRatingInfo`,
+          method: 'GET',      
+        }),
+      }),
+      getDoctorsRatingInfo: builder.query({
+        query: (data) => ({
+          url: `${USERS_URL}/getDoctorsRatingInfo`,
+          method: 'GET',      
+        }),
+      }),
+      getPatientHistoryByAppointment: builder.query({
+        query: ({appointmentId}) => ({
+          url: `${USERS_URL}/getPatientHistoryByAppointment?appointmentId=${appointmentId}`,
+          method: 'GET',      
+        }),
+      }),
     }),
   });
   
@@ -111,6 +159,14 @@ export const userApiSlice = apiSlice.injectEndpoints({
     useChekUserBlockedQuery,
     useUserListHospitalDepartmentsQuery,
     useUserListHospitalDoctorsQuery,
-    useUpdatePatienProfilePicMutation
+    useUpdatePatienProfilePicMutation,
+    useGetPatientHistoryQuery,
+    useUserListChatQuery,
+    useUserListMessageQuery,
+    useGetNotificationQuery,
+    useUserDirectListMessageQuery,
+    useGetHospitalsRatingInfoQuery,
+    useGetDoctorsRatingInfoQuery,
+    useGetPatientHistoryByAppointmentQuery
   
   } = userApiSlice;

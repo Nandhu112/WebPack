@@ -58,10 +58,10 @@ const hospitalSchema=mongoose.Schema({
         type:Array,
           
     },
-    history:{
-        type:Array,
+    // history:{
+    //     type:Array,
   
-    },
+    // },
       isBlock:{
         type:Boolean,
         default:false

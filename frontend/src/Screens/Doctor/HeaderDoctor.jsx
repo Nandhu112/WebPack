@@ -45,7 +45,6 @@ const LinkItems = [
 
 function HeaderDoctor() {
     const { isOpen, onOpen, onClose } = useDisclosure()
-  
 
   return (
     <div>

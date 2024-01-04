@@ -6,6 +6,10 @@ const appointmentSchema=mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Doctor' 
     },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User' 
+    },
     hospital: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Hospital' 
@@ -24,6 +28,13 @@ const appointmentSchema=mongoose.Schema({
         type:String,
         default:'Pending'
       },
+    doctorBlockSlot:{
+        type:Boolean,
+        default:false  
+    },
+    doctorSlots:{
+        type:Array
+    },
     patient:{
         type:mongoose.Schema.Types.ObjectId, 
         ref: 'Patient'  

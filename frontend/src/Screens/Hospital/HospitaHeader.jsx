@@ -35,6 +35,9 @@ import { hospitalLogout } from "../../slices/hospitalAuthSlice";
 import { adminLogout } from "../../slices/adminAuthSlice";
 // import { adminLogout } from "../slices/adminAuthSlice";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from 'react';
+import { useSocket } from '../../Provider/socketProvider';
+import { SocketProvider } from '../../Provider/socketProvider';
 
 const LinkItems = [
   { name: 'Home',href: '/hospital', icon: FiHome },
@@ -43,6 +46,8 @@ const LinkItems = [
   { name: 'Schedule',icon: FiStar },
   { name: 'History',icon: FiSettings },
   { name: 'Profile',href: '/hospital/profile',icon: FiSettings },
+  { name: 'Messages',href: '/hospital/chat',icon: FiSettings },
+  
 ];
 
 
@@ -50,7 +55,7 @@ function HospitaHeader() {
     const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <div>
-    <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+    <Box minH="100vh" >
    <SidebarContent onClose={() => onClose} display={{ base: 'none', md: 'block' }} />
    <Drawer
      isOpen={isOpen}
@@ -66,7 +71,10 @@ function HospitaHeader() {
    {/* mobilenav */}
    <MobileNav onOpen={onOpen} />
    <Box ml={{ base: 0, md: 60 }} p="4">
+
      <Outlet/>
+
+
    </Box>
  </Box>
  </div>
@@ -146,13 +154,20 @@ const SidebarContent = ({ onClose, ...rest }) => {
   import { Outlet } from 'react-router-dom';
     
     const MobileNav = ({ onOpen, ...rest }) => {
-
+      const { socket, socketConnected } = useSocket();
       const {hospitalInfo}= useSelector((state)=>state.hospitalAuth)
       const { data: getHospital,isLoading, refetch } = useGetHospitalInfoQuery({_id: hospitalInfo?._id })
 
       const [hospitalLogoutApiCall] = useHospitalLogoutMutation();
       const dispatch = useDispatch();
       const navigate = useNavigate();
+
+      useEffect(() => {
+        if (socket && hospitalInfo && hospitalInfo._id) {
+            console.log('chkk use eff')
+            socket.emit("setup",hospitalInfo._id);
+        }
+    }, [socket, hospitalInfo]);
   
       const hospitaLogoutHandler = async () => {
         console.log('chk hospital logout');
@@ -196,6 +211,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
           </Text>
     
           <HStack spacing={{ base: '0', md: '6' }}>
+          <IconButton size="lg" variant="ghost" aria-label="open menu" icon={<FiBell />} />
             <Flex alignItems="center">
               <Menu>
                 <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: 'none' }}>

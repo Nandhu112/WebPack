@@ -15,6 +15,9 @@ import FindHospital from './Screens/User/FindHospital.jsx'
 import Signups from './Screens/User/Signups.jsx'
 import Login from './Screens/User/UserLogin.jsx'
 import ViewHospital from './Screens/User/ViewHospital.jsx'
+import Chat from './Screens/User/Chat.jsx'
+import Payment from './Screens/User/Payment.jsx'
+import UserCatbox from './Screens/User/Chat/UserCatbox.jsx'
 
 //Hospital
 import PrivateRouteHospital from './Components/PrivateRouteHospital.jsx'
@@ -24,6 +27,8 @@ import HospialLogin from './Screens/Hospital/HospitalLogin.jsx'
 import ListDoctorHospital from './Screens/Hospital/ListDoctorHospital.jsx'
 import HospitalDash from './Screens/Hospital/HospitalHome/HospitalDash.jsx'
 import ProfileHospital from './Screens/Hospital/ProfileHospital.jsx'
+// import HositalChat from './Screens/Hospital/HospitalChat.jsx'
+import HospitalChat from './Screens/Hospital/Chat/HospitalChat.jsx'
 
 //Admin
 import PrivateRouteAdmin from './Components/PrivateRouteAdmin.jsx'
@@ -58,6 +63,9 @@ const router = createBrowserRouter(
           <Route index={true} path="/" element={<UserHome />} />
           <Route path="/findHospital" element={<FindHospital />} />
           <Route path="/viewHospital" element={<ViewHospital />} />
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/userChat" element={<UserCatbox />} />
+          <Route path="/payment" element={<Payment />} />
         </Route>
       </Route>
       <Route path="/hospital/hospitalLogin" element={<HospialLogin />} />
@@ -68,6 +76,7 @@ const router = createBrowserRouter(
           <Route path="/hospital/listDoctor" element={<ListDoctorHospital />} />
           <Route path="/hospital/dashboard" element={<HospitalDash />} />
           <Route path="/hospital/profile" element={<ProfileHospital />} />
+          <Route path="/hospital/chat" element={<HospitalChat />} />
           {/* <Route path="/hospital/create-user" element={<AdminCreateUser />} /> */}
           {/* <Route path="/hospital/edit-user/:user" element={<AdminEditUser />} /> */}
         </Route>
@@ -86,10 +95,11 @@ const router = createBrowserRouter(
         </Route>
       </Route>
       <Route path="/doctor/doctorLogin" element={<DoctorLogin/>} />
+            <Route path="/doctor/room/:roomId" element={<Room/>} />
       <Route path="/doctor" element={<App doctor={true} />}>
         <Route path="" element={<PrivateRouteDoctor />}>
         <Route path="/doctor/" element={<DoctorProfile/>} />
-        <Route path="/doctor/room/:roomId" element={<Room/>} />
+        {/* <Route path="/doctor/room/:roomId" element={<Room/>} /> */}
         <Route path="/doctor/schedule" element={<ListScheduleDoctor/>} />
 
         </Route>

@@ -58,7 +58,6 @@ const addNewDoctor = async (name, email, hospitalId, department, password,title,
           verification:doctor.verification,
           // doctorInfo:doctor
         }
-        console.log(data,"dataa....")
         return (data)
       
   
@@ -135,7 +134,7 @@ const HospitalListAllDoctors = async (_id,department, res) => {
         doctors = await Doctor.find({hospital:_id,department:department}).populate('department').populate('hospital');
       }
     
-      console.log(doctors, "chkkk doccccccccccc")
+    
       for(let i=0;i<doctors.length;i++){
         let temp={
           _id:doctors[i]._id,
@@ -180,18 +179,17 @@ const checkIsDoctorBlocked = async (_id,res) => {
   }    
 };
 
-const lListAllDoctorAppointments = async (_id,status,res) => {
+const listAllDoctorAppointments = async (_id,status,res) => {
   let data=[]
   console.log('staaaaa ');
   let appointments  
   try {
     if(status==="all"){
-    appointments = await Appointment.find({doctor:_id}).populate('patient').sort({ date: 1, time: 1 });
+    appointments = await Appointment.find({doctor:_id,doctorBlockSlot:false}).populate('patient').sort({ date: 1, time: 1 });
     }
     else{
-      appointments = await Appointment.find({doctor:_id,status:status}).populate('patient').sort({ date: 1, time: 1 });
+      appointments = await Appointment.find({doctor:_id,status:status,doctorBlockSlot:false}).populate('patient').sort({ date: 1, time: 1 });
     }
-    console.log(appointments,"appointments")
     for(let appointment of appointments ){   
       let temp={
         _id:appointment._id,
@@ -203,7 +201,8 @@ const lListAllDoctorAppointments = async (_id,status,res) => {
         date:appointment.date,
         time:appointment.time,
         method:appointment.method,
-        status:appointment.status
+        status:appointment.status,
+        user:appointment.user
       }
       // console.log(temp,'temp')
       data.push(temp)
@@ -227,6 +226,6 @@ export {
     unBlockDoctor,
     HospitalListAllDoctors,
     checkIsDoctorBlocked,
-    lListAllDoctorAppointments
+    listAllDoctorAppointments
   
  };   

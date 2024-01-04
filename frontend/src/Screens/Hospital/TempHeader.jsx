@@ -199,6 +199,10 @@ const NAV_ITEMS = [
         label: 'History',
         href: '/findHospital',
     },
+    {
+        label: 'Messages',
+        href: '/chat',
+    },
 ];
 
 

@@ -75,8 +75,8 @@ function DoctorProfile() {
             {/* Add more details as needed */}
           </VStack>
         </Box>
-        <Input onChange={(e) => setroomId(e.target.value)} placeholder='Basic usage' />
-        <Button colorScheme='blue' m="5" onClick={handleRoom}>Create Room</Button>
+        {/* <Input onChange={(e) => setroomId(e.target.value)} placeholder='Basic usage' />
+        <Button colorScheme='blue' m="5" onClick={handleRoom}>Create Room</Button> */}
         {fetchDoctorInfo?.verification ?null
         :<VerificationDoctor/>
             }

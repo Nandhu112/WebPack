@@ -15,6 +15,7 @@ import {
   useColorModeValue,
   FormErrorMessage
 } from '@chakra-ui/react'
+import { ToastContainer } from 'react-toastify';
 import { LinkContainer } from "react-router-bootstrap";
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -97,6 +98,7 @@ function signup() {
     align={'center'}
     justify={'center'}
     bg={useColorModeValue('gray.50', 'gray.800')}>
+    <ToastContainer />
     <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
       <Stack align={'center'}>
         <Heading fontSize={'4xl'}>Log in to your account</Heading>

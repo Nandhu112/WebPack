@@ -13,10 +13,10 @@ const departmentSchema=mongoose.Schema({
         type:Number,
         default:0    
     },
-    history:{
-        type:Number,
-        default:0    
-    },
+    // history:{
+    //     type:Number,
+    //     default:0    
+    // },
     isBlock:{
         type:Boolean,
         default:false

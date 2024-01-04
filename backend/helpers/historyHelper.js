@@ -46,7 +46,6 @@ const getAppointmentStatus = async (appointmentId, res) => {
     try {
         const history = await History.find({appointmentId:appointmentId});
         if(history){
-            console.log(history,".........")
             return history;
         }
         else{
@@ -58,7 +57,42 @@ const getAppointmentStatus = async (appointmentId, res) => {
     }
 }
 
+const patientGetHistory = async (patientId, res) => {
+    console.log(patientId,"patientGetHistory---------------------++++")   
+    try {
+        const history = await History.find({patient:patientId});
+        if(history){
+            return history;
+        }
+        else{
+            return {}
+        }
+       
+    } catch (error) {
+        return res.status(500).json({ error: "Internal server error" });
+    }
+}
+const patientGetHistoryByAppointment = async (appointmentId, res) => {
+    console.log(appointmentId,"appointmentId---------------------++++")   
+    try {
+        const history = await History.find({appointmentId:appointmentId});
+        if(history){
+            console.log(history,"history111---------------------++++")   
+            return history;
+        }
+        else{
+            console.log("history000---------------------++++")   
+            return {}
+        }
+       
+    } catch (error) {
+        return res.status(500).json({ error: "Internal server error" });
+    }
+}
+
 export{
     addRecord,
-    getAppointmentStatus
+    getAppointmentStatus,
+    patientGetHistory,
+    patientGetHistoryByAppointment
 }
