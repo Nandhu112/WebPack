@@ -6,6 +6,7 @@ const makeAppointment = asyncHandler(async (req, res) => {
   const { slot, dId, pId, method, hospital, department, user } = req.body;
   const result = await userMakeAppointment(slot, dId, pId, method, hospital, department, user, res);
   res.json(result); // Send the result back to the client
+  
 });
 
 const doctorSlotBlock = asyncHandler(async (req, res) => {
