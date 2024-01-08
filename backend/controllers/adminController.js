@@ -2,9 +2,7 @@ import asyncHandler from "express-async-handler"
 import User from "../models/userModel.js"
 import generateToken from "../utils/generateToken.js"
 
-import { getVerification, adminHospitalVerify } from "../helpers/adminHelper.js"    
-
-
+import { getVerification, adminHospitalVerify } from "../helpers/adminHelper.js"       
 
 // @dese Auth admin/set token
 // route POST/api/admin/auth
