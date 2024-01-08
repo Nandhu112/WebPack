@@ -1,18 +1,46 @@
 import asyncHandler from "express-async-handler"
 import User from "../models/userModel.js"
 import Hospital from "../models/hospitalModel.js";
+import Appointment from "../models/appointmentModel.js";
+import History from "../models/history.js";
+import Patient from "../models/patientModel.js";
 
-const listUsers = async (status,res) => {
+const listUsers = async (status, res) => {
+    console.log("chk user")
+    // try {
+    //     const status1 = status == "blocked"
+    //     const users = await User.find({ Admin: false, isBlock: status1 });
+    //     return (users)
+    // } catch (error) {
+    //     res.status(500).json({ error: "Internal server error" });
+    // }
+
     try {
-        const status1 = status == "blocked"
-        console.log(status1,'sta');
-        const users = await User.find({ Admin: false, isBlock: status1 });
-        console.log(users,'users')       
-        return (users)
-    } catch (error) {
-        console.log(error,'error');
-        res.status(500).json({ error: "Internal server error" });
-    }
+        console.log("chk dr.")
+        const status1 = status == "blocked";
+        const users = await User.find({ Admin: false, isBlock: status1 })
+        const userDataPromises = users.map(async (user) => {
+          const userId = user._id;
+          const appointmentCount = await Appointment.countDocuments({ user: userId });
+          const historyCount = appointmentCount
+          const patientCount = await Patient.countDocuments({ user: userId }); 
+     
+    
+          return {
+            userDetails: user,
+            appointmentCount,
+            historyCount,
+            patientCount
+          };
+        });
+    
+        const usersWithData = await Promise.all(userDataPromises);
+    
+        return usersWithData;
+      } catch (error) {
+        return { error: 'An error occurred while fetching departments data' };
+      }
+
 };
 
 const blockUsers = async (_id, res) => {
@@ -41,30 +69,25 @@ const unBlockUnUsers = async (_id, res) => {
     }
 };
 
-const findNearbyHospitals = async ( target,latitude,longitude,) => {
-    console.log(target,'target........')
-    if(target==='all'){
-        const hospitals= await  userListAllHospital()
-        console.log(hospitals,"hospitals.....")
+const findNearbyHospitals = async (target, latitude, longitude,) => {
+    if (target === 'all') {
+        const hospitals = await userListAllHospital()
         return hospitals;
     }
-    console.log(target,longitude, latitude,'findNearbyHospitals');
-    let hospitals=[]
-    const hospital= await Hospital.find({isBlock:false,adminVerification:true})
-    for(let i =0;i<hospital.length;i++){
+    let hospitals = []
+    const hospital = await Hospital.find({ isBlock: false, adminVerification: true })
+    for (let i = 0; i < hospital.length; i++) {
 
-    var distance = haversineDistance(latitude, longitude,hospital[i].latitude,hospital[i].longitude);
-    console.log(distance)
-    if(distance<target){
-        hospitals.push(hospital[i])    
+        var distance = haversineDistance(latitude, longitude, hospital[i].latitude, hospital[i].longitude);
+        if (distance < target) {
+            hospitals.push(hospital[i])
+        }
     }
-    }
-    console.log(hospitals)
     return hospitals;
-  };
+};
 
 
-  function haversineDistance(lat1, lon1, lat2, lon2) {
+function haversineDistance(lat1, lon1, lat2, lon2) {
     // Radius of the Earth in kilometers
     var R = 6371;
 
@@ -87,30 +110,28 @@ const findNearbyHospitals = async ( target,latitude,longitude,) => {
 
 const userListAllHospital = async (res) => {
     try {
-      console.log('userListAllHospitals');
-      const hospitals = await Hospital.find({isBlock:false,adminVerification:true});
-      return (hospitals)
+        const hospitals = await Hospital.find({ isBlock: false, adminVerification: true });
+        return (hospitals)
     } catch (error) {
-      res.status(500).json({ error: "Internal server error" });
-    }    
-  };
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
 
-  const checkisUserBlocked = async (_id,res) => {
+const checkisUserBlocked = async (_id, res) => {
     try {
-      console.log('userListAllHospitals');
-      const user = await User.findById({_id});
-      if(user){
-        if(user.isBlock){
-            return({Blocked:true})
+        const user = await User.findById({ _id });
+        if (user) {
+            if (user.isBlock) {
+                return ({ Blocked: true })
+            }
+            else {
+                return ({ Blocked: false })
+            }
         }
-        else{
-            return({Blocked:false})
-        }
-      }
     } catch (error) {
-      res.status(500).json({ error: "Internal server error" });
-    }    
-  };
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
 
 
 

@@ -1,9 +1,8 @@
 import History from "../models/history.js";
 import Appointment from "../models/appointmentModel.js";
 
-const addRecord = async (doctor, patient,testResults,medicationList,treatments,description,appointmentId,res) => {
+const addRecord = async (doctor, patient, testResults, medicationList, treatments, description, appointmentId, res) => {
     try {
-       console.log(doctor,"llllllllllllll")
         const historyEntry = await History.create({
             patient: patient._id,
             pName: patient.name,
@@ -25,12 +24,12 @@ const addRecord = async (doctor, patient,testResults,medicationList,treatments,d
             medicationList: medicationList,
             treatments: treatments,
             description: description,
-            appointmentId:appointmentId
+            appointmentId: appointmentId
         });
 
-        if(historyEntry){
-            const appointment=await Appointment.findById(appointmentId)
-            appointment.status="Completed"
+        if (historyEntry) {
+            const appointment = await Appointment.findById(appointmentId)
+            appointment.status = "Completed"
             await appointment.save();
         }
 
@@ -44,53 +43,49 @@ const addRecord = async (doctor, patient,testResults,medicationList,treatments,d
 
 const getAppointmentStatus = async (appointmentId, res) => {
     try {
-        const history = await History.find({appointmentId:appointmentId});
-        if(history){
+        const history = await History.find({ appointmentId: appointmentId });
+        if (history) {
             return history;
         }
-        else{
+        else {
             return {}
         }
-       
+
     } catch (error) {
         return res.status(500).json({ error: "Internal server error" });
     }
 }
 
 const patientGetHistory = async (patientId, res) => {
-    console.log(patientId,"patientGetHistory---------------------++++")   
     try {
-        const history = await History.find({patient:patientId});
-        if(history){
+        const history = await History.find({ patient: patientId });
+        if (history) {
             return history;
         }
-        else{
+        else {
             return {}
         }
-       
+
     } catch (error) {
         return res.status(500).json({ error: "Internal server error" });
     }
 }
 const patientGetHistoryByAppointment = async (appointmentId, res) => {
-    console.log(appointmentId,"appointmentId---------------------++++")   
     try {
-        const history = await History.find({appointmentId:appointmentId});
-        if(history){
-            console.log(history,"history111---------------------++++")   
+        const history = await History.find({ appointmentId: appointmentId });
+        if (history) {
             return history;
         }
-        else{
-            console.log("history000---------------------++++")   
+        else {
             return {}
         }
-       
+
     } catch (error) {
         return res.status(500).json({ error: "Internal server error" });
     }
 }
 
-export{
+export {
     addRecord,
     getAppointmentStatus,
     patientGetHistory,

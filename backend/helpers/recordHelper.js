@@ -3,7 +3,6 @@ import Patient from "../models/patientModel.js";
 
 
 const addRecord = async (record, category, _id, res) => {
-    console.log(record, category, _id, 'check record');
 
     try {
         const patient = await Patient.findById({ _id });
@@ -12,7 +11,6 @@ const addRecord = async (record, category, _id, res) => {
             return res.status(404).json({ error: "Patient not found" });
         } else {
             if (category === "allergies") { // Corrected the comparison operator here
-                console.log('check record if');
                 patient.allergies.push(record);
             } else {
                 patient.ailments.push(record);
@@ -27,12 +25,10 @@ const addRecord = async (record, category, _id, res) => {
 };
 
 const findRecord = async (category, _id, res) => {
-    console.log('test hpr')
     category = "ailments"
     try {
         const patient = await Patient.findById({ _id: "6572db846902664eb3c056ef" });
         if (patient) {
-            console.log('test hpr if')
             if (category === "allergies") { // Corrected the comparison operator here
                 return patient.allergies
             } else {
@@ -50,7 +46,6 @@ const findRecord = async (category, _id, res) => {
 
 
 const deletePatientRecord = async (record, category, _id, res) => {
-    console.log(record, category, _id, 'check record');
 
     try {
         const patient = await Patient.findById({ _id });
@@ -59,7 +54,6 @@ const deletePatientRecord = async (record, category, _id, res) => {
             return res.status(404).json({ error: "Patient not found" });
         } else {
             if (category === "allergies") { // Corrected the comparison operator here
-                console.log('check record if');
                 patient.allergies.pull(record);
             } else {
                 patient.ailments.pull(record);

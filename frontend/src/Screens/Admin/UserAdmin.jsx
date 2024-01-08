@@ -47,13 +47,13 @@ function UserAdmin() {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {users && users.map((item, index) => (
+                        {users && users?.map((item, index) => (
                             <Tr key={index}>
-                                <Td textAlign="center" maxW="100%">{item.name}</Td>
-                                <Td textAlign="center" maxW="100%">{item.email}</Td>
-                                <Td textAlign="center" maxW="100%">{item.members.length}</Td>
-                                <Td textAlign="center" maxW="100%">{item.appointments.length}</Td>
-                                <Td textAlign="center" maxW="100%">{item.history.length}</Td>
+                                <Td textAlign="center" maxW="100%">{item.userDetails.name}</Td>
+                                <Td textAlign="center" maxW="100%">{item.userDetails.email}</Td>
+                                <Td textAlign="center" maxW="100%">{item.patientCount}</Td>
+                                <Td textAlign="center" maxW="100%">{item.appointmentCount}</Td>
+                                <Td textAlign="center" maxW="100%">{item.historyCount}</Td>
                                 <Td textAlign="center">
                                     {status !== 'blocked' ? (
                                         <TestPopup refetch={refetch} user_id={item._id} />

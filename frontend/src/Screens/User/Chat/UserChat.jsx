@@ -105,19 +105,10 @@ const UserChat = ({ messageOpen, setMessageOpen }) => {
   return (
 
     <Flex  h="450"    >
-      {/* Left Sidebar */}
-    <Box minW="220" bg="white" >
-      <SenderList setRoomId={setRoomId} roomId={roomId} setPreRoomId={setPreRoomId} setSenderId={setSenderId}
-        unreaded={unreaded} userChatList={userChatList} unreadedChk={unreadedChk} setUnreadedChk={setUnreadedChk}
-       refetchUserMessageList={refetchUserMessageList} setSenderName={setSenderName} setMessageOpen={setMessageOpen}
-       setSenderImage={setSenderImage}/>
-  
-      {/* Vertical Divider */}
-      </Box>
-      {messageOpen? <>
+         {messageOpen? <>
           {/* Chat Interface */}
           
-          <Flex ml="5" w={["80%", "80%", "70%"]} flexDirection="column" bg="white" >
+          <Flex mr="5"  w={["80%", "80%", "70%"]} flexDirection="column" bg="gray.200" >
             <Box mt="2" ml="4" >
             <Header senderName={senderName} senderImage={senderImage}/>
             </Box>
@@ -133,6 +124,16 @@ const UserChat = ({ messageOpen, setMessageOpen }) => {
             </Box>
             
           </Flex></>:null}
+      {/* Left Sidebar */}
+    <Box minW="220" bg="gray.200" >
+      <SenderList setRoomId={setRoomId} roomId={roomId} setPreRoomId={setPreRoomId} setSenderId={setSenderId}
+        unreaded={unreaded} userChatList={userChatList} unreadedChk={unreadedChk} setUnreadedChk={setUnreadedChk}
+       refetchUserMessageList={refetchUserMessageList} setSenderName={setSenderName} setMessageOpen={setMessageOpen}
+       setSenderImage={setSenderImage}/>
+  
+      {/* Vertical Divider */}
+      </Box>
+   
     </Flex>
   );
 };

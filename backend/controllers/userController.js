@@ -8,7 +8,7 @@ import jwt from "jsonwebtoken"
 import crypto from "crypto"
 import dotevn from "dotenv"
 
-import {listUsers,blockUsers,unBlockUnUsers,findNearbyHospitals,checkisUserBlocked} from "../helpers/userHelper.js"
+import { listUsers, blockUsers, unBlockUnUsers, findNearbyHospitals, checkisUserBlocked } from "../helpers/userHelper.js"
 
 dotevn.config();
 
@@ -24,7 +24,6 @@ const vEmail = 'nandhuraj308@gmail.com'
 //@access public
 const authUser = asyncHandler(async (req, res) => {
   const { email, password, gmail } = req.body
-  console.log('chkkk back')
 
   if (gmail) {
     const user = await User.findOne({ email })
@@ -43,11 +42,8 @@ const authUser = asyncHandler(async (req, res) => {
 
   }
   else {
-    console.log('chkkkkkkkkkkkk')
     const user = await User.findOne({ email })
-    console.log('chkkkkkkkkkkkk 123')
     if (user && (await user.matchPassword(password))) {
-      console.log('chkkkkkkkkkkkk 12345')
       generateToken(res, user._id)
       res.status(201).json({
         _id: user._id,
@@ -67,7 +63,6 @@ const authUser = asyncHandler(async (req, res) => {
 //@access public
 
 const registerUser = asyncHandler(async (req, res) => {
-  console.log(req.body, 'chkk body')
   let user
   const { name, email, password } = req.body;
   const userExist = await User.findOne({ email: email });
@@ -78,12 +73,8 @@ const registerUser = asyncHandler(async (req, res) => {
 
   // nodemailer
 
-  console.log('chkkk mail');
-  console.log(jwtSecret, 'jwtSecret');
   const token = jwt.sign({ vEmail }, jwtSecret, { expiresIn: '60s' });
   emailTokens[vEmail] = token;
-  console.log('chkkk mail 22');
-  console.log(process.env.AUTH_EMAIL, process.env.AUTH_PASS);
 
   try {
     const transporter = nodemailer.createTransport({
@@ -103,8 +94,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
     // Send mail
     await transporter.sendMail(mailOptions);
-    console.log('Mail sent successfully!');
-    res.status(200).json({message: "Email sent for verification"});
+    res.status(200).json({ message: "Email sent for verification" });
     if (password) {
       user = await User.create({
         name,
@@ -132,21 +122,16 @@ const registerUser = asyncHandler(async (req, res) => {
 //@access public
 
 const verifyMail = async (req, res) => {
-  console.log('chkk vry route 123')
   const token = req.params.token;
   try {
     const decoded = jwt.verify(token, jwtSecret);
     const { vEmail } = decoded; // Assuming the email is stored in 'vEmail' within the token payload
-    console.log('verification sucess')
     if (emailTokens[vEmail] === token) {
-      console.log('chkk vry route 12345')
       const user = await User.findOne({ token: token });
       if (user) {
         user.verification = true;
-        user.token=null // Update the verification status
+        user.token = null // Update the verification status
         await user.save();
-        console.log('User verified successfully');
-        console.log('User verified successfully');
         generateToken(res, user._id);
         res.redirect('http://localhost:3000');
         res.status(201).json({
@@ -155,14 +140,11 @@ const verifyMail = async (req, res) => {
           email: user.email,
         });
       } else {
-        console.log('else user');
         res.status(400);
         throw new Error("Invalid user data");
       }
 
-      console.log('verifiction sucess');
     } else {
-      console.log('Token is invalid or expired');
       // Handle invalid/expired token case
     }
   } catch (error) {
@@ -199,7 +181,6 @@ const getUserProfile = asyncHandler(async (req, res) => {
 // route PUT/api/users/profile
 //@access private
 const updateUserProfile = asyncHandler(async (req, res) => {
-  console.log(req.body, 'emaillll');
   const user = await User.findById(req.user._id)
   if (user) {
     user.name = req.body.name || user.name
@@ -230,46 +211,40 @@ const updateUserImage = asyncHandler(async (req, res) => {
         { _id: req.body.id },
         { profileImage: req.file.filename }
       ).catch(err => {
-        console.log(err.message);
       })
       res.status(200).json({ profileImage: req.file.filename })
     }
   } catch (error) {
-    console.log(error.message);
   }
 });
 
-const listAllUsers =asyncHandler(async (req,res)=>{
-  console.log(req.query);
-  const status=req.query.status || 'unBlocked'
-  const result =  await listUsers(status)
+const listAllUsers = asyncHandler(async (req, res) => {
+  const status = req.query.status || 'unBlocked'
+  const result = await listUsers(status)
   res.json(result);
 })
 
-const adminBlockUser =asyncHandler(async (req,res)=>{
-  const {user_id } =req.body
-  const result =  await blockUsers(user_id)
+const adminBlockUser = asyncHandler(async (req, res) => {
+  const { user_id } = req.body
+  const result = await blockUsers(user_id)
   res.json(result);
 })
-const adminUnBlockUser =asyncHandler(async (req,res)=>{
-  const {user_id } =req.body
-  const result =  await unBlockUnUsers(user_id)
+const adminUnBlockUser = asyncHandler(async (req, res) => {
+  const { user_id } = req.body
+  const result = await unBlockUnUsers(user_id)
   res.json(result);
 })
 
-const userFindNearbyHospitals =asyncHandler(async (req,res)=>{
-  console.log('userFindNearbyHospitals')
-  const {distance,accessLatitude,accessLongitude } =req.body
-  const result =  await findNearbyHospitals(distance,accessLatitude,accessLongitude )     
+const userFindNearbyHospitals = asyncHandler(async (req, res) => {
+  const { distance, accessLatitude, accessLongitude } = req.body
+  const result = await findNearbyHospitals(distance, accessLatitude, accessLongitude)
   res.json(result);
 })
 
 
-const checkUserBlocked  =asyncHandler(async (req,res)=>{
-  console.log(req.query,'chkk blkd')
-  const {_id} = req.query
-  console.log(_id,'chkk blkd')
-  const result =  await checkisUserBlocked(_id)     
+const checkUserBlocked = asyncHandler(async (req, res) => {
+  const { _id } = req.query
+  const result = await checkisUserBlocked(_id)
   res.json(result);
 })
 
@@ -289,7 +264,7 @@ export {
   adminUnBlockUser,
   userFindNearbyHospitals,
   checkUserBlocked
-  
+
 }
 
 

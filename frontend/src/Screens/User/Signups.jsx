@@ -92,18 +92,23 @@ function signup() {
     if(isValid){
      const isValidateConfirm =validateConfirm()
      if(isValidateConfirm){
-      try {
-        console.log('chkk confirm')
-        const res = await register({ name, email, password }).unwrap();
-        // dispatch(setCredentials({ ...res }));
-        console.log(res, 'chkkk responce')
-        toast.success(res.message);
-  
-        // navigate('/')
-  
-      } catch (err) {
-        toast.error(err?.data?.message || err.error);
+      const isPaassword =validatePassword()
+      if(isPaassword){
+        try {
+          console.log('chkk confirm')
+          const res = await register({ name, email, password }).unwrap();
+          // dispatch(setCredentials({ ...res }));
+          console.log(res, 'chkkk responce')
+          toast.success(res.message);
+    
+          // navigate('/')
+    
+        } catch (err) {
+          toast.error(err?.data?.message || err.error);
+        }
+
       }
+  
      }
     
     }
@@ -125,6 +130,36 @@ function signup() {
   };
 
 
+
+
+  const validatePassword = () => {
+    console.log("chkk validatePassword ",password)
+    const upperCaseRegex = /[A-Z]/; // Regex for uppercase letter
+    const symbolRegex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/; // Regex for symbol
+    const newErrors = {};
+  
+    if (password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters long';
+      newErrors.confirmPassword = 'Password must be at least 6 characters long';
+      // return 'Password must be at least 6 characters long';
+    }
+  
+    if  (!upperCaseRegex.test(password)) {     
+      newErrors.password = 'Password must contain at least one uppercase letter';
+      newErrors.confirmPassword = 'Password must contain at least one uppercase letter';
+      // return 'Password must contain at least one uppercase letter';
+    }
+  
+    if (!symbolRegex.test(password)) {     
+      newErrors.password = 'Password must contain at least one symbol';
+      newErrors.confirmPassword = 'Password must contain at least one symbol';
+      // return 'Password must contain at least one symbol';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  
+  
+  };
 
   return (
     <Flex

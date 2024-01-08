@@ -15,7 +15,7 @@ function image() {
             maxW={{ base: '300' }}
             minW={{  md: '100%' }}
             width="100%"
-            src="../public/Images/Doctor5.png"
+            src="./Images/Doctor5.png"
             alt="Description"
           />
         </Box>

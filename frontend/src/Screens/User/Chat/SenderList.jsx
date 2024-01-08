@@ -29,12 +29,12 @@ function SenderList({ setRoomId,roomId,setPreRoomId,setSenderId,userChatList,unr
       <Heading as="h2" size="md" pt="8" pb="4" pl="10">
         Messaging
       </Heading>
-      <Divider />
+      <ChakraDivider w="100%" borderBottomWidth="3px"  borderColor="gray.300"  mt="5" />
     </Box>
   
     <Box maxHeight="100%" overflowY={{ base: 'unset', md: 'auto' }} maxH="500">
       {userChatList?.map((sender) => (
-        <Box onClick={() => setRoomhandle(sender)} _hover={{ cursor: 'pointer' }} key={sender._id} bg={colorChange==sender.hospital._id?"blue.300":"white"}>
+        <Box onClick={() => setRoomhandle(sender)} _hover={{ cursor: 'pointer' }} key={sender._id} bg={colorChange==sender.hospital._id?"blue.300":"gray.200"}>
           <Flex  pl="2" pr="2" pt="5">
             <Avatar size="sm" name="Sender" src={sender.hospital.profileImage}>
               {unreadedChk && sender.unreaded ? <AvatarBadge boxSize="1.25em" bg="green.500" /> : null}
@@ -43,7 +43,7 @@ function SenderList({ setRoomId,roomId,setPreRoomId,setSenderId,userChatList,unr
               {sender.hospital.name}
             </Heading>
           </Flex>
-          <Divider />
+          <ChakraDivider w="100%" borderBottomWidth="3px"  borderColor="gray.400"  mt="5" />
         </Box>
       ))}
     </Box>

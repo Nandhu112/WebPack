@@ -12,9 +12,9 @@ import {
 } from '@chakra-ui/react';
 import UserChat from './UserChat';
 import UserCatbox from './UserCatbox';
-function ChatAccordion() {
+function ChatAccordion({messageOpen,setMessageOpen}) {
   const [isAccordionOpen, setIsAccordionOpen] = useState(false); // Set initial state as closed
-  const [messageOpen, setMessageOpen] = useState(false)
+
 
   const toggleAccordion = () => {
     setIsAccordionOpen(!isAccordionOpen);
@@ -22,10 +22,10 @@ function ChatAccordion() {
   };
 
   return (
-    <Box position="relative"  minW={messageOpen?"600":"150"}>
+    <Box position="relative"  >
       <Accordion
         allowMultiple
-        bg="white"
+        bg="blue.200"
         style={{ position: 'absolute', bottom: 0, width: '100%' }}
       >
         <AccordionItem>

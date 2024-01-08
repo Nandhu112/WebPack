@@ -60,12 +60,12 @@ function DepartmentAdmin() {
                         <Tbody>
                             {departmentDetails && departmentDetails.map((item, index) =>
                                 <Tr>
-                                    <Td textAlign="center">{item.name}</Td>
-                                    <Td textAlign="center">{item.hospital.length}</Td>
-                                    <Td textAlign="center">{item.appointments}</Td>
-                                    <Td textAlign="center">{item.history}</Td>
+                                    <Td textAlign="center">{item.departmentDetails.name}</Td>
+                                    <Td textAlign="center">{item.departmentDetails.hospital.length}</Td>
+                                    <Td textAlign="center">{item.appointmentCount}</Td>
+                                    <Td textAlign="center">{item.historyCount}</Td>
                                     <Td textAlign="center">
-                                    {status!== "blocked" ? <TestPopup refetch={refetch} user_id={item._id} />:<TestPopupUnblock refetch={refetch} user_id={item._id} />}
+                                    {status!== "blocked" ? <TestPopup refetch={refetch} user_id={item.departmentDetails._id} />:<TestPopupUnblock refetch={refetch} user_id={item.departmentDetails._id} />}
                                     </Td>
                                 </Tr>
                             )}

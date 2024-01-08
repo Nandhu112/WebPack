@@ -54,9 +54,9 @@ router.get('/getNotification',protect,getNotification)
 router.post('/changeNotifictionStatus',protect,changeNotifictionStatus)    
 router.post('/addNewHospitalRating',protect,addNewRating)    
 router.post('/addNewDoctorRating',protect,addNewDoctorRating)   
-router.get('/getHospitalsRatingInfo',getHospitalsRatingInfo)   
-router.get('/getDoctorsRatingInfo',getDoctorsRatingInfo)   
-router.get('/getPatientHistoryByAppointment',getPatientHistoryByAppointment)   
+router.get('/getHospitalsRatingInfo',protect,getHospitalsRatingInfo)   
+router.get('/getDoctorsRatingInfo',protect,getDoctorsRatingInfo)   
+router.get('/getPatientHistoryByAppointment',protect,getPatientHistoryByAppointment)   
 
 
 

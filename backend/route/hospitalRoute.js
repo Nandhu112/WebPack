@@ -36,15 +36,10 @@ router.get('/getHospitalInfo',protect,hospitalGetHospitalinfo)
 router.post('/addMessage',protect,addNewMessage)    
 router.get('/listChat',protect,hospitalListAllChats)  
 router.get('/listmessage',protect,hospitalListAllMessages)  
-router.get('/HospitalGetDepartmentHistory',HospitalGetDepartmentHistory)  
-router.get('/HospitalGetDoctorHistory',HospitalGetDoctorHistory)  
-router.get('/hospitalGetBoxsData',hospitalGetBoxsData)  
+router.get('/HospitalGetDepartmentHistory',protect,HospitalGetDepartmentHistory)  
+router.get('/HospitalGetDoctorHistory',protect,HospitalGetDoctorHistory)  
+router.get('/hospitalGetBoxsData',protect,hospitalGetBoxsData)  
 
 router.post('/updateProfilePic',protect,updateProfilePic)     
-// router.put(
-//         "/profile-updateImage",
-//         upload.single("image"),
-//         protect,
-//         updateUserImage
-// );
+
 export default router     

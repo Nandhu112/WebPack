@@ -1,8 +1,8 @@
 import asyncHandler from "express-async-handler"
-import User from "../models/userModel.js"       
+import User from "../models/userModel.js"
 import generateToken from "../utils/generateToken.js"
 
-import {getVerification,adminHospitalVerify} from "../helpers/adminHelper.js"
+import { getVerification, adminHospitalVerify } from "../helpers/adminHelper.js"    
 
 
 
@@ -10,9 +10,7 @@ import {getVerification,adminHospitalVerify} from "../helpers/adminHelper.js"
 // route POST/api/admin/auth
 //@access public
 const authAdmin = asyncHandler(async (req, res) => {
-    const { email, password } = req.body;
-    console.log('Checking admin...');
-
+    const { email, password } = req.body;    
     const admin = await User.findOne({ email, Admin: true });
 
     if (admin && (await admin.matchPassword(password))) {
@@ -28,17 +26,16 @@ const authAdmin = asyncHandler(async (req, res) => {
     }
 });
 
-const adminGetHospitalVerification =asyncHandler(async (req,res)=>{
-    const result =  await getVerification()
+const adminGetHospitalVerification = asyncHandler(async (req, res) => {
+    const result = await getVerification()
     res.json(result);
-  })
+})
 
-  const adminVerifyHospitals =asyncHandler(async (req,res)=>{    
+const adminVerifyHospitals = asyncHandler(async (req, res) => {
     const { hospital, application } = req.body;
-    console.log('chkk verify112')
-    const result =  await adminHospitalVerify(hospital, application)
+    const result = await adminHospitalVerify(hospital, application)
     res.json(result);
-  })
+})
 
 
 export {

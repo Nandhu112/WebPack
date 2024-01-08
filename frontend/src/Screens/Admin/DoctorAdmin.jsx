@@ -45,13 +45,13 @@ function DoctorAdmin() {
             <Tbody>
             {hospitals && hospitals.map((item,index) =>
                 <Tr>
-                    <Td textAlign="center">{item.name}</Td>          
-                    <Td textAlign="center">{item.hospital}</Td>
-                    <Td textAlign="center">{item.department}</Td>
-                    <Td textAlign="center">{item.appointment.length}</Td>
-                    <Td textAlign="center">{item.history.length}</Td>
+                    <Td textAlign="center">{item.hospitalDetails.name}</Td>          
+                    <Td textAlign="center">{item.hospitalDetails.hospital.name}</Td>
+                    <Td textAlign="center">{item.hospitalDetails.department.name}</Td>
+                    <Td textAlign="center">{item.appointmentCount}</Td>
+                    <Td textAlign="center">{item.historyCount}</Td>
                     <Td textAlign="center">
-                    {status!== "blocked" ? <TestPopup refetch={refetch} user_id={item._id} />:<TestPopupUnblock refetch={refetch} user_id={item._id} />}
+                    {status!== "blocked" ? <TestPopup refetch={refetch} user_id={item.hospitalDetails._id} />:<TestPopupUnblock refetch={refetch} user_id={item.hospitalDetails._id} />}
                     </Td>
                 </Tr>
             )}

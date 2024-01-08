@@ -1,6 +1,7 @@
 import express from "express";
 import { doctorProtect } from "../middleware/doctorAuthMiddleweare.js";
 import { upload } from "../config/multer.js";
+
 const router = express.Router()
 import {
     authDoctor,
@@ -28,18 +29,18 @@ router.get('/doctorVerifyMail/:token', doctorVerifyMail);
 router.get('/getProfile',doctorProtect,getDoctorInfo)
 router.post('/updateDoctorPic',doctorProtect,updateDoctorProfileImage)
 router.get('/checkDoctorBlocked',checkDoctorBlocked)     
-router.get('/listAppointments',doctorListAppointments)
-router.get('/getPatientInfo', getPatientInfo)
+router.get('/listAppointments',doctorProtect,doctorListAppointments)
+router.get('/getPatientInfo',doctorProtect, getPatientInfo)
 router.post('/logout', logoutDoctor)
-router.post('/addNewRecord', addNewRecord)
-router.put('/deleteRecord', deleteRecord)
-router.post('/addtoHistory', addNewRecordtoHistory)
-router.get('/getAppointmentStatus', doctorGetAppointmentStatus)
-router.post('/listDoctorAppointments',listDoctorAppointments)
-router.post('/blockSlot',doctorSlotBlock)
-router.post('/sendNotification',newNotification)
-router.post('/sendPrescriptionNotification',prescriptionNotification)
-router.get('/getPatientHistory',getPatientHistory)    
+router.post('/addNewRecord',doctorProtect, addNewRecord)
+router.put('/deleteRecord',doctorProtect, deleteRecord)
+router.post('/addtoHistory',doctorProtect, addNewRecordtoHistory)
+router.get('/getAppointmentStatus',doctorProtect, doctorGetAppointmentStatus)
+router.post('/listDoctorAppointments',doctorProtect,listDoctorAppointments)
+router.post('/blockSlot',doctorProtect,doctorSlotBlock)
+router.post('/sendNotification',doctorProtect,newNotification)
+router.post('/sendPrescriptionNotification',doctorProtect,prescriptionNotification)
+router.get('/getPatientHistory',doctorProtect,getPatientHistory)    
 
 
 

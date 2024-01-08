@@ -29,6 +29,7 @@ const App = () => {
   const { data: patientHistory, refetch: refetchPatientHistory } = useGetPatientHistoryByAppointmentQuery({ appointmentId })
   const [doctorId, setDoctorId] = useState("")
   const [hospitalId, setHospitalId] = useState("")
+  const [messageOpen, setMessageOpen] = useState(false)
 
   let header;
   let outlet
@@ -42,12 +43,25 @@ const App = () => {
     header = <HeaderDoctor />
   } else if (isuserPage) {
     outlet = <Outlet />
-    header = <UserHeader setShowPrescription={setShowPrescription} setAppointmentId={setAppointmentId}
-
-    />
-   chat = <Box maxW="220" position="sticky" bottom="10px">
-      <ChatAccordion />
-    </Box>
+    header = (
+      <Box
+        style={{
+   
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 999,
+     
+        }}
+        mb="10"
+      >
+        <UserHeader setShowPrescription={setShowPrescription} setAppointmentId={setAppointmentId} />
+      </Box>
+    );
+   chat = <Box maxW={messageOpen?"600":"200"}position="sticky" bottom="10px" ml="auto" >
+  <ChatAccordion messageOpen={messageOpen} setMessageOpen={setMessageOpen} />
+</Box>
     footer = <Footer />
   }
 

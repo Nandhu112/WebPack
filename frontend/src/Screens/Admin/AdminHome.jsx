@@ -18,9 +18,7 @@ function AdminHome() {
   const { data: boxItems, refetch: refetchBoxItems } = useAdminGetDeptDashboardBoxsQuery()
   const { data: hospitalData, refetch: refetchhospitalData} = useAdminGethospitalHistoryCountQuery()
 
-  const fun = () => {
-    console.log(hospitalData, "hospitalData")
-  }
+
   return (
 
     <Box>
@@ -167,7 +165,7 @@ function AdminHome() {
           </Center>
         </Box> : null
       }
-      <Button onClick={fun}>hii</Button>
+
 
     </Box>
 
