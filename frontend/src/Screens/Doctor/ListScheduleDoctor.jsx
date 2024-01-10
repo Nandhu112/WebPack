@@ -28,7 +28,7 @@ import DoctorBookSlots from './DoctorBookSlots';
 function ListScheduleDoctor() {
   const { doctorInfo } = useSelector((state) => state.doctorAuth)
   const [status, setStatus] = useState("all")
-  const { data: appointment, isLoading, refetch: refetchAppointment } = useListDoctorScheduleQuery({ _id: doctorInfo._id, status })
+  const { data: appointment, isLoading, refetch: refetchAppointment } = useListDoctorScheduleQuery({ _id: doctorInfo?._id, status })
   const [startIndex, setStartIndex] = useState();
   const [endIndex, setEndIndex] = useState();
   const [appointmentDetails, setappointmentDetails] = useState()
@@ -139,7 +139,7 @@ function ListScheduleDoctor() {
                           <Td textAlign="center">{item.method}</Td>
                           <Td color={item.status === "Pending" ? 'red' : 'green'} textAlign="center">{item.status}</Td>
                           <Td textAlign="center">
-                            <Consultain _id={item.patientId} appointmentId={item._id} refetchAppointment={refetchAppointment}
+                            <Consultain _id={item.patientId} appointmentId={item?._id} refetchAppointment={refetchAppointment}
                               method={item.method} user={item.user} />
                             {/* <DoctorViewPatient/> */}
                           </Td>

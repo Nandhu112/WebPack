@@ -56,9 +56,9 @@ function UserAdmin() {
                                 <Td textAlign="center" maxW="100%">{item.historyCount}</Td>
                                 <Td textAlign="center">
                                     {status !== 'blocked' ? (
-                                        <TestPopup refetch={refetch} user_id={item._id} />
+                                        <TestPopup refetch={refetch} user_id={item?._id} />
                                     ) : (
-                                        <TestPopupUnblock refetch={refetch} user_id={item._id} />
+                                        <TestPopupUnblock refetch={refetch} user_id={item?._id} />
                                     )}
                                 </Td>
                             </Tr>

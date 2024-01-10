@@ -65,7 +65,7 @@ function DepartmentAdmin() {
                                     <Td textAlign="center">{item.appointmentCount}</Td>
                                     <Td textAlign="center">{item.historyCount}</Td>
                                     <Td textAlign="center">
-                                    {status!== "blocked" ? <TestPopup refetch={refetch} user_id={item.departmentDetails._id} />:<TestPopupUnblock refetch={refetch} user_id={item.departmentDetails._id} />}
+                                    {status!== "blocked" ? <TestPopup refetch={refetch} user_id={item?.departmentDetails?._id} />:<TestPopupUnblock refetch={refetch} user_id={item?.departmentDetails?._id} />}
                                     </Td>
                                 </Tr>
                             )}

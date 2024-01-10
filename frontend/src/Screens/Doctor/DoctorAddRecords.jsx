@@ -55,7 +55,7 @@ export default function DoctorAddRecords({ modalClose, fetchPatientInfo, patient
     }
 
     const addRecordHandler = async () => {
-        const res = await addRecord({ record: inputValue, category, _id: fetchPatientInfo._id }).unwrap();
+        const res = await addRecord({ record: inputValue, category, _id: fetchPatientInfo?._id }).unwrap();
         patientRefetch()
         setInputValue("")
 
@@ -94,7 +94,7 @@ export default function DoctorAddRecords({ modalClose, fetchPatientInfo, patient
                                             {item}
                                         </Box>
                                         <Box style={{ cursor: 'pointer' }} >
-                                            <TestPopup item={item} category={category} _id={fetchPatientInfo._id} patientRefetch={patientRefetch} />
+                                            <TestPopup item={item} category={category} _id={fetchPatientInfo?._id} patientRefetch={patientRefetch} />
                                         </Box>
                                     </Flex>
                                 </Box>
@@ -117,7 +117,7 @@ export default function DoctorAddRecords({ modalClose, fetchPatientInfo, patient
                                             {item}
                                         </Box>
                                         <Box style={{ cursor: 'pointer' }} >
-                                            <TestPopup item={item} category={category} _id={fetchPatientInfo._id} patientRefetch={patientRefetch} />
+                                            <TestPopup item={item} category={category} _id={fetchPatientInfo?._id} patientRefetch={patientRefetch} />
                                         </Box>
                                     </Flex>
                                 </Box>

@@ -23,7 +23,7 @@ import {useHospitalAddDoctorMutation} from "../../slices/hospitalApiSlice"
 
 function AddDoctorModal({refetch}) {
     const { hospitalInfo } = useSelector((state) => state.hospitalAuth)
-    const { data: hospitalDepartment, isLoading, refetch:chech } = useHospitalListDepartmentsQuery({ id: hospitalInfo._id })
+    const { data: hospitalDepartment, isLoading, refetch:chech } = useHospitalListDepartmentsQuery({ id: hospitalInfo?._id })
     const [addDoctor]= useHospitalAddDoctorMutation()
 
     const [name, setName] = useState('');
@@ -40,7 +40,7 @@ function AddDoctorModal({refetch}) {
     const finalRef = React.useRef(null)
 
     const addDoctors = async () => {
-    const hospital =hospitalInfo._id
+    const hospital =hospitalInfo?._id
 
         try {
             console.log("add dd");
@@ -89,7 +89,7 @@ function AddDoctorModal({refetch}) {
               <Select placeholder="Select option" onChange={(event) => setDepartments(event.target.value)}>
                 {hospitalDepartment &&
                   hospitalDepartment.map((it, index) => (
-                    <option key={it._id} value={it._id}>
+                    <option key={it?._id} value={it?._id}>
                       {it.name}
                     </option>
                   ))}

@@ -163,9 +163,9 @@ const SidebarContent = ({ onClose, ...rest }) => {
       const navigate = useNavigate();
 
       useEffect(() => {
-        if (socket && hospitalInfo && hospitalInfo._id) {
+        if (socket && hospitalInfo && hospitalInfo?._id) {
             console.log('chkk use eff')
-            socket.emit("setup",hospitalInfo._id);
+            socket.emit("setup",hospitalInfo?._id);
         }
     }, [socket, hospitalInfo]);
   

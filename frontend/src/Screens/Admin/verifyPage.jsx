@@ -34,7 +34,7 @@ function verifyPage({item,refetch}) {
   const onOpen = () => setIsOpen(true);
   const toast = useToast()
   const handleVerify = async() => {
-    const res = await verify({ hospital:item.Hospital_id,application:item._id }).unwrap();
+    const res = await verify({ hospital:item.Hospital_id,application:item?._id }).unwrap();
     console.log(res,'Verification completed.');
     refetch()
     toast({

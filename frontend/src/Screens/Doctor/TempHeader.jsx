@@ -34,7 +34,7 @@ import {
 function HeaderDoctor() {
     const { isOpen, onToggle } = useDisclosure()
     const { doctorInfo } = useSelector((state) => state.auth);
-    const { data: fetchDoctorInfo,isLoading, refetch } = useGetDoctorInfoQuery({ id: doctorInfo._id })
+    const { data: fetchDoctorInfo,isLoading, refetch } = useGetDoctorInfoQuery({ id: doctorInfo?._id })
     // const { adminInfo } = useSelector((state) => state.adminAuth);
     const dispatch = useDispatch();
     const navigate = useNavigate();

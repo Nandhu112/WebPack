@@ -36,7 +36,7 @@ function UpdateImageDoctor({refetch}) {
         
       };
        const updateProfileImage = (async()=>{
-        const _id =doctorInfo._id
+        const _id =doctorInfo?._id
         console.log(imageInfo,'reader.result')
         try {
             const res = await updateImage({profileImage:imageInfo,_id}).unwrap();

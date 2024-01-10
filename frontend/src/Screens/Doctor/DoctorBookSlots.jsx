@@ -73,7 +73,7 @@ function DoctorBookSlots() {
                 outDate = today
             }
             console.log(today, "time")
-            const res = await showAppointment({ date: outDate,_id:doctorInfo._id  }); // Assuming `time` is defined
+            const res = await showAppointment({ date: outDate,_id:doctorInfo?._id  }); // Assuming `time` is defined
             setcheck(res)
             console.log(check, 'appointments');
         } catch (error) {
@@ -83,7 +83,7 @@ function DoctorBookSlots() {
 
     const forDate2 = async (event) => {
         await setDate(event.target.value)
-        const res = await showAppointment({ date: event.target.value,_id:doctorInfo._id }); // Assuming `time` is defined
+        const res = await showAppointment({ date: event.target.value,_id:doctorInfo?._id }); // Assuming `time` is defined
         setcheck(res)
         console.log(check, 'appointmentsss');
     }
@@ -168,7 +168,7 @@ function DoctorBookSlots() {
             try {
                 axios.post('/api/doctors/blockSlot', {
                     Bslot:slots,
-                    dId:doctorInfo._id ,
+                    dId:doctorInfo?._id ,
                     date:date
                   
                }).then(res=>{

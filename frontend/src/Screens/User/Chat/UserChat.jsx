@@ -21,7 +21,7 @@ const UserChat = ({ messageOpen, setMessageOpen }) => {
   const [senderId, setSenderId] = useState('')
   const [inputMessage, setInputMessage] = useState("");
   const { data: userMessageList, refetch: refetchUserMessageList } = useUserListMessageQuery({ _id: roomId })
-  const { data: userChatList, refetch: refetchUserChatList } = useUserListChatQuery({ _id: userInfo._id, })
+  const { data: userChatList, refetch: refetchUserChatList } = useUserListChatQuery({ _id: userInfo?._id, })
   // const [socketConnected, setSocketConnected] = useState(false)
   const [isTyping, setIsTyping] = useState(false)
   const [unreaded, setUnreaded] = useState([])
@@ -45,7 +45,7 @@ const UserChat = ({ messageOpen, setMessageOpen }) => {
     let data = {
       roomId,
       preRoomId,
-      sender: userInfo._id
+      sender: userInfo?._id
     }
     if (roomId) {
       socket?.emit("join chat", data);
@@ -74,7 +74,7 @@ const UserChat = ({ messageOpen, setMessageOpen }) => {
     if (inputMessage.trim().length) {
       try {
         axios.post('/api/users/addMessage', {
-          user: userInfo._id,
+          user: userInfo?._id,
           hospital: senderId,
           content: inputMessage,
           chat: roomId,

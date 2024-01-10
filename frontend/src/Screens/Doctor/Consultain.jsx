@@ -42,7 +42,7 @@ import { useNavigate } from 'react-router-dom';
 function Consultain({ _id, appointmentId, refetchAppointment,method,user}) {
   const { socket, socketConnected } = useSocket();
   const { doctorInfo } = useSelector((state) => state.doctorAuth)
-  const { data: fetchDoctorInfo, refetch } = useGetDoctorInfoQuery({ id: doctorInfo._id })
+  const { data: fetchDoctorInfo, refetch } = useGetDoctorInfoQuery({ id: doctorInfo?._id })
   const { data: fetchPatientInfo, isLoading, refetch: patientRefetch } = useGetPatientInfoQuery({ _id })
   const { data: appointmentDetails, refetch: refetchAppointmentDetails } = useGetAppointmentStatusQuery({ appointmentId: appointmentId })
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -56,9 +56,9 @@ function Consultain({ _id, appointmentId, refetchAppointment,method,user}) {
 
   useEffect(() => {
 
-    if (socket && doctorInfo && doctorInfo._id) {
+    if (socket && doctorInfo && doctorInfo?._id) {
         console.log('chkk use eff')
-        socket.emit("setup", doctorInfo._id);
+        socket.emit("setup", doctorInfo?._id);
     }
 }, [socket, doctorInfo]);
 

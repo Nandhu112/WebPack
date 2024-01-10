@@ -12,7 +12,7 @@ function DoctorProfile() {
   const { doctorInfo } = useSelector((state) => state.doctorAuth)
   const [roomId, setroomId] = useState('')
 
-  const { data: fetchDoctorInfo, isLoading, refetch } = useGetDoctorInfoQuery({ id: doctorInfo._id })
+  const { data: fetchDoctorInfo, isLoading, refetch } = useGetDoctorInfoQuery({ id: doctorInfo?._id })
 
   useEffect(() => {
     console.log(fetchDoctorInfo, 'fetchDoctorInfo')

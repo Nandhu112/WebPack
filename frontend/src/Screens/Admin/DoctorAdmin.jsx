@@ -51,7 +51,7 @@ function DoctorAdmin() {
                     <Td textAlign="center">{item.appointmentCount}</Td>
                     <Td textAlign="center">{item.historyCount}</Td>
                     <Td textAlign="center">
-                    {status!== "blocked" ? <TestPopup refetch={refetch} user_id={item.hospitalDetails._id} />:<TestPopupUnblock refetch={refetch} user_id={item.hospitalDetails._id} />}
+                    {status!== "blocked" ? <TestPopup refetch={refetch} user_id={item?.hospitalDetails?._id} />:<TestPopupUnblock refetch={refetch} user_id={item?.hospitalDetails?._id} />}
                     </Td>
                 </Tr>
             )}

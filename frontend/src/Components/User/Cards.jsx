@@ -30,7 +30,7 @@ function Cards({item,refetch}) {
     </CardBody>
 
     <CardFooter>
-     <PatientProfile _id={item._id} refetch={refetch}/>
+     <PatientProfile _id={item?._id} refetch={refetch}/>
     </CardFooter>
   </Stack>
 </Card>

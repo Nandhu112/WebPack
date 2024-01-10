@@ -8,6 +8,7 @@ import { getVerification, adminHospitalVerify } from "../helpers/adminHelper.js"
 // route POST/api/admin/auth
 //@access public
 const authAdmin = asyncHandler(async (req, res) => {
+    console.log("chkkkkkk")
     const { email, password } = req.body;    
     const admin = await User.findOne({ email, Admin: true });
 
