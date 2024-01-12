@@ -9,7 +9,8 @@ export const useSocket = () => {
 };
 
 export const SocketProvider = ({ children }) => {
-  const ENDPOINT = "http://localhost:5000";
+  // const ENDPOINT = "http://localhost:5000";
+  const ENDPOINT = "https://medpack.online";
   const [socket, setSocket] = useState(null);
   const [socketConnected, setSocketConnected] = useState(false);
 

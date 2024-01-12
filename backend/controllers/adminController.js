@@ -3,7 +3,7 @@ import User from "../models/userModel.js"
 import generateToken from "../utils/generateToken.js"
 
 import { getVerification, adminHospitalVerify } from "../helpers/adminHelper.js"       
-
+// chk update
 // @dese Auth admin/set token
 // route POST/api/admin/auth
 //@access public
