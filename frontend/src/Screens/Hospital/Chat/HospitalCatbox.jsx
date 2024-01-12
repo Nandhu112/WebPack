@@ -7,7 +7,7 @@ function HospitalCatbox() {
   return (
    <Flex>
 
-    <UserChat/>
+    {/* <UserChat/> */}
 
    </Flex>
   )

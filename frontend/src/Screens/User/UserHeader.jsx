@@ -200,9 +200,9 @@ function UserHeader({setShowPrescription,setAppointmentId}) {
             <DrawerContent>
               <DrawerCloseButton />
               <DrawerHeader> Patient History</DrawerHeader>
-              <DrawerBody>
+              <DrawerBody overflowX="auto">
                 {/* Replace this with your UserProfile component */}
-                <Box mt="20">
+                <Box >
                 <UserProfilePage  />
                 </Box>
               </DrawerBody>

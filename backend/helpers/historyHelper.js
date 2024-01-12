@@ -85,9 +85,28 @@ const patientGetHistoryByAppointment = async (appointmentId, res) => {
     }
 }
 
+const hospitalListHistory = async (hospital, res) => {
+    console.log("chk hospitalListHistory")
+    try {
+        const history = await History.find({ hospitalId: hospital }).populate('appointmentId');
+        if (history) {
+            console.log(history,"history11")
+            return history;
+        }
+        else {
+            return {}
+        }
+
+    } catch (error) {
+        return res.status(500).json({ error: "Internal server error" });
+    }
+}
+
+
 export {
     addRecord,
     getAppointmentStatus,
     patientGetHistory,
-    patientGetHistoryByAppointment
+    patientGetHistoryByAppointment,
+    hospitalListHistory
 }

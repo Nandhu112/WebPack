@@ -28,7 +28,7 @@ const fun=()=>{
   console.log(hospitalChatList[0].user.profileImage,"hospitalChatList")
 }
   return (
-    <Box ml={{ base: "5", md: '5' }} display="flex" flexDirection="column">
+    <Box  ml={{ base: "5", md: '5' }} display="flex" flexDirection="column">
       <Box mb={4}>
         <Heading as="h2" size="md" pt="6" pb="4">
           Sender name

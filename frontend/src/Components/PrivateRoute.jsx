@@ -12,7 +12,7 @@ const privateRoute = () => {
   return (
     // data? data.Blocked?
     // userInfo ? <Outlet/> : <Navigate to='/userLogin' replace/>
-    data && data.Blocked ? <BlockedModal /> : (userInfo ? <Outlet /> : <Navigate to="/userLogin" replace />)
+    data && data.Blocked ? <BlockedModal /> : (userInfo ? <Outlet /> : <Navigate to="/landingPage" replace />)
 
     // <Button onClick={fun}>chkkk</Button>
    )

@@ -26,7 +26,7 @@ const HospitalChat = () => {
   const [isTyping, setIsTyping] = useState(false)
 const { socket, socketConnected } = useSocket()
 const [unreadedChk, setUnreadedChk] = useState(true)
-const [messageOpen, setMessageOpen] = useState(false)
+const [messageOpen, setMessageOpen] = useState(true)
 const [senderName, setSenderName] = useState('')
 const [senderImage, setSenderImage] = useState('')
 
@@ -114,7 +114,8 @@ const [senderImage, setSenderImage] = useState('')
     console.log(senderName,"senderName")
   }
   return (
-    <Flex w="100%" h="100vh">
+    <Box  maxH="200">
+    <Flex w="100%"  bg="gray.100" p="10" >
       {/* Left Sidebar */}
       <HospitalSenderList setRoomId={setRoomId} setUser={setUser} roomId={roomId} setPreRoomId={setPreRoomId} setSenderId={setSenderId}
                           unreaded={unreaded} unreadedChk={unreadedChk} setUnreadedChk={setUnreadedChk}hospitalChatList={hospitalChatList}
@@ -127,9 +128,10 @@ const [senderImage, setSenderImage] = useState('')
   <ChakraDivider orientation="vertical" mx={4} borderColor="gray.400" />
 
       {/* Chat Interface */}
-      <Flex w={["80%", "80%", "70%"]} flexDirection="column">
+      <Flex w={["100%", "100%", "100%"]} flexDirection="column">
         <HospitalHeader senderName={senderName} senderImage={senderImage} />
         <HospitalDivider />
+        
         <HospitalMessages userMessageList={userMessageList} />
         <HospitalDivider />
         <HospitalFooter
@@ -141,6 +143,7 @@ const [senderImage, setSenderImage] = useState('')
       </Flex></>:null}
       {/* <Button onClick={fun}>hii</Button> */}
     </Flex>
+    </Box>
   );
 };
 

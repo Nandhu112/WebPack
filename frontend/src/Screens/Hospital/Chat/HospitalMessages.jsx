@@ -9,7 +9,7 @@ const HospitalMessages = ({ userMessageList }) => {
   };
 
   return (
-    <Flex w="100%" h="80%" overflowY="scroll" flexDirection="column">
+    <Flex w="100%" maxH="300" minH="300" overflowY="scroll" flexDirection="column">
     {userMessageList?.map((item, index) => {
       if (!item.isUser) {
         return (

@@ -14,6 +14,7 @@ import { useGetPatientHistoryByAppointmentQuery } from "./slices/userApiSlice"
 import DoctorRating from './Screens/User/Rating/DoctorRating';
 import HospitalRating from './Screens/User/Rating/HospitalRatming';
 import ChatAccordion from './Screens/User/Chat/ChatAccordion';
+import LandingHeader from './Components/LandingHeader';
 const App = () => {
 
   const location = useLocation();
@@ -21,6 +22,7 @@ const App = () => {
   const isAdminPage = location.pathname.startsWith("/admin");
   const isHospitalPage = location.pathname.startsWith("/hospital");
   const isdoctorPage = location.pathname.startsWith("/doctor");
+  const islanding = location.pathname.startsWith("/LandingPage");
   const isuserPage = location.pathname.startsWith("/");
   const [showPrescription, setShowPrescription] = useState(false)
   const [appointmentId, setAppointmentId] = useState("")
@@ -41,20 +43,25 @@ const App = () => {
     header = <HospitaHeader />
   } else if (isdoctorPage) {
     header = <HeaderDoctor />
+  } else if (islanding) {
+    header = <LandingHeader />
+    // outlet = <Outlet />
   } else if (isuserPage) {
+    if(islanding){
+      header = <LandingHeader />
+    }
+
     outlet = <Outlet />
     header = (
       <Box
         style={{
-   
-          position: 'fixed',
           top: 0,
           left: 0,
           right: 0,
           zIndex: 999,
      
         }}
-        mb="10"
+
       >
         <UserHeader setShowPrescription={setShowPrescription} setAppointmentId={setAppointmentId} />
       </Box>
@@ -63,7 +70,8 @@ const App = () => {
   <ChatAccordion messageOpen={messageOpen} setMessageOpen={setMessageOpen} />
 </Box>
     footer = <Footer />
-  }
+      }
+  
 
   const handleClose = () => {
     setDoctorId(patientHistory ? patientHistory[0].doctor : null)

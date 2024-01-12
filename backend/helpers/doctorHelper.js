@@ -2,6 +2,7 @@ import Doctor from "../models/doctorModel.js"
 import Hospital from "../models/hospitalModel.js"
 import Appointment from "../models/appointmentModel.js";
 import History from "../models/history.js";
+
 // import verification from "../../frontend/src/Screens/Admin/vee.jsx";
 
 
@@ -149,12 +150,14 @@ const HospitalListAllDoctors = async (_id, department, res) => {
 
 
     for (let i = 0; i < doctors.length; i++) {
+      const historyCount = await History.countDocuments({ doctor: doctors[i]._id });
+      const appointmentCount = await History.countDocuments({ doctor: doctors[i]._id });
       let temp = {
         _id: doctors[i]._id,
         name: doctors[i].name,
         email: doctors[i].email,
-        appointment: doctors[i].appointments,
-        history: doctors[i].history,
+        appointment: appointmentCount,
+        history: historyCount,
         hospital: doctors[i].hospital.name,
         hospitalId: doctors[i].hospital._id,
         title: doctors[i].title,
@@ -164,7 +167,6 @@ const HospitalListAllDoctors = async (_id, department, res) => {
         description: doctors[i].description,
         image: doctors[i].profileImage,
       }
-
       out.push(temp)
     }
     return out;

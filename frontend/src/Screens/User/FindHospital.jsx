@@ -107,8 +107,9 @@ function FindHospital() {
       return 'wrap';
     }
   };
-  const handleButtonClick = (_id) => {
-    navigate('/viewHospital', { state: _id });
+  const handleButtonClick = (_id,img) => {
+    // navigate('/viewHospital', { state: _id });
+    navigate(`/viewHospital/${_id}`,{ state: img });
   };
 
   const fun = () => {
@@ -133,7 +134,7 @@ function FindHospital() {
             <Card maxW='300px' className=' mt-15' ml="14" mb="100" >
               <CardBody>
                 <Image
-                  src='../public/Images/Aster.webp'
+                  src={item.profileImage}
                   alt='Green double couch with wooden legs'
                   borderRadius='lg'
                 />
@@ -175,9 +176,10 @@ function FindHospital() {
               </CardBody>
               <Divider />
               <CardFooter display='flex' justifyContent='center'>
-                <Button variant='solid' colorScheme='blue' onClick={() => handleButtonClick(item._id)} >
+                <Button variant='solid' colorScheme='blue' onClick={() => handleButtonClick(item._id,item.profileImage)} >
                   View Profile
                 </Button>
+      
               </CardFooter>
             </Card>
           ))}

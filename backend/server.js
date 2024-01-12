@@ -38,6 +38,9 @@ app.use('/api/hospitals',hospitalRoutes)
 app.use('/api/doctors',doctorRoute)
 app.use('/api/admin',adminRoutes)   
 
+
+// // for dist
+
 if(process.env.NODE_ENV==='production'){
   const __dirname= path.resolve() 
   app.use(express.static(path.join(__dirname,'../frontend/dist')))

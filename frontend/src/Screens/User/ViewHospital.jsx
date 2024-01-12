@@ -12,11 +12,13 @@ import { useUserListHospitalDepartmentsQuery } from "../../slices/userApiSlice"
 import DirectChat from './Chat/DirectChat'
 import { IconButton } from '@chakra-ui/react';
 import { FaComment } from 'react-icons/fa';
+import { useParams } from 'react-router-dom';
 
 function ViewHospital() {
 
   const location = useLocation();
-  const _id = location.state;
+  const img = location.state;
+  const { _id} = useParams();
   const [department, setDepartment] = useState("all")
   const { data: doctors, isLoading, refetch } = useUserListHospitalDoctorsQuery({ _id, department })
   const { data: departments, refetch: depatmentRefetch } = useUserListHospitalDepartmentsQuery({ id: _id })
@@ -28,7 +30,7 @@ function ViewHospital() {
   }
   return (
     <Box bg="blue.100">
-      <HospitalImage />
+      <HospitalImage img={img} />
       <Box mt='10'>
         <Flex>
           <Box>

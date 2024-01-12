@@ -10,7 +10,8 @@ import { Table, Thead, Tbody, Tr, Th, Td, Box, Stack, Button,
     PopoverHeader,
     PopoverBody,
     InputGroup,
-    Select} from "@chakra-ui/react";
+    Select,
+    Flex} from "@chakra-ui/react";
  import { useSelector } from "react-redux";
 import {useHospitalListDoctorsQuery,useHospitalListDepartmentsQuery} from "../../slices/hospitalApiSlice"
 import AddDoctorModal from './AddDoctorModal';
@@ -48,10 +49,10 @@ function ListDoctorHospital() {
       }
   return (
     <Box>
-     <Box mb="10" display="flex" justifyContent="space-between">
+   <Flex justifyContent="space-between">
    <AddDoctorModal refetch={refetch}/>
    <InputGroup   >
-      <Select onChange={selectHandler}  ml='auto' mr="20" mb="20" bg={'gray.200'} maxW='200px' maxH='30px' >
+      <Select onChange={selectHandler}  ml='auto'  bg={'gray.200'} maxW='200px' maxH='30px' >
       {departments && departments.map((item,index) =>
       <option value={item._id}>{item.name}</option>
       )}
@@ -61,9 +62,9 @@ function ListDoctorHospital() {
   </InputGroup>
   {openAddDepartment?<HospitalAddDepartment setOpenAddDepartment={setOpenAddDepartment} />:null}
   
-    
-   </Box>
-   <Stack spacing="20px" mt="16" direction={{ base: "column", md: "row" }}>
+  </Flex>
+
+   <Stack mt="10" spacing="20px"  direction={{ base: "column", md: "row" }}>
    <Box overflowX={{ base: "auto", md: "unset" }} flex="1" p="20px" borderRadius="lg" backgroundColor="white">
        <Table variant="simple" borderRadius="1g">
            <Thead>
@@ -82,8 +83,8 @@ function ListDoctorHospital() {
                    <Td textAlign="center">{item.name}</Td>          
                    <Td textAlign="center">{item.title}</Td>
                    <Td textAlign="center">{item.department}</Td>
-                   <Td textAlign="center">{item.appointment.length}</Td>
-                   <Td textAlign="center">{item.history.length}</Td>
+                   <Td textAlign="center">{item.appointment}</Td>
+                   <Td textAlign="center">{item.history}</Td>
                    <Td textAlign="center">
                     <DoctorProfileHosptial item={item}/>
                    </Td>

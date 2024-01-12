@@ -19,6 +19,7 @@ import {
 } from "../controllers/hospitalController.js";   
 import {addNewMessage,hospitalListAllChats,hospitalListAllMessages} from "../controllers/chatController.js"
 import {HospitalGetDepartmentHistory,HospitalGetDoctorHistory,hospitalGetBoxsData} from "../controllers/dashboardController.js"
+import {listHospitalHistory} from "../controllers/historyController.js"
 
 router.post('/', registerHospital)
 router.get('/hospitalVerify/:token', hospitalVerifyMail);
@@ -39,6 +40,7 @@ router.get('/listmessage',protect,hospitalListAllMessages)
 router.get('/HospitalGetDepartmentHistory',protect,HospitalGetDepartmentHistory)  
 router.get('/HospitalGetDoctorHistory',protect,HospitalGetDoctorHistory)  
 router.get('/hospitalGetBoxsData',protect,hospitalGetBoxsData)  
+router.get('/listHospitalHistory',protect,listHospitalHistory)  
 
 router.post('/updateProfilePic',protect,updateProfilePic)     
 

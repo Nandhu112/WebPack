@@ -10,7 +10,6 @@ const HospitalHeader = ({senderName,senderImage}) => {
         <Text fontSize="lg" fontWeight="bold">
           {senderName}
         </Text>
-        <Text color="green.500">Online</Text>
       </Flex>
     </Flex>
   );

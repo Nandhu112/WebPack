@@ -15,7 +15,9 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  Image,
   Button,
+  Center,
 } from '@chakra-ui/react';
 import {useGetHospitalInfoQuery} from "../../slices/hospitalApiSlice"
 import {
@@ -42,9 +44,7 @@ import { SocketProvider } from '../../Provider/socketProvider';
 const LinkItems = [
   { name: 'Home',href: '/hospital', icon: FiHome },
   { name: 'Doctors',href: '/hospital/listDoctor', icon: FiTrendingUp },
-  { name: 'Booking', icon: FiCompass },
-  { name: 'Schedule',icon: FiStar },
-  { name: 'History',icon: FiSettings },
+  { name: 'Records',href: '/hospital/records',icon: FiSettings },
   { name: 'Profile',href: '/hospital/profile',icon: FiSettings },
   { name: 'Messages',href: '/hospital/chat',icon: FiSettings },
   
@@ -97,9 +97,9 @@ const SidebarContent = ({ onClose, ...rest }) => {
           {...rest}
         >
           <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-            <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-              Logo
-            </Text>
+          <Box ml="10">
+          <Image maxW='8' src="https://cdn.healthtechalpha.com/static/startup_data_images/112166.png" alt='naruto' objectFit='cover' />
+          </Box>
             <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
           </Flex>
           {LinkItems.map((link) => (

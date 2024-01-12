@@ -8,14 +8,14 @@ function image() {
    navigate("/findHospital")
   }
   return (
-    <Box bg="blue.100">
+    <Box bg="blue.200">
       <Flex flexDirection={{ base: 'column', md: 'row' }} alignItems="center">
         <Box flex={{ base: '1', md: '0.5' }}>
           <Image
             maxW={{ base: '300' }}
             minW={{  md: '100%' }}
             width="100%"
-            src="./Images/Doctor5.png"
+            src="https://res.cloudinary.com/dvu6xxiqx/image/upload/v1704951490/doctor5_slpcfo.png"
             alt="Description"
           />
         </Box>
@@ -26,9 +26,9 @@ function image() {
             </Text>{' '}
             Your Health, Our Priority - Your One-Stop Health Management Solution!
           </Text>
-          <Text mb={4} fontSize={{ base: 'sm', md: 'md' }}>
+          {/* <Text mb={4} fontSize={{ base: 'sm', md: 'md' }}>
             Additional text or description can go here if needed.
-          </Text>
+          </Text> */}
           <Button colorScheme="green" size="lg" 
             mt={{ base: '0', md: '10' }}
             onClick={buttonHandler}>

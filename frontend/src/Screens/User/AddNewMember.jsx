@@ -19,11 +19,11 @@ import { toast } from "react-toastify";
 import {useAddNewMemberMutation} from "../../slices/userApiSlice"
 import { useSelector } from "react-redux";
 
-function AddNewMember({refetch}) {
+function AddNewMember({refetch,isOpen, onOpen, onClose}) {
     const { userInfo } = useSelector((state) => state.auth)
     const [addMember]= useAddNewMemberMutation()
     const _id=userInfo._id
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    // const { isOpen, onOpen, onClose } = useDisclosure();
     const initialRef = React.useRef(null);
     const [name, setName] = useState('');
     const [date, setDate] = useState('');

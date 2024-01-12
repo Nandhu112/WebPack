@@ -56,6 +56,12 @@ export const userApiSlice = apiSlice.injectEndpoints({
           method: 'GET',         
         }),
       }),
+      hospitalListRecords: builder.query({
+        query: ({_id}) => ({
+          url: `${USERS_URL}/listHospitalHistory?_id=${_id}`,
+          method: 'GET',         
+        }),
+      }),
       hospitalAddDoctor: builder.mutation({
         query: (data) => ({
           url: `${USERS_URL}/addDoctor`,
@@ -135,7 +141,8 @@ export const userApiSlice = apiSlice.injectEndpoints({
     useHospitalListMessageQuery,
     useHospitalGetDepartmentHistoryQuery,
     useHospitalGetDoctorHistoryQuery,
-    useHospitalGetBoxsDataQuery
+    useHospitalGetBoxsDataQuery,
+    useHospitalListRecordsQuery
 
 
   

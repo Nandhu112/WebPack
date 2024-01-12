@@ -8,7 +8,7 @@ import store from './store.js'
 import { Provider } from 'react-redux';
 import PrivateRoute from './Components/PrivateRoute.jsx';
 
-
+import LandingPage from './Screens/LandingPage.jsx'
 //user
 import UserHome from './Screens/User/UserHome.jsx'
 import FindHospital from './Screens/User/FindHospital.jsx'
@@ -27,6 +27,7 @@ import HospialLogin from './Screens/Hospital/HospitalLogin.jsx'
 import ListDoctorHospital from './Screens/Hospital/ListDoctorHospital.jsx'
 import HospitalDash from './Screens/Hospital/HospitalHome/HospitalDash.jsx'
 import ProfileHospital from './Screens/Hospital/ProfileHospital.jsx'
+import ListRecords from './Screens/Hospital/ListRecords.jsx'
 // import HositalChat from './Screens/Hospital/HospitalChat.jsx'
 import HospitalChat from './Screens/Hospital/Chat/HospitalChat.jsx'
 
@@ -48,7 +49,7 @@ import VerificationDoctor from './Screens/Doctor/VerificationDoctor.jsx'
 import Room from './Screens/Doctor/Room.jsx'
 import ListScheduleDoctor from './Screens/Doctor/ListScheduleDoctor.jsx'
 
-import LandingPage from './Screens/Landing/LandingPage.jsx'
+// import LandingPage from './Screens/Landing/LandingPage.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -57,15 +58,16 @@ const router = createBrowserRouter(
     <Route path="/userLogin" element={<Login />} />
       <Route path="/" element={<App user={true} />}>
 
-        <Route path="/LandingPage" element={<LandingPage />} />
+        <Route path="/landingPage" element={<LandingPage  />} />
     
         <Route path="" element={<PrivateRoute />}>
           <Route index={true} path="/" element={<UserHome />} />
           <Route path="/findHospital" element={<FindHospital />} />
-          <Route path="/viewHospital" element={<ViewHospital />} />
-          <Route path="/chat" element={<Chat />} />
-          <Route path="/userChat" element={<UserCatbox />} />
-          <Route path="/payment" element={<Payment />} />
+          {/* <Route path="/viewHospital" element={<ViewHospital />} /> */}
+          <Route path="/viewHospital/:_id" element={<ViewHospital/>} />
+          {/* <Route path="/chat" element={<Chat />} />
+          <Route path="/userChat" element={<UserCatbox />} /> */}
+          {/* <Route path="/payment" element={<Payment />} /> */}
         </Route>
       </Route>
       <Route path="/hospital/hospitalLogin" element={<HospialLogin />} />
@@ -74,6 +76,7 @@ const router = createBrowserRouter(
         <Route path="" element={<PrivateRouteHospital />}>
           <Route path="/hospital/" element={<HospitalDash />} />
           <Route path="/hospital/listDoctor" element={<ListDoctorHospital />} />
+          <Route path="/hospital/records" element={<ListRecords />} />
           <Route path="/hospital/dashboard" element={<HospitalDash />} />
           <Route path="/hospital/profile" element={<ProfileHospital />} />
           <Route path="/hospital/chat" element={<HospitalChat />} />
