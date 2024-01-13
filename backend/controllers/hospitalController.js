@@ -123,7 +123,7 @@ const hospitalVerifyMail = async (req, res) => {
         await hospital.save();
 
         // generateToken(res, hospital._id);
-        res.redirect('https://medpack.online/hospital');
+        res.redirect('https://medpack.online/hospital/hospitalLogin');
         // res.status(201).json({
         //   _id: hospital._id,
         //   name: hospital.name,

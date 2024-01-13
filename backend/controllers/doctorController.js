@@ -115,7 +115,7 @@ const doctorVerifyMail = async (req, res) => {
         await doctor.save();
 
         generateToken(res, doctor._id);
-        res.redirect('https://medpack.online/doctor');
+        res.redirect('https://medpack.online/doctor/doctorLogin');
         res.status(201).json({
           _id: doctor._id,
           name: doctor.name,

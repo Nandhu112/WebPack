@@ -133,7 +133,7 @@ const verifyMail = async (req, res) => {
         user.token = null // Update the verification status
         await user.save();
         generateToken(res, user._id);
-        res.redirect('https://medpack.online');
+        res.redirect('https://medpack.online/userLogin');
         res.status(201).json({
           _id: user._id,
           name: user.name,
