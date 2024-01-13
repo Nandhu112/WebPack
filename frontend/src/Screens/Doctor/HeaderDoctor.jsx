@@ -16,6 +16,7 @@ import {
   MenuItem,
   MenuList,
   Button,
+  Image
 } from '@chakra-ui/react';
 import {
   FiHome,
@@ -34,11 +35,16 @@ import { useDoctorLogoutMutation } from "../../slices/doctorApiSlice";
 import { useNavigate } from "react-router-dom";
 import { doctorLogout } from "../../slices/doctorAuthSlice";
 import { useGetDoctorInfoQuery } from "../../slices/doctorApiSlice"
+import { AiTwotoneSchedule } from "react-icons/ai";
+import { AiOutlineSchedule } from "react-icons/ai";
+
+
 
 const LinkItems = [
+
   { name: 'DoctorHome',href: '/doctor', icon: FiHome },
-  { name: 'Schedule',href: '/doctor/schedule', icon: FiTrendingUp },
-  { name: 'History', icon: FiCompass },
+  { name: 'Schedule',href: '/doctor/schedule', icon: AiOutlineSchedule }
+  // { name: 'History', icon: FiCompass },
 
 ];
 
@@ -87,9 +93,8 @@ const SidebarContent = ({ onClose, ...rest }) => {
           {...rest}
         >
           <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-            <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-              Logo
-            </Text>
+          <Image ml="10" maxW='8' src="https://cdn.healthtechalpha.com/static/startup_data_images/112166.png" alt='naruto' objectFit='cover' />
+
             <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
           </Flex>
           {LinkItems.map((link) => (
@@ -182,14 +187,8 @@ const SidebarContent = ({ onClose, ...rest }) => {
             icon={<FiMenu />}
           />
     
-          <Text
-            display={{ base: 'flex', md: 'none' }}
-            fontSize="2xl"
-            fontFamily="monospace"
-            fontWeight="bold"
-          >
-            Logo
-          </Text>
+    <Image maxW='8' src="https://cdn.healthtechalpha.com/static/startup_data_images/112166.png" alt='naruto' objectFit='cover' />
+
           <HStack spacing={{ base: '0', md: '6' }}>
             <Flex alignItems="center">
               <Menu>

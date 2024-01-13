@@ -28,7 +28,7 @@ function verification() {
            </Thead>
            <Tbody>
   {verification &&
-    verification.map((item, index) => {
+    verification?.map((item, index) => {
       // Create a Date object from the original date string
       const formattedDate = new Date(item.date);
 

@@ -11,6 +11,7 @@ import{useHospitalListMessageQuery} from "../../../slices/hospitalApiSlice"
 import {useHospitalListChatQuery}from "../../../slices/hospitalApiSlice"
 import { useSelector } from "react-redux";
 import { useSocket } from "../../../Provider/socketProvider";
+import VerticalDivider from "./VerticalDivider";
 
 const HospitalChat = () => {
   const [messages, setMessages] = useState([])
@@ -125,14 +126,15 @@ const [senderImage, setSenderImage] = useState('')
       {/* Vertical Divider */}
   {messageOpen?
   <>
-  <ChakraDivider orientation="vertical" mx={4} borderColor="gray.400" />
+  {/* <ChakraDivider orientation="vertical" mx={4} borderColor="gray.400" /> */}
+  <VerticalDivider/>
 
       {/* Chat Interface */}
       <Flex w={["100%", "100%", "100%"]} flexDirection="column">
-        <HospitalHeader senderName={senderName} senderImage={senderImage} />
+        <HospitalHeader senderName={senderName} senderImage={senderImage}  />
         <HospitalDivider />
         
-        <HospitalMessages userMessageList={userMessageList} />
+        <HospitalMessages userMessageList={userMessageList} senderImage={senderImage} senderName={senderName}/>
         <HospitalDivider />
         <HospitalFooter
           inputMessage={inputMessage}

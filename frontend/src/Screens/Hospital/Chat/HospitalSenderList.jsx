@@ -1,5 +1,5 @@
 import { Box, Heading, Avatar, AvatarBadge, Flex, Button } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
 // import Header from './Header';
 // import Divider from './Divider';
 import HospitalDivider from "./HospitalDivider";
@@ -12,8 +12,10 @@ function HospitalSenderList({setRoomId,setUser,roomId,setPreRoomId,setSenderId,u
                            setUnreadedChk,hospitalChatList,setMessageOpen,refetchUserMessageList,
                            setSenderImage,setSenderName}) {
   const { hospitalInfo } = useSelector((state) => state.hospitalAuth)
+  const [changeColor, setChangeColor] = useState("")
 
   const setRoomhandle = (data) => {
+    setChangeColor(data.user._id)
     refetchUserMessageList()
     setMessageOpen(true)
     setPreRoomId(roomId)
@@ -26,6 +28,7 @@ function HospitalSenderList({setRoomId,setUser,roomId,setPreRoomId,setSenderId,u
   }
 const fun=()=>{
   console.log(hospitalChatList[0].user.profileImage,"hospitalChatList")
+
 }
   return (
     <Box  ml={{ base: "5", md: '5' }} display="flex" flexDirection="column">
@@ -35,12 +38,12 @@ const fun=()=>{
         </Heading>
         <HospitalDivider />
       </Box>
-      <Box maxHeight={{ base: 'unset', md: '700px' }} overflowY={{ base: 'unset', md: 'auto' }}>
+      <Box mr="5"  maxHeight={{ base: 'unset', md: '700px' }} overflowY={{ base: 'unset', md: 'auto' }}>
         {hospitalChatList?.map((sender) => (
-          <Box  onClick={() => setRoomhandle(sender)}   _hover={{ cursor: 'pointer' }} key={sender.id}>
+          <Box mb="0" borderRadius={"10"} bg={sender.user?._id=== changeColor?"blue.100":null}  onClick={() => setRoomhandle(sender)}   _hover={{ cursor: 'pointer' }} key={sender.id}>
             <Flex align="center" p={3}>
         <Avatar size="sm" name={sender.user?.name} src={sender.user?.profileImage}>
-         {unreadedChk && sender.unreaded?<AvatarBadge boxSize="1.25em" bg="green.500" />:null}
+         {/* {unreadedChk && sender.unreaded?<AvatarBadge boxSize="1.25em" bg="green.500" />:null} */}
         </Avatar>
         <Heading as="h2" size="md" ml={3}>
           {sender.user?.name}

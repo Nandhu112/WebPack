@@ -15,10 +15,11 @@ import DoctorRating from './Screens/User/Rating/DoctorRating';
 import HospitalRating from './Screens/User/Rating/HospitalRatming';
 import ChatAccordion from './Screens/User/Chat/ChatAccordion';
 import LandingHeader from './Components/LandingHeader';
+import { useSelector } from "react-redux";
 const App = () => {
 
   const location = useLocation();
-
+  const { userInfo } = useSelector((state) => state.auth)
   const isAdminPage = location.pathname.startsWith("/admin");
   const isHospitalPage = location.pathname.startsWith("/hospital");
   const isdoctorPage = location.pathname.startsWith("/doctor");
@@ -67,7 +68,7 @@ const App = () => {
       </Box>
     );
    chat = <Box maxW={messageOpen?"600":"200"}position="sticky" bottom="10px" ml="auto" >
-  <ChatAccordion messageOpen={messageOpen} setMessageOpen={setMessageOpen} />
+ {userInfo? <ChatAccordion messageOpen={messageOpen} setMessageOpen={setMessageOpen} /> :null}
 </Box>
     footer = <Footer />
       }

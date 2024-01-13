@@ -1,16 +1,29 @@
 import React from 'react'
 import { Grid, GridItem, Box, Image, Text, Center } from "@chakra-ui/react";
-function Services() {
+import { useNavigate } from 'react-router-dom'
+function Services({setOpenProfile}) {
+  const navigate=useNavigate()
     const data = [
         { imageUrl: "https://www.apollohospitals.com/wp-content/themes/apollohospitals/assets-v2/images/bookappt_icon.svg", text: "Book Appointment" },
         { imageUrl: "https://www.apollohospitals.com/wp-content/themes/apollohospitals/assets-v2/images/buymedicines_icon.svg", text: "Consult Online" },
-        { imageUrl: "https://www.apollohospitals.com/wp-content/themes/apollohospitals/assets-v2/images/consultonline_icon.svg", text: "Buy Medicines" },
+        { imageUrl: "https://www.apollohospitals.com/wp-content/themes/apollohospitals/assets-v2/images/consultonline_icon.svg", text: " Medicines" },
         { imageUrl: "https://www.apollohospitals.com/wp-content/themes/apollohospitals/assets-v2/images/bookhelathcheck_icon.svg", text: "Book Health Checkup" },
         { imageUrl: "https://www.apollohospitals.com/wp-content/themes/apollohospitals/assets-v2/images/findhsptl_icon.svg", text: "Find Hospital" },
         { imageUrl: "https://www.apollohospitals.com/wp-content/themes/apollohospitals/assets-v2/images/finddoctor_icon.svg", text: "View Records" },
 
 
       ];
+
+   const handleNavigation=(name)=>{
+   
+    if(name === "Book Appointment" || name ===  "Consult Online" || name ===  "Book Health Checkup" || name ===  "Find Hospital"){
+      navigate("/findHospital");
+    }
+    else{
+      setOpenProfile(true)
+    }
+  
+      }
   return (
     <Grid
     bg="blue.30"
@@ -27,6 +40,7 @@ function Services() {
          boxShadow="md"
          transition="transform 0.2s"
          _hover={{ transform: "scale(1.05)" }}
+         onClick={()=>handleNavigation(item.text)}
        >
          <Center mt="10">
            <Image src={item.imageUrl} alt={`Image ${index + 1}`} />

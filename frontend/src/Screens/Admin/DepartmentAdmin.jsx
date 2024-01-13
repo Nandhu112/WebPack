@@ -58,7 +58,7 @@ function DepartmentAdmin() {
                             </Tr>
                         </Thead>
                         <Tbody>
-                            {departmentDetails && departmentDetails.map((item, index) =>
+                            {departmentDetails && departmentDetails?.map((item, index) =>
                                 <Tr>
                                     <Td textAlign="center">{item.departmentDetails.name}</Td>
                                     <Td textAlign="center">{item.departmentDetails.hospital.length}</Td>

@@ -15,6 +15,7 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  Image
 } from '@chakra-ui/react';
 import {
   FiHome,
@@ -30,16 +31,20 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { useAdminLogoutMutation } from "../../slices/adminApiSlice";
 import { adminLogout } from "../../slices/adminAuthSlice";
+import { FcDepartment } from "react-icons/fc";
 // import { adminLogout } from "../slices/adminAuthSlice";
 import { useNavigate } from "react-router-dom";
-
+import { LiaHospitalSymbolSolid } from "react-icons/lia";
+import { FaUserDoctor } from "react-icons/fa6";
+import { FaRegUser } from "react-icons/fa";
+import { MdOutlineVerifiedUser } from "react-icons/md";
 const LinkItems = [
   { name: 'Home',href: '/admin', icon: FiHome },
-  { name: 'Departments',href: '/admin/getDepartment', icon: FiTrendingUp },
-  { name: 'Hospitals',href: '/admin/getHospital', icon: FiCompass },
-  { name: 'Doctors',href:'/admin/getDoctor', icon: FiStar },
-  { name: 'Users',href:'/admin/getUser',icon: FiSettings },
-  { name: 'Verifiction',href:'/admin/verification',icon: FiSettings },
+  { name: 'Departments',href: '/admin/getDepartment', icon: FiStar },
+  { name: 'Hospitals',href: '/admin/getHospital', icon: LiaHospitalSymbolSolid },
+  { name: 'Doctors',href:'/admin/getDoctor', icon: FaUserDoctor },
+  { name: 'Users',href:'/admin/getUser',icon: FaRegUser },
+  { name: 'Verifiction',href:'/admin/verification',icon: MdOutlineVerifiedUser },
 ];
 
 
@@ -89,12 +94,10 @@ const SidebarContent = ({ onClose, ...rest }) => {
         {...rest}
       >
         <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-          <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-            Logo
-          </Text>
+        <Image ml="10" maxW='8' src="https://cdn.healthtechalpha.com/static/startup_data_images/112166.png" alt='naruto' objectFit='cover' />
           <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
         </Flex>
-        {LinkItems.map((link) => (
+        {LinkItems?.map((link) => (
           <NavItem key={link.name} icon={link.icon}   onClick={() => navigate(link.href) 
           }>
             {link.name}
@@ -181,14 +184,8 @@ import { Outlet } from 'react-router-dom';
           icon={<FiMenu />}
         />
   
-        <Text
-          display={{ base: 'flex', md: 'none' }}
-          fontSize="2xl"
-          fontFamily="monospace"
-          fontWeight="bold"
-        >
-          Logo
-        </Text>
+  <Image maxW='8' src="https://cdn.healthtechalpha.com/static/startup_data_images/112166.png" alt='naruto' objectFit='cover' />
+
   
         <HStack spacing={{ base: '0', md: '6' }}>
           <IconButton size="lg" variant="ghost" aria-label="open menu" icon={<FiBell />} />

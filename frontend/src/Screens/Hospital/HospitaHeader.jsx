@@ -40,13 +40,17 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from 'react';
 import { useSocket } from '../../Provider/socketProvider';
 import { SocketProvider } from '../../Provider/socketProvider';
+import { FaUserDoctor } from "react-icons/fa6";
+import { TiDocumentText } from "react-icons/ti";
+import { CgProfile } from "react-icons/cg";
+import { FaRegMessage } from "react-icons/fa6";
 
 const LinkItems = [
   { name: 'Home',href: '/hospital', icon: FiHome },
-  { name: 'Doctors',href: '/hospital/listDoctor', icon: FiTrendingUp },
-  { name: 'Records',href: '/hospital/records',icon: FiSettings },
-  { name: 'Profile',href: '/hospital/profile',icon: FiSettings },
-  { name: 'Messages',href: '/hospital/chat',icon: FiSettings },
+  { name: 'Doctors',href: '/hospital/listDoctor', icon: FaUserDoctor },
+  { name: 'Records',href: '/hospital/records',icon: TiDocumentText },
+  { name: 'Profile',href: '/hospital/profile',icon: CgProfile },
+  { name: 'Messages',href: '/hospital/chat',icon: FaRegMessage },
   
 ];
 
@@ -201,14 +205,8 @@ const SidebarContent = ({ onClose, ...rest }) => {
             icon={<FiMenu />}
           />
     
-          <Text
-            display={{ base: 'flex', md: 'none' }}
-            fontSize="2xl"
-            fontFamily="monospace"
-            fontWeight="bold"
-          >
-            Logo
-          </Text>
+    <Image maxW='8' src="https://cdn.healthtechalpha.com/static/startup_data_images/112166.png" alt='naruto' objectFit='cover' />
+
     
           <HStack spacing={{ base: '0', md: '6' }}>
           <IconButton size="lg" variant="ghost" aria-label="open menu" icon={<FiBell />} />

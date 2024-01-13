@@ -37,7 +37,7 @@ function SenderList({ setRoomId,roomId,setPreRoomId,setSenderId,userChatList,unr
         <Box onClick={() => setRoomhandle(sender)} _hover={{ cursor: 'pointer' }} key={sender._id} bg={colorChange==sender.hospital._id?"blue.300":"gray.200"}>
           <Flex  pl="2" pr="2" pt="5">
             <Avatar size="sm" name="Sender" src={sender.hospital.profileImage}>
-              {unreadedChk && sender.unreaded ? <AvatarBadge boxSize="1.25em" bg="green.500" /> : null}
+              {/* {unreadedChk && sender.unreaded ? <AvatarBadge boxSize="1.25em" bg="green.500" /> : null} */}
             </Avatar>
             <Heading as="h2" size="md" ml={3}>
               {sender.hospital.name}

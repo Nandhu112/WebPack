@@ -185,7 +185,7 @@ function UserHeader({setShowPrescription,setAppointmentId}) {
                                 </Menu>
                             </Flex>
                         </HStack>
-                        : <Button>Log in</Button>}
+                        : null}
                 </Stack>
             </Flex>
 

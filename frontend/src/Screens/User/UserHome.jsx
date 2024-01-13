@@ -83,17 +83,18 @@ const fun=()=>{
       </Box >
  
       <Box  mb="50" bg="#087c9c">
-      <Center>
-      <Heading pt="20" color="white">What Would You Like To Do Today?</Heading>
+      <Center >
+      <Heading  pt="20" color="white">What Would You Like To Do Today?</Heading>
       </Center>
       <Center >
         <Box mt="50" mb="20">
-        <Services/>
+        <Services setOpenProfile={setOpenProfile}/>
         </Box>
         </Center>
 
       </Box >
-    
+
+
       <Box mt="50" >
       <Center pt="10">
        <Heading>Explore our Centres of Clinical Excellence</Heading>

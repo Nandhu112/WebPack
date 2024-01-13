@@ -37,7 +37,7 @@ function HospitalAdmin() {
                         </Tr>
                     </Thead>
                     <Tbody>
-                    {hospitals && hospitals.map((item,index) =>
+                    {hospitals && hospitals?.map((item,index) =>
                         <Tr>
                             <Td textAlign="center">{item.hospitalDetails.name}</Td>          
                             <Td textAlign="center">{item.hospitalDetails.department?.length}</Td>

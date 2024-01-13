@@ -6,6 +6,7 @@ import Cards from '../../Components/User/Cards.jsx';
 import AddNewMember from './AddNewMember.jsx';
 import { IoIosAddCircle } from "react-icons/io";
 
+
 function UserProfilePage() {
     const addNewMemberRef = useRef(null);
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -27,7 +28,7 @@ function UserProfilePage() {
                             <Flex >
                                 <Box ml="5" bg="blue.200" p="2" borderRadius={"xl"} minW="500">
                                     <Flex>
-                                        <Avatar size="xl" name="ff" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp" />
+                                        <Avatar size="xl" name={userInfo?.name} src="" />
                                         <Box pt="5" pl="2">
                                             <Heading color='black' fontSize="20">{userInfo.name}</Heading>
                                             <Text color='black' fontSize="15">{userInfo.email}</Text>

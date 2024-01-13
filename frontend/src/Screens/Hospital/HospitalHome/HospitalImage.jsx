@@ -11,7 +11,6 @@ function HospitalImage({img}) {
                 <Image  src={img} />
             
             </AspectRatio>
-           <Button onClick={fun}>hii</Button>
            </>
 
       

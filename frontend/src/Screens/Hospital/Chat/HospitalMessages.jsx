@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Avatar, Flex, Text } from "@chakra-ui/react";
 
-const HospitalMessages = ({ userMessageList }) => {
+const HospitalMessages = ({ userMessageList,senderImage,senderName }) => {
   const AlwaysScrollToBottom = () => {
     const elementRef = useRef();
     useEffect(() => elementRef.current.scrollIntoView());
@@ -22,20 +22,21 @@ const HospitalMessages = ({ userMessageList }) => {
               my="1"
               p="3"
             >
-              <Text>{item.content}</Text>
+              <Text >{item.content}</Text>
             </Flex>
           </Flex>
         );
       } else {
         return (
-          <Flex key={index} w="100%">
-            <Avatar
-              name="Computer"
-              src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
-              bg="blue.300"
-            ></Avatar>
+          < Flex key={index} w="100%" pl="5">
+               <Avatar
+                size={"sm"}
+                name={senderName}
+                src={senderImage}
+                bg="blue.300"
+              />
             <Flex
-              bg="gray.100"
+              bg="gray.300"
               color="black"
               minW="100px"
               maxW="350px"

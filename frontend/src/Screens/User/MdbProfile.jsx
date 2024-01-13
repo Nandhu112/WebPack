@@ -17,7 +17,7 @@ const UserProfile = ({ patientHistory }) => {
                             <Flex >
                                 <Box ml="5" bg="blue.200" p="2" borderRadius={"xl"}>
                                     <Flex>
-                                        <Avatar size="xl" name="ff" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp" />
+                                        <Avatar size="xl" name={patientHistory ? patientHistory[0].pName : null} src={patientHistory ? patientHistory[0].pName : null}/>
                                         <Box pt="5" pl="2">
                                             <Heading color='black' fontSize="20">{patientHistory ? patientHistory[0].pName : null}</Heading>
                                             <Text color='black' fontSize="15">{patientHistory ? patientHistory[0].Blood : null}</Text>
