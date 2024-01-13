@@ -61,6 +61,10 @@ function HospitalAddDepartment({ refetch,setOpenAddDepartment }) {
     close()
   };
 
+  const closeDrawer =()=>{
+    addNewDepartment();
+  }
+
   const handleCheckboxChange = (e, id) => {
     let newDepartmentss;
 
@@ -75,7 +79,9 @@ function HospitalAddDepartment({ refetch,setOpenAddDepartment }) {
   const close=()=>{
     setOpenAddDepartment(false)
   }
-
+  const fun =()=>{
+    console.log(departments)
+  }
   return (
     <>
       <Drawer
@@ -100,7 +106,7 @@ function HospitalAddDepartment({ refetch,setOpenAddDepartment }) {
                       handleCheckboxChange(e.target.checked, department._id)
                     }
                   >
-                    {department.name}
+                    {department.departmentDetails.name}
                   </Checkbox>
                 </Box>
               ))
@@ -116,6 +122,10 @@ function HospitalAddDepartment({ refetch,setOpenAddDepartment }) {
             <Button colorScheme='blue' onClick={SubmitDepartment}>
               Submit
             </Button>
+            <Button colorScheme='blue' onClick={fun}>
+              check
+            </Button>
+
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
