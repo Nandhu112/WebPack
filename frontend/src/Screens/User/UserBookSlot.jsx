@@ -41,6 +41,7 @@ const UserBookSlot = ({ item }) => {
 
     const [makeAppointment] = useUsermakeAppointmentMutation();
     const [showAppointment] = useShowDoctorAppointmentMutation();
+    const currentDate = new Date().toISOString().split('T')[0];
 
     const { data: members, isLoading, refetch } = useListAllMembersQuery({ _id: userInfo._id })
 
@@ -180,6 +181,7 @@ const UserBookSlot = ({ item }) => {
                                 placeholder="Select Date"
                                 size="md"
                                 type="date"
+                                min={currentDate}
                             />
                         </FormControl>
 

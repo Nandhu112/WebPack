@@ -41,21 +41,21 @@ app.use('/api/admin',adminRoutes)
 
 // // for dist
 
-if(process.env.NODE_ENV==='production'){
-  const __dirname= path.resolve() 
-  app.use(express.static(path.join(__dirname,'../frontend/dist')))
+// if(process.env.NODE_ENV==='production'){
+//   const __dirname= path.resolve() 
+//   app.use(express.static(path.join(__dirname,'../frontend/dist')))
 
-  app.get('*',(req,res)=>res.sendFile(path.resolve(__dirname,'..','frontend','dist','index.html')))
-}else{
+//   app.get('*',(req,res)=>res.sendFile(path.resolve(__dirname,'..','frontend','dist','index.html')))
+// }else{
 
-//? ===================== Application Home Route =====================
-app.get('/' ,(req,res)=>res.send('server is running')) 
-} 
+// //? ===================== Application Home Route =====================
+// app.get('/' ,(req,res)=>res.send('server is running')) 
+// } 
 
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 
-// app.get('/' ,(req,res)=>res.send('server is running'))
+app.get('/' ,(req,res)=>res.send('server is running'))
 
 app.use(notFound)
 app.use(errorHandler)

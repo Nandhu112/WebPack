@@ -75,7 +75,7 @@ const registerHospital = asyncHandler(async (req, res) => {
       from: process.env.AUTH_EMAIL,
       to: email,
       subject: 'Mail verification',
-      text: `Click the following link to confirm your mail: http://localhost:5000/api/hospitals/hospitalVerify/${token}`
+      text: `Click the following link to confirm your mail: https://medpack.online/api/hospitals/hospitalVerify/${token}`
     };
 
     // Send mail
@@ -123,7 +123,7 @@ const hospitalVerifyMail = async (req, res) => {
         await hospital.save();
 
         // generateToken(res, hospital._id);
-        res.redirect('http://localhost:3000/hospital');
+        res.redirect('https://medpack.online/hospital');
         // res.status(201).json({
         //   _id: hospital._id,
         //   name: hospital.name,

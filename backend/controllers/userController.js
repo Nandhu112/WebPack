@@ -89,7 +89,7 @@ const registerUser = asyncHandler(async (req, res) => {
       from: process.env.AUTH_EMAIL,
       to: email,
       subject: 'Mail verification',
-      text: `Click the following link to confirm your mail: http://localhost:5000/api/users/userVerify/${token}`
+      text: `Click the following link to confirm your mail: https://medpack.online/api/users/userVerify/${token}`
     };
 
     // Send mail
@@ -133,7 +133,7 @@ const verifyMail = async (req, res) => {
         user.token = null // Update the verification status
         await user.save();
         generateToken(res, user._id);
-        res.redirect('http://localhost:3000');
+        res.redirect('https://medpack.online');
         res.status(201).json({
           _id: user._id,
           name: user.name,

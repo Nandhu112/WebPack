@@ -187,7 +187,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
             icon={<FiMenu />}
           />
     
-    <Image maxW='8' src="https://cdn.healthtechalpha.com/static/startup_data_images/112166.png" alt='naruto' objectFit='cover' />
+    <Image  display={{ base: 'flex', md: 'none' }} maxW='8' src="https://cdn.healthtechalpha.com/static/startup_data_images/112166.png" alt='naruto' objectFit='cover' />
 
           <HStack spacing={{ base: '0', md: '6' }}>
             <Flex alignItems="center">
