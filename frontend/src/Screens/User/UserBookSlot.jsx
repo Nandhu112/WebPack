@@ -180,7 +180,7 @@ const UserBookSlot = ({ item }) => {
                                 onChange={(event) => forDate2(event)}
                                 placeholder="Select Date"
                                 size="md"
-                                type="datetime-local"
+                                type="date"
                                 min={currentDate}
                             />
                         </FormControl>
@@ -277,4 +277,3 @@ const UserBookSlot = ({ item }) => {
 };
 
 export default UserBookSlot;
-
