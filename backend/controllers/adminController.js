@@ -2,14 +2,14 @@ import asyncHandler from "express-async-handler"
 import User from "../models/userModel.js"
 import generateToken from "../utils/generateToken.js"
 
-import { getVerification, adminHospitalVerify } from "../helpers/adminHelper.js"       
-// chk update
+import { getVerification, adminHospitalVerify } from "../helpers/adminHelper.js"     
+// chk update12
 // @dese Auth admin/set token
 // route POST/api/admin/auth
 //@access public
 const authAdmin = asyncHandler(async (req, res) => {
     console.log("chkkkkkk")
-    const { email, password } = req.body;    
+    const { email, password } = req.body;       
     const admin = await User.findOne({ email, Admin: true });
 
     if (admin && (await admin.matchPassword(password))) {
