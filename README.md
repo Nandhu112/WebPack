@@ -1,6 +1,6 @@
 # Medpack - Hospital Appointment Booking App (MERN Stack)
 
-![App Screenshot]([url_to_screenshot.png](https://res.cloudinary.com/dvu6xxiqx/image/upload/v1705568084/Screenshot_117_hfez7l.png))
+https://res.cloudinary.com/dvu6xxiqx/image/upload/v1705568084/Screenshot_117_hfez7l.png
 
 ## Table of Contents
 - [Description](#description)
